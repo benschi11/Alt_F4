@@ -16,7 +16,13 @@ import play.db.jpa.*;
 @Entity
 public class Template extends Model
 {
+  public String template_name_;
   public HashMap templates_ = new HashMap<String, String>();
+
+  public Template(String template_name_)
+  {
+    this.template_name_ = template_name_;
+  }
 
   public void addCommand(String command)
   {
@@ -33,9 +39,9 @@ public class Template extends Model
     return templates_.get(command).toString();
   }
 
-  public Template generateEmptyTemplate()
+  public Template generateEmptyTemplate(String template_name)
   {
-    Template newTemplate = new Template();
+    Template newTemplate = new Template(template_name);
     Iterator iterator = templates_.keySet().iterator();
     while(iterator.hasNext())
     {
