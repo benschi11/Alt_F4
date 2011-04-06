@@ -1,1 +1,6 @@
 *.pyc
+.classpath
+.project
+.settings
+eclipse/
+nbproject/
