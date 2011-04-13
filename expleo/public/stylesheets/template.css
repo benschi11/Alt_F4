@@ -23,7 +23,7 @@
     height: 180px;
     float: left;
     padding: 2px;
-    margin: 10px;
+    margin: 10px 20px;
     border: black 1px solid;
     padding: 5px;
     text-align: center;
@@ -43,7 +43,7 @@
     margin-right: 5%;
     float:left;
     width: 25%;
-    height: 300px;
+    height: 150px;
     padding: 1%;
 }
 
