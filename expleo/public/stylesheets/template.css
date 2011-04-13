@@ -1,0 +1,29 @@
+/* 
+    Document   : template
+    Created on : 13.04.2011, 09:31:09
+    Author     : Benedikt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.tempgal
+{
+    width: 100%;
+    padding: 10px;
+}
+
+.tempgalitem
+{
+    width: 180px;
+    height: 150px;
+    float: left;
+    padding: 5px;
+    margin: 10px;
+    background-color: blue;
+}
+

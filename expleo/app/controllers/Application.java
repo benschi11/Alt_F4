@@ -24,4 +24,11 @@ public class Application extends Controller
         }
         render();
     }
+    
+    public static void showAllTemplates()
+    {
+        List<Template> all_templates = Template.findAll();
+        
+        render(all_templates);
+    }
 }

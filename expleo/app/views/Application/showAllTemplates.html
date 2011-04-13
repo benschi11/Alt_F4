@@ -1,0 +1,8 @@
+#{extends 'main.html' /}
+<div class="tempgal">
+#{list items:all_templates, as: 'template'}
+<div class="tempgalitem">
+${template.name_}
+</div>
+#{/list}
+</div>
