@@ -1,3 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+<<<<<<< HEAD
+=======
+#{if template_list.isEmpty() == false}
+#{list items:template_list, as:'temp'}
+<a href="@{Application.selectedTemplate(temp.id)}">${temp.template_name_}</a>
+#{/ list}
+#{/ if}
+
+>>>>>>> t/form_generation
