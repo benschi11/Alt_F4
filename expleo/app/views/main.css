@@ -1,0 +1,42 @@
+body {
+    width: 100%;
+    height: 100%;
+}
+
+#container {
+    margin: auto;
+    width: 850px;
+    height: 100%;
+    background-color: #EEEEEE;
+}
+
+#logo {
+    width: 250px;
+    height: 80px;
+    background-color: red;
+    float: left;
+}
+
+#menu {
+    width: 600px;
+    height: 80px;
+    background-color: blue;
+    float: left;
+}
+
+#header_bottom {
+    width: 850px;
+    height: 35px;
+    background-color: orange;
+    clear: both;
+}
+#content {
+    width: 100%;
+    height: 400px;
+    background-color: #AAAAAA;
+}
+
+#footer {
+    width: 100%;
+    background-color: #444444;
+}
