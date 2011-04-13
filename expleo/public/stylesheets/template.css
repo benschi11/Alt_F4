@@ -19,11 +19,20 @@
 
 .tempgalitem
 {
-    width: 180px;
-    height: 150px;
+    width: 150px;
+    height: 180px;
     float: left;
-    padding: 5px;
+    padding: 2px;
     margin: 10px;
     background-color: blue;
+    text-align: center;
+}
+
+.tempgalitem img
+{
+    width: 110px;
+    height: 130px;
+    border: 4px;
+    margin: 5px;
 }
 

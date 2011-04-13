@@ -2,7 +2,13 @@
 <div class="tempgal">
 #{list items:all_templates, as: 'template'}
 <div class="tempgalitem">
-${template.name_}
+${template.name_}<br />
+    <img src="@{'/public/images/test_pic.jpg'}"></img>
+    <br />
+<div style="text-align:left; width: 20%; float:left">#1</div>
+<div style="text-align:right; width: 80%; float:left;">Authorname</div>
+    
+
 </div>
 #{/list}
 </div>
