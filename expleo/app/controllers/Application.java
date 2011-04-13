@@ -6,6 +6,7 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import play.data.validation.Required;
 
 public class Application extends Controller
 {
@@ -39,27 +40,27 @@ public class Application extends Controller
   public static void selectedTemplate(Long id)
   {
     Template loadedTemplate = Template.findById(id);
-    List<String>values = new ArrayList<String>();
-
-    Iterator iterator = loadedTemplate.getTemplates_().keySet().iterator();
-    while(iterator.hasNext())
-    {
-     values.add(iterator.next().toString());
-    }
-
-    render(loadedTemplate, values);
+ 
+    render(loadedTemplate);
   }
 
-  public static void insertionComplete(Long id, List<String> values)
+  public static void insertionComplete()
   {
-    Template insertedTemplate = Template.findById(id);
+    //Template template = Template.findById(id);
 
+    Map<String,String[]> map = request.params.all();
+    Template template = Template.findById(Long.decode(map.get("ID")[0]));
 
-    for(int i=0; i < values.size(); i++)
+    template.doMap(map);
+
+    Iterator iterator = template.templates_.keySet().iterator();
+
+    while(iterator.hasNext())
     {
-      System.out.println("Wert "+i+" : "+values.get(i));
+      String key = (String) iterator.next();
+      System.out.println("Key: "+key+" value: "+ template.templates_.get(key));
     }
-    
+
   }
 
 }

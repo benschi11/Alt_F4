@@ -63,6 +63,16 @@ public class Template extends Model
     return templates_;
   }
 
+  public void doMap(Map<String, String[]> map)
+  {
+    Iterator mapIterator = map.keySet().iterator();
+    while(mapIterator.hasNext())
+    {
+      String temp = (String) mapIterator.next();
+      if(this.templates_.containsKey(temp))
+        this.addSubstitution(temp, map.get(temp)[0]);
+    }
+  }
   
   
 }
