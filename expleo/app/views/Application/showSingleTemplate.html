@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+    <div class="tempOverviewData">
+        <h2>${template.name_}</h2>
+        <p>from ${template.author_}</p>
+        <p>added ${template.dateCreated_}</p>
+        <p> #${template.counterDownloads_} Downloads</p>
+    </div>
+    <div class="tempPreviewImage">
+        <a href="#"><img src="@{'/public/images/test_tempImg.jpg'}" /></a>
+    </div>
+    <div class="clear"></div>
+
+    <div class="tempDescription">
+        <h2>Description</h2>
+        <p>${template.description_}</p>
+    </div>
+
+    <div class="tempAjax"><a href="#"><h2>--Input Data--</h2></a></div>
+    
+    <div class="tempPreview">
+        <h2>Preview as</h2>
+        <a href="#">PDF</a>
+        <a href="#">LATEX</a>
+        <a href="#">TXT</a>
+        <a href="#">IMG</a>
+    </div>
+    <div class="tempUserOptions">
+        <h2>As registered User you can choose between:</h2>
+      <a href="#"><h2>Save</h2></a>
+    </div>
