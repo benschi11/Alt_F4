@@ -32,7 +32,7 @@ public class Application extends Controller
         render(all_templates);
     }
     
-    public static void showSingleTemplate(int id)
+    public static void showSingleTemplate(long id)
     {
         Template template = Template.findById(id);
         

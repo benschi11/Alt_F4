@@ -24,7 +24,8 @@
     float: left;
     padding: 2px;
     margin: 10px;
-    background-color: blue;
+    border: black 1px solid;
+    padding: 5px;
     text-align: center;
 }
 
@@ -36,5 +37,64 @@
     margin: 5px;
 }
 
+.tempOverviewData
+{
+    border: 1px black solid;
+    margin-right: 5%;
+    float:left;
+    width: 25%;
+    height: 300px;
+    padding: 1%;
+}
 
+.tempPreviewImage
+{
+    float:left;
+    width: 60%;
+    height: 300px;
+    margin-left: 5%;
+    padding: 1%;
+}
 
+.tempDescription
+{ 
+    text-align: justify;
+    margin: 30px;
+    padding: 30px;
+    
+}
+
+.tempDescription h2
+{
+    text-align: center;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.tempAjax
+{
+    text-align: center;
+}
+
+.tempAjax h2
+{
+    border: 1px black solid;
+}
+
+.tempPreview
+{
+    text-align: center;
+}
+
+.tempPreview a
+{
+    padding: 10px;
+}
+
+.tempUserOptions
+{
+    text-align: center;
+}

@@ -3,7 +3,7 @@
 #{list items:all_templates, as: 'template'}
 <div class="tempgalitem">
 ${template.name_}<br />
-<a href="#"><img src="@{'/public/images/test_pic.jpg'}"></img></a>
+<a href="@{Application.showSingleTemplate(template.id)}"><img src="@{'/public/images/test_pic.jpg'}"></img></a>
     <br />
 <div style="text-align:left; width: 20%; float:left">#${template.counterDownloads_}</div>
 <div style="text-align:right; width: 80%; float:left;">${template.author_}</div>
