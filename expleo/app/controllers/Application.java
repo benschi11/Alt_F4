@@ -18,9 +18,12 @@ public class Application extends Controller
 
     public static void upload(String name, String description, File template)
     {
-        if (Template.upload(name, description, template))
+        if (template != null)
         {
-            flash.success("Template successfully uploaded.", null);
+            if (Template.upload(name, description, template))
+            {
+                flash.success("Template successfully uploaded.", null);
+            }
         }
         render();
     }
@@ -32,7 +35,7 @@ public class Application extends Controller
             List<Template> all_templates = Template.findAll();
             render(all_templates);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             render("Application/upload.html");
         }
