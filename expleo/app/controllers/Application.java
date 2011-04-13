@@ -16,9 +16,9 @@ public class Application extends Controller
         render();
     }
 
-    public static void upload(String name, File template)
+    public static void upload(String name, String description, File template)
     {
-        if(Template.upload(name, template))
+        if(Template.upload(name, description, template))
         {
             flash.success("Template successfully uploaded.", null);
         }
@@ -30,5 +30,12 @@ public class Application extends Controller
         List<Template> all_templates = Template.findAll();
         
         render(all_templates);
+    }
+    
+    public static void showSingleTemplate(int id)
+    {
+        Template template = Template.findById(id);
+        
+        render(template);
     }
 }

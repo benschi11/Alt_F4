@@ -3,10 +3,10 @@
 #{list items:all_templates, as: 'template'}
 <div class="tempgalitem">
 ${template.name_}<br />
-    <img src="@{'/public/images/test_pic.jpg'}"></img>
+<a href="#"><img src="@{'/public/images/test_pic.jpg'}"></img></a>
     <br />
-<div style="text-align:left; width: 20%; float:left">#1</div>
-<div style="text-align:right; width: 80%; float:left;">Authorname</div>
+<div style="text-align:left; width: 20%; float:left">#${template.counterDownloads_}</div>
+<div style="text-align:right; width: 80%; float:left;">${template.author_}</div>
     
 
 </div>

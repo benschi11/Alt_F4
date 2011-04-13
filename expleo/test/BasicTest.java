@@ -13,10 +13,14 @@ public class BasicTest extends UnitTest {
     @Test
     public void TemplateModelTest()
     {
-        Template temp = new Template("test", "testfile.txt");
+        Date now = new Date();
+        Template temp = new Template("test", "testfile.txt", "author", now,"Description", 4);
         
         assertEquals(temp.name_, "test");
         assertEquals(temp.filename_, "testfile.txt");
+        assertEquals(temp.author_, "author");
+        assertEquals(temp.dateCreated_, now);
+        assertEquals(temp.counterDownloads_, 4);
     }
     
     @Test
@@ -24,10 +28,12 @@ public class BasicTest extends UnitTest {
     {
         Template.deleteAll();
         
-        Template temp1 = new Template("temp1","temp1.txt");
+        Date now = new Date();
+        Template temp1 = new Template("test1", "testfile.txt", "author", now, "Description", 4);
+        
         temp1.save();
         
-        Template temp2 = new Template("temp2","temp2.txt");
+        Template temp2 = new Template("test2", "testfile.txt", "author", now, "Description", 4);
         temp2.save();
         
         assertEquals(2, Template.findAll().size());
@@ -38,13 +44,14 @@ public class BasicTest extends UnitTest {
     {
         Template.deleteAll();
         
-        Template temp = new Template("temp", "temp1.txt");
-        temp.save();
+        Date now = new Date();
+        Template temp1 = new Template("test1", "testfile.txt", "author", now, "Description", 4);
+        temp1.save();
         
-        Template temp2 = new Template("temp2", "temp2.txt");
+        Template temp2 = new Template("test2", "testfile.txt", "author", now, "Description", 4);
         temp2.save();
         
-        Template.delete(temp.getId());
+        Template.delete(temp1.getId());
         
         assertEquals(1, Template.findAll().size());
         
