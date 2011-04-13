@@ -1,12 +1,13 @@
 package controllers;
 
 import java.io.File;
-import play.*;
 import play.mvc.*;
 
 import java.util.*;
 
 import models.*;
+import models.generate.DocumentGenerator;
+import play.Play;
 
 public class Application extends Controller
 {
@@ -47,5 +48,18 @@ public class Application extends Controller
         Template template = Template.findById(id);
 
         render(template);
+    }
+
+    public static void simpleLink()
+    {
+        String applicationPath = Play.applicationPath.getAbsolutePath();
+        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
+        Map<String, Object> replaceMap = new HashMap<String, Object>();
+        replaceMap.put("%name%", "John");
+
+        DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
+        models.generate.Document document = generator.create();
+        String path = "/public/tmp/" + document.getFile().getName();
+        render(path);
     }
 }

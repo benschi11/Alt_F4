@@ -20,7 +20,7 @@ public class DocumentGenerator {
 
     protected File templateFile;
     protected Map<String, Object> keywordMap;
-    private final File file = new File("expleo/data/tmp/");
+    private final File file = new File("expleo/public/tmp/");
 
     public DocumentGenerator(File templateFile, Map<String, Object> keywordMap) {
         this.templateFile = templateFile;
@@ -57,7 +57,9 @@ public class DocumentGenerator {
 
             return document;
         } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
         } catch (IOException iOException) {
+            iOException.printStackTrace();
         }
         return null;
     }
