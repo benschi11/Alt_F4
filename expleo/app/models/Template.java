@@ -53,7 +53,7 @@ public class Template extends Model
 
   public void calculateForm()
   {
-    this.textFile = new TextFile("public/templates/" + filename_);
+    this.textFile = new TextFile("/home/dave/sw11/Alt_F4/expleo/public/templates/" + filename_);
 
     Set<String> commands = new TreeSet<String>();
 

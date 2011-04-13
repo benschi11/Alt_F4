@@ -13,8 +13,7 @@ public class Application extends Controller
 {
     public static void index()
     {
-
-    render();
+     render();
     }
 
     public static void upload(String name, String description, File template)
