@@ -15,23 +15,20 @@ public class Application extends Controller
   {
      Template.deleteAll();
 
-    Template firstTemplate = new Template("Temp1");
-    Template secondTemplate = new Template("Temp2");
+    Template firstTemplate = new Template("Temp1","/home/dave/Desktop/TemplateExamples.txt");
+    //Template secondTemplate = new Template("Temp2");
 
-    firstTemplate.addCommand("Bubu");
-    firstTemplate.addCommand("Lala");
-    firstTemplate.addCommand("Slany");
-
-    secondTemplate.addCommand("SlanyTime");
+   // secondTemplate.addCommand("SlanyTime");
+    //secondTemplate.addCommand("Kommando");
 
     firstTemplate.save();
-    secondTemplate.save();
+   // secondTemplate.save();
     
     List<Template> template_list = Template.findAll();
 
     System.out.println("Templatelist: "+template_list.isEmpty());
     System.out.println("item1: "+template_list.get(0));
-    System.out.println("item2: "+template_list.get(1));
+    //System.out.println("item2: "+template_list.get(1));
 
     render(template_list);
   }

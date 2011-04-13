@@ -5,6 +5,7 @@
 package models;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import javax.persistence.*;
 
 import play.db.jpa.*;
@@ -18,10 +19,32 @@ public class Template extends Model
 {
   public String template_name_;
   public HashMap templates_ = new HashMap<String, String>();
+  public TextFile textFile;
 
-  public Template(String template_name_)
+  public Template(String template_name_,String file)
   {
     this.template_name_ = template_name_;
+    this.textFile = new TextFile(file);
+
+    Set<String> commands = new TreeSet<String>();
+
+    String[] commands_temp = this.textFile.getText().split("%%");
+
+    for(int i=1; i < commands_temp.length; i+=2)
+    {
+      commands.add(commands_temp[i]);
+    }
+
+    Iterator iterator = commands.iterator();
+
+    while(iterator.hasNext())
+    {
+      String command = (String) iterator.next();
+      System.out.println("Kommando: "+command);
+      templates_.put(command,"");
+    }
+
+
   }
 
   public void addCommand(String command)
@@ -41,7 +64,7 @@ public class Template extends Model
 
   public Template generateEmptyTemplate(String template_name)
   {
-    Template newTemplate = new Template(template_name);
+    /*Template newTemplate = new Template(template_name,);
     Iterator iterator = templates_.keySet().iterator();
     while(iterator.hasNext())
     {
@@ -49,7 +72,8 @@ public class Template extends Model
 
     }
 
-    return newTemplate;
+    return newTemplate;*/
+    return null;
   }
 
   @Override

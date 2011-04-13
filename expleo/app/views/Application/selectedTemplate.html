@@ -11,7 +11,7 @@ and open the template in the editor.
   <body>
 
     <br/>
-    <form action="@{Application.insertionComplete()}" method="GET">
+    <form action="@{Application.insertionComplete()}" method="POST">
      <br/>
 
 
@@ -32,7 +32,7 @@ and open the template in the editor.
       }
      }%
      <br/><br/>
-     <input type="text" name="ID" value="${loadedTemplate.id}">
+     <input type="hidden" name="ID" value="${loadedTemplate.id}">
      <input type="submit" value="boom" />
     </form>
   </body>
