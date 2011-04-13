@@ -1,0 +1,100 @@
+/* 
+    Document   : template
+    Created on : 13.04.2011, 09:31:09
+    Author     : Benedikt
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.tempgal
+{
+    width: 100%;
+    padding: 10px;
+}
+
+.tempgalitem
+{
+    width: 150px;
+    height: 180px;
+    float: left;
+    padding: 2px;
+    margin: 10px 20px;
+    border: black 1px solid;
+    padding: 5px;
+    text-align: center;
+}
+
+.tempgalitem img
+{
+    width: 110px;
+    height: 130px;
+    border: 4px;
+    margin: 5px;
+}
+
+.tempOverviewData
+{
+    border: 1px black solid;
+    margin-right: 5%;
+    float:left;
+    width: 25%;
+    height: 150px;
+    padding: 1%;
+}
+
+.tempPreviewImage
+{
+    float:left;
+    width: 60%;
+    height: 300px;
+    margin-left: 5%;
+    padding: 1%;
+}
+
+.tempDescription
+{ 
+    text-align: justify;
+    margin: 30px;
+    padding: 30px;
+    
+}
+
+.tempDescription h2
+{
+    text-align: center;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.tempAjax
+{
+    text-align: center;
+}
+
+.tempAjax h2
+{
+    border: 1px black solid;
+}
+
+.tempPreview
+{
+    text-align: center;
+}
+
+.tempPreview a
+{
+    padding: 10px;
+}
+
+.tempUserOptions
+{
+    text-align: center;
+}

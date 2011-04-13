@@ -9,6 +9,7 @@ public class BasicTest extends UnitTest {
     public void aVeryImportantThingToTest() {
         assertEquals(2, 1 + 1);
     }
+<<<<<<< HEAD
 
     @Test
     public void TemplateModelTest()
@@ -52,5 +53,9 @@ public class BasicTest extends UnitTest {
 
         assertEquals(0, Template.findAll().size());
     }
+=======
+    
+    
+>>>>>>> acab468ff2ab7853cbc7660e895cee8c3d2f6914
 
 }

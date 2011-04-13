@@ -1,0 +1,37 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+#{extends 'main.html' /}
+
+
+<form action="@{Application.upload()}" method="POST" enctype="multipart/form-data">
+
+#{ifErrors}
+    <p class="error">
+        ${errors[0]}
+    </p>
+#{/ifErrors}
+<h1>Upload a template</h1>
+<p>
+    <label for="name">Name:</label>
+    <br />
+    <input type="text" name="name" id="name"/>
+</p>
+<p>
+    <label for="name">Description:</label>
+    <br />
+     
+    <textarea name="description" cols="100" rows="10"> </textarea>
+</p>
+<p>
+    <input type="file" name="template" id="template" />
+</p>
+<p>
+    <input type="submit" value="Upload" />
+</p>
+</form>
+#{if flash.success}
+<p class="success">${flash.success}</p>
+#{/if}
