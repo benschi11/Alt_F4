@@ -4,3 +4,7 @@
 .settings
 eclipse/
 nbproject/
+tmp/
+expleo/bin
+expleo/test-result
+expleo/logs
