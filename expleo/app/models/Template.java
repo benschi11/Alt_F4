@@ -46,9 +46,23 @@ public class Template extends Model
     while(iterator.hasNext())
     {
      newTemplate.addCommand(iterator.next().toString());
+
     }
 
     return newTemplate;
   }
+
+  @Override
+  public String toString()
+  {
+    return this.template_name_;
+  }
+
+  public HashMap getTemplates_()
+  {
+    return templates_;
+  }
+
+  
   
 }

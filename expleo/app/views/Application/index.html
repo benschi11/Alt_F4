@@ -1,8 +1,9 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+#{if template_list.isEmpty() == false}
+#{list items:template_list, as:'temp'}
+<a href="@{Application.selectedTemplate(temp.id)}">${temp.template_name_}</a>
+#{/ list}
+#{/ if}
 
-#{list item:firstTemplate, as:'temp' /}
-
-
-#{selectedTemplate /}
