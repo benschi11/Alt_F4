@@ -4,7 +4,6 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" media="screen" href="main.css">
 
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
         #{get 'moreStyles' /}
@@ -17,25 +16,26 @@
         <div id ="header">
             <div id="menu_bar">
                 <div id="logo">
+                    <img src="@{'/public/images/logo.png'}" />
                 </div>
                 <div id="menu">
-                    <a href="#">Home</a>
-                    <a href="#">Templates</a>
-                    <a href="#">How to</a>
+                    <a href="#">HOME</a>
+                    <a href="#">TEMPLATES</a>
+                    <a href="#">HOWTO</a>
                 </div>
             </div>
             <div id="header_bottom">
-                <form id="search">
-                    <h6>Suche</h6>
-                    <input type="text" name="search" size="20"/>
-                    <input type="submit" name="submit_search" value="Lupe">
+                <form id="searchform">
+                    <h6>Suche:</h6>
+                    <input class="input" type="text" id="search"/>
+                    <input class="search_button" type="submit" id="submit_search" value="">
                 </form>
                 <form id="login">
-                    <h6>Login</h6>
-                    <input type="text" name="search" size="20"/>
-                    <h6>Passwort</h6>
-                    <input type="text" name="search" size="20"/>
-                    <input type="submit" name="submit_search" value="OK">
+                    <h6>Login:</h6>
+                    <input type="text" class="input"/>
+                    <h6>Passwort:</h6>
+                    <input type="text" class="input"/>
+                    <input type="submit" class="login_button" value="OK">
                 </form>
                 <div id="lang"></div>
                 <div id="font_size"></div>
