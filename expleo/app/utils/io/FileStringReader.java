@@ -24,9 +24,9 @@ public class FileStringReader {
     }
 
     public String read() throws FileNotFoundException, IOException {
-        BufferedReader bufferedReader = null;
-        try {
-            if (data == null) {
+        if (data == null) {
+            BufferedReader bufferedReader = null;
+            try {
                 bufferedReader = new BufferedReader(new FileReader(file));
                 StringBuilder builder = new StringBuilder();
 
@@ -36,12 +36,14 @@ public class FileStringReader {
                 }
 
                 data = builder.toString();
-            }
-        } finally {
-            if (bufferedReader != null) {
-                bufferedReader.close();
+
+            } finally {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
             }
         }
+
         return data;
     }
 }
