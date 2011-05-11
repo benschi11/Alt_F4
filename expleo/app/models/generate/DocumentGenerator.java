@@ -19,10 +19,10 @@ import utils.Substitution;
 public class DocumentGenerator {
 
     protected File templateFile;
-    protected Map<String, Object> keywordMap;
+    protected Map<String, String> keywordMap;
     private final File file = new File("expleo/public/tmp/");
 
-    public DocumentGenerator(File templateFile, Map<String, Object> keywordMap) {
+    public DocumentGenerator(File templateFile, Map<String, String> keywordMap) {
         this.templateFile = templateFile;
         this.keywordMap = keywordMap;
     }

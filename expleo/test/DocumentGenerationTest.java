@@ -31,5 +31,8 @@ public class DocumentGenerationTest extends UnitTest {
 
         assertTrue("Document creation failed.", document != null);
         assertEquals("Substition failed", document.getContent(), "My name is John!");
+
+        File file = document.getFile();
+        file.delete();
     }
 }

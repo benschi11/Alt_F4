@@ -19,7 +19,7 @@ public class Substitution {
         this.text = text;
     }
 
-    public void replace(Map<String, Object> map) {
+    public void replace(Map<String, String> map) {
         Iterator iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry replacePairs = (Map.Entry) iterator.next();

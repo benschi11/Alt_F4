@@ -54,7 +54,7 @@ public class Application extends Controller
     {
         String applicationPath = Play.applicationPath.getAbsolutePath();
         File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
-        Map<String, Object> replaceMap = new HashMap<String, Object>();
+        Map<String, String> replaceMap = new HashMap<String, String>();
         replaceMap.put("%name%", "John");
 
         DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
