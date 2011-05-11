@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Lob;
 import play.db.jpa.Model;
 
 /**
@@ -18,7 +19,8 @@ import play.db.jpa.Model;
  */
 public class TextFile extends Model
 {
-  private String text;
+  @Lob
+    private String text;
 
   public TextFile(String datei)
   {
@@ -31,6 +33,7 @@ public class TextFile extends Model
       while((input = test.readLine()) != null)
       {
         this.text += input;
+        this.text += "\n";
       }
 
     } catch (IOException ex)

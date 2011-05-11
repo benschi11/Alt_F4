@@ -30,14 +30,23 @@ import play.db.jpa.*;
 public class Template extends Model
 {
 
+    @Lob
   public String name_;
+    @Lob
   public String filename_;
+    @Lob
   public String author_;
   public Date dateCreated_;
+    @Lob
   public String description_;
+  
   public int counterDownloads_;
+  @Lob
   public HashMap templates_ = new HashMap<String, String>();
-  public TextFile textFile;
+  @Lob
+  public String textFile;
+  
+  public String documentPath;
 
   public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
   {
@@ -53,11 +62,11 @@ public class Template extends Model
 
   public void calculateForm()
   {
-    this.textFile = new TextFile("/home/dave/sw11/Alt_F4/expleo/public/templates/" + filename_);
+    this.textFile = new TextFile("/Users/moped31/Uni/SW11/Alt_F4/expleo/public/templates/" + filename_).getText();
 
     Set<String> commands = new TreeSet<String>();
 
-    String[] commands_temp = this.textFile.getText().split("%%");
+    String[] commands_temp = this.textFile.split("%%");
 
     for (int i = 1; i < commands_temp.length; i += 2)
     {
@@ -71,6 +80,8 @@ public class Template extends Model
       String command = (String) iterator.next();
       templates_.put(command, "");
     }
+    
+    //this.textFile = null;
 
   }
 
@@ -142,4 +153,10 @@ public class Template extends Model
       }
     }
   }
+  
+  
+  
 }
+
+
+
