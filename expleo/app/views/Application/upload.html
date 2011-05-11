@@ -4,7 +4,13 @@ and open the template in the editor.
 -->
 
 #{extends 'main.html' /}
+#{if success}
+<div class="notification success"><p>Template successfully uploaded.</p></div>
 
+<div id="back"><a href="@{Application.upload()}">Upload another template.</a></div>
+
+#{/if}
+#{else}
 #{ifErrors}
 <h1>Some Errors occured:</h1>
 
@@ -39,7 +45,5 @@ and open the template in the editor.
         <input type="submit" value="Upload" name="upload" />
     </p>
 </form>
-#{if flash.success}
-<div class="notification success"><p>${flash.success}</p></div>
-#{/if}
+#{/else}
 #{/else}

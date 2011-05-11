@@ -25,6 +25,7 @@ public class Application extends Controller
     public static void upload(String name, String description, File template)
     {
         String upload = request.params.get("upload");
+        Boolean success = false;
 
         if (upload != null)
         {
@@ -38,8 +39,7 @@ public class Application extends Controller
             String error = Template.upload(name, description, template);
             if (error == null)
             {
-                flash.clear();
-                flash.success("Template successfully uploaded.", null);
+                success = true;
             }
             else
             {
@@ -47,7 +47,7 @@ public class Application extends Controller
             }
         }
 
-        render(name, description, template);
+        render(name, description, template, success);
 
     }
 
