@@ -22,6 +22,7 @@ public class TemplateTest extends UnitTest {
     public void TemplateStorageTest()
     {
         Template.deleteAll();
+
         
         Date now = new Date();
         Template temp1 = new Template("test1", "testfile.txt", "author", now, "Description", 4);

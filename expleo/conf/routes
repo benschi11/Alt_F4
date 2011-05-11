@@ -12,3 +12,12 @@ GET     /show/{id}                              Application.showSingleTemplate
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
+
+
+# Import Secure routes
+*       /                                       module:secure
+
+# Import CRUD routes
+#*      /admin              module:crud
+
+GET    /admin              module:crud
