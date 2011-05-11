@@ -6,15 +6,17 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+
 import models.generate.DocumentGenerator;
 import play.Play;
 
+import play.data.validation.Required;
+
 public class Application extends Controller
 {
-
     public static void index()
     {
-        render();
+     render();
     }
 
     public static void upload(String name, String description, File template)
@@ -62,4 +64,32 @@ public class Application extends Controller
         String path = "/public/tmp/" + document.getFile().getName();
         render(path);
     }
+
+  public static void selectedTemplate(Long id)
+  {
+    Template loadedTemplate = Template.findById(id);
+ 
+    render(loadedTemplate);
+  }
+
+  public static void insertionComplete()
+  {
+    //Template template = Template.findById(id);
+
+    Map<String,String[]> map = request.params.all();
+    Template template = Template.findById(Long.decode(map.get("ID")[0]));
+
+    template.doMap(map);
+
+    Iterator iterator = template.templates_.keySet().iterator();
+
+    while(iterator.hasNext())
+    {
+      String key = (String) iterator.next();
+      System.out.println("Key: "+key+" value: "+ template.templates_.get(key));
+    }
+
+  }
+
 }
+

@@ -18,6 +18,8 @@ public class Copy
         RandomAccessFile datei = new RandomAccessFile(source.getAbsolutePath(), "r");
         RandomAccessFile neudatei = new RandomAccessFile(dest.getAbsolutePath(), "rw");
 
+
+
         while (neudatei.length() < datei.length())
         {
             neudatei.write(datei.read());
