@@ -5,33 +5,41 @@ and open the template in the editor.
 
 #{extends 'main.html' /}
 
+#{ifErrors}
+<h1>Some Errors occured:</h1>
+
+        #{errors}
+        <div class="notification error"><p>${error}</p></div>
+        #{/errors}
+        <div id="back"><a href="@{Application.upload()}">Back</a></div>
+
+#{/ifErrors}
+#{else}
+
 
 <form action="@{Application.upload()}" method="POST" enctype="multipart/form-data">
 
-#{ifErrors}
-    <p class="error">
-        ${errors[0]}
+
+    <h1>Upload a template</h1>
+    <p>
+        <label for="name">Name:</label>
+        <br />
+        <input type="text" name="name" id="name"/>
     </p>
-#{/ifErrors}
-<h1>Upload a template</h1>
-<p>
-    <label for="name">Name:</label>
-    <br />
-    <input type="text" name="name" id="name"/>
-</p>
-<p>
-    <label for="name">Description:</label>
-    <br />
-     
-    <textarea name="description" cols="100" rows="10"> </textarea>
-</p>
-<p>
-    <input type="file" name="template" id="template" />
-</p>
-<p>
-    <input type="submit" value="Upload" />
-</p>
+    <p>
+        <label for="name">Description:</label>
+        <br />
+
+        <textarea name="description" cols="100" rows="10"> </textarea>
+    </p>
+    <p>
+        <input type="file" name="template" title="Choose" id="template"/>
+    </p>
+    <p>
+        <input type="submit" value="Upload" name="upload" />
+    </p>
 </form>
 #{if flash.success}
-<p class="success">${flash.success}</p>
+<div class="notification success"><p>${flash.success}</p></div>
 #{/if}
+#{/else}

@@ -1,5 +1,5 @@
 h2,h3,h4,h5,h6,div,p,body,html,input,button {
-	font: normal 12px Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, Sans-serif;
+    font: normal 12px Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, Sans-serif;
 }
 
 
@@ -102,7 +102,7 @@ body {
     height: 19px;
     margin: 0 40px 0 4px;
     padding: 0px;
-    
+
 }
 
 .login {
@@ -133,5 +133,97 @@ h6 {
     padding-bottom: 5px;
     margin-bottom: 5px;
     height: 80px;
-    
+
+}
+
+
+
+
+.notification
+{
+    border-color: #666666;
+    border-width: 1px;
+    border-style: solid;
+    display: block;
+    margin-bottom: 15px;
+    padding-top: 9px;
+    padding-bottom: 6px;
+    position: relative;
+    z-index: 1;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 10px;
+
+
+}
+
+.success
+{
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b3dc7c;
+    background-color: #e8ffca;
+    background-image: url("../images/success.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 10px 50%;
+
+}
+
+.error
+{
+    background-color: #fae2e3;
+    background-image: url("../images/error.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 10px 50%;
+    border-color: #ec9b9b;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.info
+{
+    background-color: #dde9f7;
+    background-image: url("../images/info.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 10px 50%;
+    border-color: #50b0ec;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.warning
+{
+    background-color: #fffac6;
+    background-image: url("../images/ico_attention.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    border-color: #d3c200;
+}
+
+.notification p
+{
+    color: #333333;
+    padding-top: 0px;
+    padding-right: 25px;
+    padding-bottom: 5px;
+    padding-left: 42px;
+    margin: 0px;
+    font-size: 18px;
+}
+
+
+#back
+{
+    text-align: center;
+    font-size: 16px;
+}
+
+.notification ul
+{
+    list-style-image:url("../images/error.png");
+    list-style-type:square;
 }
