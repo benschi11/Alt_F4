@@ -98,15 +98,39 @@ public class Application extends Controller {
 
     public static void doRegister(String email, String password,
             String firstname, String lastname, String question, String answer) {
-        if (email.equals("") || password.equals("") || firstname.equals("")
-                || lastname.equals("")) {
-            if (email.indexOf("@") != -1) {
-                User newuser = new User();
-                newuser.register(email, password, firstname, lastname, question, answer);
-                newuser.save();
-                index();
-            }
+
+        Boolean checkname = true;
+        Boolean checkmail = true;
+        Boolean checkpassword = true;
+        List<String> Errors = new ArrayList();
+
+
+
+
+        if ((firstname.length() == 0) || (lastname.length() == 0)) {
+            Errors.add("Please type your name correctly");
+            checkname = false;
         }
-        // FALSCHE EINGABE
+
+
+        if (email.indexOf("@") == -1) {
+            Errors.add("type in the e-mail correctly");
+            checkmail = false;
+        }
+
+        if (password.length() < 6) {
+            Errors.add("password too short. At least 6 characters");
+            checkpassword = false;
+        }
+
+        if ((checkname == false) || (checkpassword == false) || (checkmail == false)) {
+            render(Errors);
+        } else { //RICHTIGE SEITE MUSS NUN AUFGERUFEN WERDEN... NAECSHTES MAL...
+            User newuser = new User();
+            newuser.register(email, password, firstname, lastname, question, answer);
+            newuser.save();
+            index();
+        }
+
     }
 }
