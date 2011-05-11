@@ -11,21 +11,39 @@ import play.data.validation.Required;
 
 public class Application extends Controller
 {
+
     public static void index()
     {
-     render();
+        render();
     }
 
     public static void upload(String name, String description, File template)
     {
+        String upload = request.params.get("upload");
+
+        if (upload != null)
+        {
+            validation.clear();
+            validation.required(name).message("Please insert a name.");
+            validation.required(template).message("Please select a file.");
+        }
+
         if (template != null)
         {
-            if (Template.upload(name, description, template))
+            String error = Template.upload(name, description, template);
+            if (error == null)
             {
+                flash.clear();
                 flash.success("Template successfully uploaded.", null);
             }
+            else
+            {
+                 Errors.displayInlineError(1,"Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
+            }
         }
-        render();
+
+        render(name, description, template);
+
     }
 
     public static void showAllTemplates()
@@ -49,31 +67,29 @@ public class Application extends Controller
         render(template);
     }
 
-
-  public static void selectedTemplate(Long id)
-  {
-    Template loadedTemplate = Template.findById(id);
- 
-    render(loadedTemplate);
-  }
-
-  public static void insertionComplete()
-  {
-    //Template template = Template.findById(id);
-
-    Map<String,String[]> map = request.params.all();
-    Template template = Template.findById(Long.decode(map.get("ID")[0]));
-
-    template.doMap(map);
-
-    Iterator iterator = template.templates_.keySet().iterator();
-
-    while(iterator.hasNext())
+    public static void selectedTemplate(Long id)
     {
-      String key = (String) iterator.next();
-      System.out.println("Key: "+key+" value: "+ template.templates_.get(key));
+        Template loadedTemplate = Template.findById(id);
+
+        render(loadedTemplate);
     }
 
-  }
+    public static void insertionComplete()
+    {
+        //Template template = Template.findById(id);
 
+        Map<String, String[]> map = request.params.all();
+        Template template = Template.findById(Long.decode(map.get("ID")[0]));
+
+        template.doMap(map);
+
+        Iterator iterator = template.templates_.keySet().iterator();
+
+        while (iterator.hasNext())
+        {
+            String key = (String) iterator.next();
+            System.out.println("Key: " + key + " value: " + template.templates_.get(key));
+        }
+
+    }
 }
