@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import play.*;
 import play.mvc.*;
 
 import java.util.*;
@@ -11,21 +12,39 @@ import models.generate.DocumentGenerator;
 import play.Play;
 import play.data.validation.Required;
 
-import play.data.validation.Required;
+
 
 public class Application extends Controller {
 
-    public static void index() {
+    public static void index()
+    {
         render();
     }
 
     public static void upload(String name, String description, File template) {
         if (template != null) {
-            if (Template.upload(name, description, template)) {
-                flash.success("Template successfully uploaded.", null);
+        String upload = request.params.get("upload");
+        Boolean success = false;
+
+        if (upload != null)
+        {
+            validation.clear();
+            validation.required(name).message("Please insert a name.");
+            validation.required(template).message("Please select a file.");
+        }
+
+            String error = Template.upload(name, description, template);
+            if (error == null)
+                success = true;
+            }
+            else
+            {
+                 Errors.displayInlineError(1,"Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
             }
         }
-        render();
+
+        render(name, description, template, success);
+
     }
 
     public static void showAllTemplates() {
@@ -49,20 +68,20 @@ public class Application extends Controller {
         File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
         Map<String, String> replaceMap = new HashMap<String, String>();
         replaceMap.put("%name%", "John");
+   
 
         DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
         models.generate.Document document = generator.create();
         String path = "/public/tmp/" + document.getFile().getName();
         render(path);
-    }
-
-    public static void selectedTemplate(Long id) {
+}
+ public static void selectedTemplate(Long id)
+    {
         Template loadedTemplate = Template.findById(id);
-
-        render(loadedTemplate);
     }
 
-    public static void insertionComplete() {
+    public static void insertionComplete()
+    {
         //Template template = Template.findById(id);
 
         Map<String, String[]> map = request.params.all();
@@ -72,13 +91,13 @@ public class Application extends Controller {
 
         Iterator iterator = template.templates_.keySet().iterator();
 
-        while (iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             String key = (String) iterator.next();
             System.out.println("Key: " + key + " value: " + template.templates_.get(key));
         }
 
     }
-
     public static void register() {
         render();
     }
