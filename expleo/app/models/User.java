@@ -28,7 +28,7 @@ public class User extends Model
     public boolean admin_;
 
 
-    public void Register(String email, String password, String firstname, String lastname, String question, String answer)
+    public void register(String email, String password, String firstname, String lastname, String question, String answer)
     {
         this.email_ = email;
         this.password_ = password;

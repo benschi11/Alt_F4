@@ -92,5 +92,18 @@ public class Application extends Controller
 
   }
 
-}
+  public static void register()
+  {
+      render();
+  }
 
+  public static void doRegister(String email, String password,
+          String firstname, String lastname, String question, String answer)
+  {
+      User newuser = new User();
+      newuser.register(email, password, firstname, lastname, question, answer);
+      newuser.save();
+    index();
+  }
+
+}
