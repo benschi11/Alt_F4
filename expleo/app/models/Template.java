@@ -37,6 +37,8 @@ public class Template extends Model
   public String documentPath;
   
   public String pathToFilledFile;
+          
+  public Boolean userRegistered;
   
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
@@ -48,6 +50,7 @@ public class Template extends Model
         this.description_ = description_;
         this.counterDownloads_ = counterDownloads_;
         this.pathToFilledFile = null;
+        this.userRegistered = false;
 
 
     }
@@ -77,7 +80,7 @@ public class Template extends Model
 
     }
 
-    public static String upload(String name, String description, File template)
+    public static String upload(String name, String description, File template, Boolean userRegistered)
     {
         try
         {
@@ -92,6 +95,7 @@ public class Template extends Model
             
             Date now = new Date();
             Template temp = new Template(name, template.getName(), "DummyAuthor", now, description, 4);
+            temp.userRegistered = userRegistered;
             temp.save();
 
             int dotPos = template.getName().lastIndexOf(".");

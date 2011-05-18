@@ -22,6 +22,10 @@ public class Application extends Controller {
     public static void upload(String name, String description, File template) {
         String upload = request.params.get("upload");
         Boolean success = false;
+        
+        
+        
+        
 
         if (upload != null) {
             validation.clear();
