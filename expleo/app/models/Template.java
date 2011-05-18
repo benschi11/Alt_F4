@@ -71,7 +71,7 @@ public class Template extends Model
 
             if(!Helper.isUtf8(text))
             {
-                return "File must be in UTF 8.";
+                return "File must be in Plaintext (UTF 8).";
             }
             
             Date now = new Date();
