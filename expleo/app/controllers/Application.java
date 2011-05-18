@@ -146,8 +146,12 @@ public class Application extends Controller
         System.out.println(document.getContent());
 
 //      document.getFile().delete();
+        
+        System.out.println(document.getFile().getAbsolutePath());
+        System.out.println(Play.applicationPath.getAbsolutePath());
 
-        template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
+        //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
+        template.pathToFilledFile = "public/tmp/1305726987921/Testfile 144.txt";
 
         render(template);
 
