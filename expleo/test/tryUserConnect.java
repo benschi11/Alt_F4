@@ -25,7 +25,7 @@ public class tryUserConnect extends UnitTest {
 
     @Test
 public void tryConnectAsUser() {
-   //User.deleteAll();
+   User.deleteAll();
     // Create a new user and save it
    new User("test@gmail.com", "secret", "User", "Last").save();
 
