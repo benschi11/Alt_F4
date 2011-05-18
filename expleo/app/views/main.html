@@ -26,6 +26,9 @@
 						<a href="#">HOWTO</a>
 					</div>
             </div>
+						#{if user.firstname_ != null}
+                  Hello
+		#{/if}
             <div id="header_bottom">
 					<a href="@{Secure.login}">Login</a>
 					<a href="@{Application.register()}">Register</a>
