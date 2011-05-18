@@ -71,14 +71,6 @@ public class Application extends Controller {
         render(template);
     }
 
-    public static void showSingleTemplate(Template template) {
-        System.out.println("-------------------------");
-        System.out.println("-------------------------");
-        System.out.println("-------------------------");
-        System.out.println("-------------------------");
-        System.out.println("TEMPLATE: " + template);
-        render(template);
-    }
 
     public static void simpleLink() {
         String applicationPath = Play.applicationPath.getAbsolutePath();
