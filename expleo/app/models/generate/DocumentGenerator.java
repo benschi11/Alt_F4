@@ -28,7 +28,7 @@ public class DocumentGenerator {
         this.keywordMap = keywordMap;
     }
 
-    private File createUniqueFile() {
+    private synchronized File createUniqueFile() {
         return new File(file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".tec");
     }
 
