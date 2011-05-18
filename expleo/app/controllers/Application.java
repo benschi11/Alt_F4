@@ -28,7 +28,7 @@ public class Application extends Controller
         {
             User user = User.find("email_", Security.connected()).first();
             if (user != null)
-            renderArgs.put("user", user.email_);
+            renderArgs.put("user", user);
         }
     }
 
