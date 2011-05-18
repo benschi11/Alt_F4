@@ -1,0 +1,25 @@
+%%user_titel%%%%user_vorname%%%%_user_nach_name%%
+%%user_strasse_hausNummer_tuernummer%%
+%%user_plz%% %%_user_ort%%
+%%user_telefonnummer%%
+%%user_email%%
+
+
+%%firmenname%%
+%%firmen_anschrift%%
+%%firma_plz%%%%_firma_ort%%
+%%firma_zuhanden_ansprechperson%%
+%%firma_ansprechperson_email%%
+										%%ort%%, %%datum%%
+
+Bewerbung als Softwareentwickler C++ %%bewerbung_als%%, Kennnummer.: %%inserat_id%%
+
+Sehr geehrter/e Herr/Frau %%firma_zuhanden_ansprechperson%%,
+
+%%bewerbung_text%%
+
+Mit freundlichen Grüßen,
+%%user_signature%%
+
+
+
