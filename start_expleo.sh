@@ -1,1 +1,1 @@
-./play run expleo chmod +x
+./play run expleo
