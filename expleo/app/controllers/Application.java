@@ -96,41 +96,58 @@ public class Application extends Controller {
         render();
     }
 
-    public static void doRegister(String email, String password,
+    public static void doRegister(String email, String password, String passwordagain,
             String firstname, String lastname, String question, String answer) {
 
-        Boolean checkname = true;
-        Boolean checkmail = true;
-        Boolean checkpassword = true;
         List<String> Errors = new ArrayList();
+        boolean errorStatus = false;
 
 
 
 
         if ((firstname.length() == 0) || (lastname.length() == 0)) {
-            Errors.add("Please type your name correctly");
-            checkname = false;
+            Errors.add("Please type your name");
+            errorStatus = true;
         }
 
 
-        if (email.indexOf("@") == -1) {
-            Errors.add("type in the e-mail correctly");
-            checkmail = false;
+        if (email.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") == false) {
+            Errors.add("Type in the e-mail correctly");
+            errorStatus = true;
         }
 
         if (password.length() < 6) {
-            Errors.add("password too short. At least 6 characters");
-            checkpassword = false;
+            Errors.add("Password too short. At least 6 characters");
+            errorStatus = true;
+
+        }
+        else if(password.equals(passwordagain) == false)
+        {
+            Errors.add("Passwords don't match");
+            errorStatus = true;
         }
 
-        if ((checkname == false) || (checkpassword == false) || (checkmail == false)) {
-            render(Errors);
-        } else { //RICHTIGE SEITE MUSS NUN AUFGERUFEN WERDEN... NAECSHTES MAL...
+
+        if (question.length() != 0 || answer.length() != 0) {
+            if (answer.length() == 0 || question.length() == 0) {
+                Errors.add("Please type in your answer and question");
+                errorStatus = true;
+            }
+        }
+
+        User checkUser = User.find("email_", email).first();
+        if (checkUser != null) {
+            Errors.add("User already exists, try another email address");
+            errorStatus = true;
+        }
+
+        if (errorStatus == false) {
             User newuser = new User();
             newuser.register(email, password, firstname, lastname, question, answer);
             newuser.save();
-            index();
+            Errors.add("User " + email + " successfull registered");
         }
+        render(Errors, errorStatus);
 
     }
 }
