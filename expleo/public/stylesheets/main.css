@@ -57,7 +57,6 @@ body {
     margin-bottom: 5px;
     padding-bottom: 7px;
     padding-left: 485px;
-    clear: both;
 }
 
 
@@ -265,7 +264,7 @@ h6 {
 
 #registerform input {
     float: none;
-    height: 12px;
+    height: 20px;
     width: 100%;
 }
 
@@ -277,4 +276,13 @@ h6 {
     width: 180px;
     height: 30px;
     padding: 0px 10px
+}
+
+#login .error {
+    background: red !important;
+	 padding-left: 20px;
+}
+
+#login .success {
+    background: #008800 !important;
 }

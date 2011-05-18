@@ -2,51 +2,49 @@
 
 
 <html>
-    <head>
-        <title>Expleo - #{get 'title' /}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<head>
+		<title>Expleo - #{get 'title' /}</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/template.css'}">
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
-        #{get 'moreScripts' /}
-    </head>
-    <body>
-        <div id="container">
-        <div id ="header">
+		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
+		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/template.css'}">
+		#{get 'moreStyles' /}
+		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+		<script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+		#{get 'moreScripts' /}
+	</head>
+	<body>
+		<div id="container">
+			<div id ="header">
             <div id="menu_bar">
-                <div id="logo">
-                     <a href="@{Application.index()}"><img src="@{'/public/images/logo.png'}" /></a>
-                </div>
-                <div id="menu">
-                    <a href="@{Application.showAllTemplates()}">TEMPLATES</a>
-                    <a href="@{Application.upload()}">UPLOAD</a>
-                    <a href="#">HOWTO</a>
-                </div>
+					<div id="logo">
+						<a href="@{Application.index()}"><img src="@{'/public/images/logo.png'}" /></a>
+					</div>
+					<div id="menu">
+						<a href="@{Application.showAllTemplates()}">TEMPLATES</a>
+						<a href="@{Application.upload()}">UPLOAD</a>
+						<a href="#">HOWTO</a>
+					</div>
             </div>
             <div id="header_bottom">
-
-                <form id="searchform">
-                    <h6>Suche:</h6>
-                    <input class="input" type="text" id="search"/>
-                    <input class="search_button" type="submit" id="submit_search" value="">
-                </form>
-                    <a href="@{Secure.login}">Login</a>
-                    <a href="@{Application.register()}">Register</a>
-                <div id="lang"></div>
-                <div id="font_size"></div>
+					<a href="@{Secure.login}">Login</a>
+					<a href="@{Application.register()}">Register</a>
+					<form id="searchform">
+						<input class="input" type="text" id="search" />
+						<input class="search_button" type="submit" id="submit_search" value="">
+					</form>
+					<div id="lang"></div>
+					<div id="font_size"></div>
             </div>
-        </div>
-        <div id="content">
-        #{doLayout /}
-        </div>
-        <div id="footer">
-                    <a href="#">AGB</a>
-                    <a href="#">Impressum</a>
-                    <a href="#">Kontakt</a>
-        </div>
-        </div>
-    </body>
+			</div>
+			<div id="content">
+				#{doLayout /}
+			</div>
+			<div id="footer">
+				<a href="#">AGB</a>
+				<a href="#">Impressum</a>
+				<a href="#">Kontakt</a>
+			</div>
+		</div>
+	</body>
 </html>

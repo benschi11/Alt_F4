@@ -1,8 +1,8 @@
-#{extends 'Secure/layout.html' /}
+#{extends 'main.html' /}
 
 <div id="login">
 	
-	<h1>&{'secure.title'}</h1>
+	<h1>Login</h1>
 		
 	#{form @authenticate()}
 		
@@ -16,21 +16,28 @@
 				&{flash.success}
 			</p>
 		#{/if}
-	
-		<p id="username-field">
-			<label for="username">&{'secure.username'}</label>
-			<input type="text" name="username" id="username" value="${flash.username}" />
+                
+                <table> 
+		<tr><td><p id="username-field">
+			<label for="username">&{'secure.username'}</label></td>
+			<td><input type="text" name="username" id="username" value="${flash.username}" /></td>
+                </tr>
 		</p>
-		<p id="password-field">
-			<label for="password">&{'secure.password'}</label>
-			<input type="password" name="password" id="password" value="" />
+		<tr><td><p id="password-field">
+			<label for="password">&{'secure.password'}</label><td>
+			<input type="password" name="password" id="password" value="" /><td>
+                </tr>
 		</p>
-		<p id="remember-field">
-			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
-			<label for="remember">&{'secure.remember'}</label>
+		<tr><td><p id="remember-field">
+			<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} /><td>
+			<label for="remember">&{'secure.remember'}</label><td>
 		</p>
-		<p id="signin-field">
-			<input type="submit" id="signin" value="&{'secure.signin'}" />
+                </tr>
+                <tr>
+		<td colspan="2"><p id="signin-field">
+			<input type="submit" id="signin" value="&{'secure.signin'}" /></td>
 		</p>
+                </tr>
+                <table>
 	#{/form}
 </div>
