@@ -18,23 +18,28 @@ public class Application extends Controller {
         render();
     }
 
-    public static void upload(String name, String description, File template) {
+    public static void upload(String name, String description, File template)
+    {
+        String upload = request.params.get("upload");
         Boolean success = false;
-        if (template != null) {
-            String upload = request.params.get("upload");
 
+        if (upload != null)
+        {
+            validation.clear();
+            validation.required(name).message("Please insert a name.");
+            validation.required(template).message("Please select a file.");
+        }
 
-            if (upload != null) {
-                validation.clear();
-                validation.required(name).message("Please insert a name.");
-                validation.required(template).message("Please select a file.");
-            }
-
+        if (template != null)
+        {
             String error = Template.upload(name, description, template);
-            if (error == null) {
+            if (error == null)
+            {
                 success = true;
-            } else {
-                Errors.displayInlineError(1, "Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
+            }
+            else
+            {
+                 Errors.displayInlineError(1,"Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
             }
         }
 
