@@ -17,10 +17,10 @@ public class SubstitutionTest extends UnitTest {
 
     @Test
     public void testSingleSubstitution() {
-        String text = "My name is %name%. I live in %country%.";
+        String text = "My name is %%name%%. I live in %%country%%.";
         Map<String, String> replacingMap = new HashMap<String, String>();
-        replacingMap.put("%name%", "Forrest, Forrest Gump");
-        replacingMap.put("%country%", "Alabama");
+        replacingMap.put("name", "Forrest, Forrest Gump");
+        replacingMap.put("country", "Alabama");
 
         Substitution substitution = new Substitution(text);
         substitution.replace(replacingMap);
@@ -32,11 +32,11 @@ public class SubstitutionTest extends UnitTest {
 
     @Test
     public void testMultipleSubstitution() {
-        String text = "My name is %name%. I live in %country%.";
+        String text = "My name is %%name%%. I live in %%country%%.";
         Map<String, String> replacingMap1 = new HashMap<String, String>();
-        replacingMap1.put("%name%", "Forrest, Forrest Gump");
+        replacingMap1.put("name", "Forrest, Forrest Gump");
         Map<String, String> replacingMap2 = new HashMap<String, String>();
-        replacingMap2.put("%country%", "Alabama");
+        replacingMap2.put("country", "Alabama");
 
         Substitution substitution = new Substitution(text);
         substitution.replace(replacingMap1);

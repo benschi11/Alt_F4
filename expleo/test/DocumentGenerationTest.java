@@ -24,7 +24,7 @@ public class DocumentGenerationTest extends UnitTest {
     public void testSimpleGeneration() {
         File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
         Map<String, String> replaceMap = new HashMap<String, String>();
-        replaceMap.put("%name%", "John");
+        replaceMap.put("name", "John");
 
         DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
         Document document = generator.create();
