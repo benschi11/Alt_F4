@@ -278,3 +278,13 @@ h6 {
     height: 30px;
     padding: 0px 10px
 }
+
+#templateinputform h7 {
+    font-size: 10px;
+}
+
+#templateinputform input {
+    float: none;
+    height: 12px;
+    width: 100%;
+}
