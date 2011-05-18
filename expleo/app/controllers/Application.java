@@ -70,15 +70,16 @@ public class Application extends Controller {
 
     }
 
-    public static void showSingleTemplate(long id) {
+    /*public static void showSingleTemplate(long id) {
         Template template = Template.findById(id);
 
         render(template);
-    }
+    }*/
 
     
     public static void showSingleTemplate(Template template)
     {
+        
         render(template);
     }
 
@@ -148,10 +149,11 @@ public class Application extends Controller {
 
 //      document.getFile().delete();
 
-        template.textFile = document.getContent();
+        template.pathToFilledFile = document.getFile().getAbsolutePath();
 
         //showSingleTemplate(template);
 
+        
 
     }
 }
