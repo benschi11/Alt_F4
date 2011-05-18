@@ -137,7 +137,7 @@ public class Application extends Controller {
             System.out.println("Key: " + key + " value: " + template.templates_.get(key));
         }
 
-        DocumentGenerator generator = new DocumentGenerator(new File("/Users/moped31/Uni/SW11/Alt_F4/expleo/public/templates/" + template.filename_), template.getTemplates_());
+        DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath()+"/public/templates/" + template.filename_), template.getTemplates_());
 
         Document document = generator.create();
 
