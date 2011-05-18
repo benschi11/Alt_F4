@@ -38,6 +38,8 @@ public class Template extends Model
   public String pathToFilledFile;
           
   public String userRegistered;
+          
+  public Boolean isHidden;
   
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
@@ -50,6 +52,7 @@ public class Template extends Model
         this.counterDownloads_ = counterDownloads_;
         this.pathToFilledFile = null;
         this.userRegistered = null;
+        this.isHidden = false;
 
 
     }
@@ -79,7 +82,7 @@ public class Template extends Model
 
     }
 
-    public static String upload(String name, String description, File template, String userRegistered)
+    public static String upload(String name, String description, File template, String userRegistered, Boolean isHidden)
     {   
         try
         {
@@ -98,6 +101,7 @@ public class Template extends Model
             Date now = new Date();
             Template temp = new Template(name, template.getName(), author, now, description, 4);
             temp.userRegistered = userRegistered;
+            temp.isHidden = isHidden;
             temp.save();
 
             int dotPos = template.getName().lastIndexOf(".");

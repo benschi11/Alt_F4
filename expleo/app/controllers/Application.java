@@ -32,17 +32,24 @@ public class Application extends Controller
         }
     }
 
-    public static void upload(String name, String description, File template)
+    public static void upload(String name, String description, File template, Boolean isHidden)
     {
         String upload = request.params.get("upload");
         Boolean success = false;
         
         String user = Security.connected();
         
- 
-            
-            
+          System.out.println("ISHIDDEN: "+ request.params.get("isHidden"));
+          
+          String hidden = request.params.get("isHidden");
         
+          if(hidden == "null")
+              isHidden = false;
+          
+          if(hidden == "on")
+              isHidden = true;
+          else
+              isHidden = false;
 
         if (upload != null)
         {
@@ -52,7 +59,7 @@ public class Application extends Controller
         }
 
         if (template != null) {
-            String error = Template.upload(name, description, template, user);
+            String error = Template.upload(name, description, template, user, isHidden);
             if (error == null) {
                 success = true;
 

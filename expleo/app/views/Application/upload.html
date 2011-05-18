@@ -41,6 +41,17 @@ and open the template in the editor.
     <p>
         <input type="file" name="template" title="Choose" id="template"/>
     </p>
+    
+    
+    %{
+    if(user != null) { }%
+  <p>
+    <input type="checkbox" name="isHidden" > Hidden?
+  </p>
+    %{
+    }
+    }%
+    
     <p>
         <input type="submit" value="Upload" name="upload" />
     </p>

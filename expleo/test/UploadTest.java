@@ -14,7 +14,7 @@ public class UploadTest extends UnitTest
         Template.deleteAll();
         File testfile = new File("expleo/test/testfiles/temp1.txt");
 
-        String error = Template.upload("testname", "test", testfile, "Benutzer");
+        String error = Template.upload("testname", "test", testfile, "Benutzer", true);
 
         assertEquals(error, null);
         assertEquals(Template.count(), 1);
@@ -30,7 +30,7 @@ public class UploadTest extends UnitTest
         
         System.out.println(testfile.getAbsolutePath());
 
-        String error = Template.upload("testname", "test", testfile, null);
+        String error = Template.upload("testname", "test", testfile, null, true);
 
         assertEquals(error, "File must be in Plaintext (UTF 8).");
         assertEquals(Template.count(), 0);
