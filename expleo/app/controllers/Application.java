@@ -154,4 +154,18 @@ public class Application extends Controller
 
 
     }
+    
+    public static void generatePdf(Template temp)
+    {
+        File tex = new File(temp.pathToFilledFile);
+        File dest = new File("expleo/public/tmp/pdf/");
+        if(Helper.texToPdf(tex, dest))
+        {
+            System.out.println("PDF successfully!");
+        }
+        else
+        {
+            System.out.println("PDF createn failed!");
+        }
+    }
 }
