@@ -27,6 +27,7 @@ public class Application extends Controller
         if (Security.isConnected())
         {
             User user = User.find("email_", Security.connected()).first();
+            if (user != null)
             renderArgs.put("user", user.email_);
         }
     }
@@ -35,6 +36,13 @@ public class Application extends Controller
     {
         String upload = request.params.get("upload");
         Boolean success = false;
+        
+        String user = Security.connected();
+        
+ 
+            
+            
+        
 
         if (upload != null)
         {
@@ -43,11 +51,9 @@ public class Application extends Controller
             validation.required(template).message("Please select a file.");
         }
 
-        if (template != null)
-        {
-            String error = Template.upload(name, description, template);
-            if (error == null)
-            {
+        if (template != null) {
+            String error = Template.upload(name, description, template, user);
+            if (error == null) {
                 success = true;
 
             }
