@@ -111,6 +111,7 @@ public class Template extends Model
             Helper.copy(template, copy_to);
 
             temp.filename_ = newName;
+            temp.calculateForm();
             temp.save();
 
             return null;
