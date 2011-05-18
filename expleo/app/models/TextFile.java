@@ -6,12 +6,14 @@
 package models;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Lob;
 import play.db.jpa.Model;
+import utils.io.FileStringReader;
 
 /**
  *
@@ -26,15 +28,9 @@ public class TextFile extends Model
   {
     try
     {
-      BufferedReader test = new BufferedReader(new FileReader(datei));
-      String input= "";
-      text = "";
-      
-      while((input = test.readLine()) != null)
-      {
-        this.text += input;
-        this.text += "\n";
-      }
+      //BufferedReader test = new BufferedReader(new FileReader(datei));
+      FileStringReader reader = new FileStringReader(new File(datei));      
+      text = reader.read();
 
     } catch (IOException ex)
     {

@@ -32,10 +32,16 @@ public class FileStringReader {
 
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
-                    builder.append(line);
+                    builder.append(line).append('\n');
+                }
+                
+                
+                data = builder.toString();
+                if (data.length() > 0) 
+                {
+                     data = data.substring(0, data.length()-1);
                 }
 
-                data = builder.toString();
 
             } finally {
                 if (bufferedReader != null) {

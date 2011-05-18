@@ -31,12 +31,12 @@ public class Application extends Controller {
 
     public static void showAllTemplates() {
         // Template Test
-/*
-        //Template.deleteAll();       
+
+        Template.deleteAll();       
         Template template = new Template("example", "example.txt", "niemand2", new Date(123456l), "Example config", 15000);
         template.calculateForm();       
         
-        template.save();*/
+        template.save();
 
         try {
 
