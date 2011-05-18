@@ -68,7 +68,6 @@ public class Template extends Model
 
             FileStringReader reader = new FileStringReader(template);
             String text = reader.read();
-            //System.out.println(text);
 
             if(!Helper.isUtf8(text))
             {
@@ -94,9 +93,9 @@ public class Template extends Model
             }
 
 
-            File copy_to = new File("public/templates/" + newName);
+            File copy_to = new File("expleo/public/templates/" + newName);
 
-            //template.renameTo(copy_to);
+            System.out.println(copy_to.getAbsolutePath());
             Helper.copy(template, copy_to);
 
             temp.filename_ = newName;
