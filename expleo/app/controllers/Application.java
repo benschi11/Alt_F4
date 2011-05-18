@@ -15,34 +15,27 @@ import play.data.validation.Required;
 
 public class Application extends Controller {
 
-
     public static void index() {
         render();
     }
 
-    public static void upload(String name, String description, File template)
-    {
+    public static void upload(String name, String description, File template) {
         String upload = request.params.get("upload");
         Boolean success = false;
 
-        if (upload != null)
-        {
+        if (upload != null) {
             validation.clear();
             validation.required(name).message("Please insert a name.");
             validation.required(template).message("Please select a file.");
         }
 
-        if (template != null)
-        {
+        if (template != null) {
             String error = Template.upload(name, description, template);
-            if (error == null)
-            {
+            if (error == null) {
                 success = true;
-                
-            }
-            else
-            {
-                 Errors.displayInlineError(1,"Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
+
+            } else {
+                Errors.displayInlineError(1, "Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
             }
         }
 
@@ -63,8 +56,10 @@ public class Application extends Controller {
         try {
 
             List<Template> all_templates = Template.findAll();
+            
             render(all_templates);
         } catch (Exception e) {
+           System.out.println(e.getMessage());
             render("Application/upload.html");
         }
 
@@ -73,12 +68,6 @@ public class Application extends Controller {
     public static void showSingleTemplate(long id) {
         Template template = Template.findById(id);
 
-        render(template);
-    }
-
-    
-    public static void showSingleTemplate(Template template)
-    {
         render(template);
     }
 
@@ -101,67 +90,9 @@ public class Application extends Controller {
         render(loadedTemplate);
     }
 
-
     public static void register() {
         render();
     }
-
-    public static void doRegister(String email, String password, String passwordagain,
-            String firstname, String lastname, String question, String answer) {
-
-        List<String> Errors = new ArrayList();
-        boolean errorStatus = false;
-
-
-
-
-        if ((firstname.length() == 0) || (lastname.length() == 0)) {
-            Errors.add("Please type your name");
-            errorStatus = true;
-        }
-
-
-        if (email.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") == false) {
-            Errors.add("Type in the e-mail correctly");
-            errorStatus = true;
-        }
-
-        if (password.length() < 6) {
-            Errors.add("Password too short. At least 6 characters");
-            errorStatus = true;
-
-        }
-        else if(password.equals(passwordagain) == false)
-        {
-            Errors.add("Passwords don't match");
-            errorStatus = true;
-        }
-
-
-        if (question.length() != 0 || answer.length() != 0) {
-            if (answer.length() == 0 || question.length() == 0) {
-                Errors.add("Please type in your answer and question");
-                errorStatus = true;
-            }
-        }
-
-        User checkUser = User.find("email_", email).first();
-        if (checkUser != null) {
-            Errors.add("User already exists, try another email address");
-            errorStatus = true;
-        }
-
-        if (errorStatus == false) {
-            User newuser = new User();
-            newuser.register(email, password, firstname, lastname, question, answer);
-            newuser.save();
-            Errors.add("User " + email + " successfull registered");
-        }
-        render(Errors, errorStatus);
-
-        
-    }
-
 
     public static void insertionComplete() {
         //Template template = Template.findById(id);
@@ -178,7 +109,7 @@ public class Application extends Controller {
             System.out.println("Key: " + key + " value: " + template.templates_.get(key));
         }
 
-        DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath()+"/public/templates/" + template.filename_), template.getTemplates_());
+        DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_), template.getTemplates_());
 
         Document document = generator.create();
 
@@ -189,10 +120,11 @@ public class Application extends Controller {
 
 //      document.getFile().delete();
 
-        template.textFile = document.getContent();
+        template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
 
-        //showSingleTemplate(template);
+        render(template);
 
+        
 
     }
 }

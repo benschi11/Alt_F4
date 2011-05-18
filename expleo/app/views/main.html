@@ -28,15 +28,13 @@
             </div>
             <div id="header_bottom">
 
-                <a href="@{Application.register()}">Login</a>
-                <a href="@{Application.register()}">Register</a>
-
-
-               <form id="searchform">
-                    <input class="input" type="text" id="search" value="Search" />
+                <form id="searchform">
+                    <h6>Suche:</h6>
+                    <input class="input" type="text" id="search"/>
                     <input class="search_button" type="submit" id="submit_search" value="">
                 </form>
-                
+                    <a href="@{Secure.login}">Login</a>
+                    <a href="@{Application.register()}">Register</a>
                 <div id="lang"></div>
                 <div id="font_size"></div>
             </div>

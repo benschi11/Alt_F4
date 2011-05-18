@@ -28,8 +28,14 @@ public class DocumentGenerator {
         this.keywordMap = keywordMap;
     }
 
-    private File createUniqueFile() {
-        return new File(file.getAbsolutePath() + "/" + System.currentTimeMillis() + ".tec");
+    private synchronized File createUniqueFile() {
+        
+        File folder = new File(file.getAbsolutePath()+ "/" + System.currentTimeMillis());        
+        folder.mkdir();
+        
+        String filename[] = templateFile.getName().split("_", 2);
+        
+        return new File(folder.getAbsolutePath() + "/"+ filename[1]);
     }
 
     private String readInTemplate() throws IOException {
