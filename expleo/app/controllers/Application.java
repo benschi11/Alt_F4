@@ -23,8 +23,11 @@ public class Application extends Controller {
         String upload = request.params.get("upload");
         Boolean success = false;
         
+        String user = Security.connected();
         
-        
+ 
+            
+            
         
 
         if (upload != null) {
@@ -34,7 +37,7 @@ public class Application extends Controller {
         }
 
         if (template != null) {
-            String error = Template.upload(name, description, template);
+            String error = Template.upload(name, description, template, user);
             if (error == null) {
                 success = true;
 

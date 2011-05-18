@@ -13,7 +13,6 @@ import javax.persistence.*;
 import utils.io.FileStringReader;
 import play.Play;
 
-
 @Entity
 public class Template extends Model
 {
@@ -38,7 +37,7 @@ public class Template extends Model
   
   public String pathToFilledFile;
           
-  public Boolean userRegistered;
+  public String userRegistered;
   
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
@@ -50,7 +49,7 @@ public class Template extends Model
         this.description_ = description_;
         this.counterDownloads_ = counterDownloads_;
         this.pathToFilledFile = null;
-        this.userRegistered = false;
+        this.userRegistered = null;
 
 
     }
@@ -80,8 +79,8 @@ public class Template extends Model
 
     }
 
-    public static String upload(String name, String description, File template, Boolean userRegistered)
-    {
+    public static String upload(String name, String description, File template, String userRegistered)
+    {   
         try
         {
 
