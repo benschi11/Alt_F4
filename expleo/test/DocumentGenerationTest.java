@@ -22,7 +22,7 @@ public class DocumentGenerationTest extends UnitTest {
 
     @Test
     public void testSimpleGeneration() {
-        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
+        File templateFile = new File(applicationPath + "/data/test/1_SimpleDocument.txt");
         Map<String, String> replaceMap = new HashMap<String, String>();
         replaceMap.put("name", "John");
 
