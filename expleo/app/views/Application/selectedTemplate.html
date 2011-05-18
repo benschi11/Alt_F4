@@ -15,6 +15,7 @@ and open the template in the editor.
     <br/>
     <form action="@{Application.insertionComplete()}" method="POST">
      <br/>
+     <div style="margin-left: 10%;">
 <table id="templateinputform">
 
     %{
@@ -27,7 +28,7 @@ and open the template in the editor.
        i++;
        }%
        <tr>
-           <td><h6>${key}</h6></td>
+           <td><h6>${key}:</h6></td>
            <td><input class="input" type="text" name="${key}" value="${value}"></td>
             <td><h7></h7></td>
        </tr>
@@ -45,7 +46,7 @@ and open the template in the editor.
              </div>
          </td>
      </tr>
-</table>
+</table></div>
     </form>
   </body>
 </html>
