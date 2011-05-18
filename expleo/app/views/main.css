@@ -40,3 +40,8 @@ body {
     width: 100%;
     background-color: #444444;
 }
+
+#header_bottom a{
+    
+    color: red;
+}
