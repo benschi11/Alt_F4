@@ -1,1 +1,1 @@
-play run expleo
+./play run expleo
