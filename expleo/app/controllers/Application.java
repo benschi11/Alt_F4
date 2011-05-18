@@ -13,13 +13,26 @@ import models.generate.DocumentGenerator;
 import play.Play;
 import play.data.validation.Required;
 
-public class Application extends Controller {
+public class Application extends Controller
+{
 
-    public static void index() {
+    public static void index()
+    {
         render();
     }
 
-    public static void upload(String name, String description, File template) {
+    @Before
+    static void setConnectedUser()
+    {
+        if (Security.isConnected())
+        {
+            User user = User.find("email_", Security.connected()).first();
+            renderArgs.put("user", user.email_);
+        }
+    }
+
+    public static void upload(String name, String description, File template)
+    {
         String upload = request.params.get("upload");
         Boolean success = false;
         
@@ -30,7 +43,8 @@ public class Application extends Controller {
             
         
 
-        if (upload != null) {
+        if (upload != null)
+        {
             validation.clear();
             validation.required(name).message("Please insert a name.");
             validation.required(template).message("Please select a file.");
@@ -41,7 +55,9 @@ public class Application extends Controller {
             if (error == null) {
                 success = true;
 
-            } else {
+            }
+            else
+            {
                 Errors.displayInlineError(1, "Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
             }
         }
@@ -50,7 +66,8 @@ public class Application extends Controller {
 
     }
 
-    public static void showAllTemplates() {
+    public static void showAllTemplates()
+    {
 
         // Template Test
 
@@ -60,26 +77,30 @@ public class Application extends Controller {
         
         template.save();*/
 
-        try {
+        try
+        {
 
             List<Template> all_templates = Template.findAll();
-            
+
             render(all_templates);
-        } catch (Exception e) {
-           System.out.println(e.getMessage());
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
             render("Application/upload.html");
         }
 
     }
 
-    public static void showSingleTemplate(long id) {
+    public static void showSingleTemplate(long id)
+    {
         Template template = Template.findById(id);
 
         render(template);
     }
 
-
-    public static void simpleLink() {
+    public static void simpleLink()
+    {
         String applicationPath = Play.applicationPath.getAbsolutePath();
         File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
         Map<String, String> replaceMap = new HashMap<String, String>();
@@ -92,16 +113,19 @@ public class Application extends Controller {
         render(path);
     }
 
-    public static void selectedTemplate(Long id) {
+    public static void selectedTemplate(Long id)
+    {
         Template loadedTemplate = Template.findById(id);
         render(loadedTemplate);
     }
 
-    public static void register() {
+    public static void register()
+    {
         render();
     }
 
-    public static void insertionComplete() {
+    public static void insertionComplete()
+    {
         //Template template = Template.findById(id);
 
         Map<String, String[]> map = request.params.all();
@@ -111,7 +135,8 @@ public class Application extends Controller {
 
         Iterator iterator = template.templates_.keySet().iterator();
 
-        while (iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             String key = (String) iterator.next();
             System.out.println("Key: " + key + " value: " + template.templates_.get(key));
         }
@@ -131,7 +156,7 @@ public class Application extends Controller {
 
         render(template);
 
-        
+
 
     }
 }
