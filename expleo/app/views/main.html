@@ -3,7 +3,7 @@
 
 <html>
     <head>
-        <title>#{get 'title' /}</title>
+        <title>Expleo - #{get 'title' /}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
@@ -27,21 +27,16 @@
                 </div>
             </div>
             <div id="header_bottom">
-                <form id="searchform">
-                    <h6>Suche:</h6>
-                    <input class="input" type="text" id="search"/>
-                    <input class="search_button" type="submit" id="submit_search" value="">
-                </form>
 
+                <a href="@{Application.register()}">Login</a>
                 <a href="@{Application.register()}">Register</a>
 
-                <form id="login">
-                    <h6>Login:</h6>
-                    <input type="text" class="input"/>
-                    <h6>Passwort:</h6>
-                    <input type="text" class="input"/>
-                    <input type="submit" class="login_button" value="OK">
+
+               <form id="searchform">
+                    <input class="input" type="text" id="search" value="Search" />
+                    <input class="search_button" type="submit" id="submit_search" value="">
                 </form>
+                
                 <div id="lang"></div>
                 <div id="font_size"></div>
             </div>
