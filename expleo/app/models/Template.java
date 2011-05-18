@@ -10,6 +10,7 @@ import play.data.validation.*;
 
 import java.util.*;
 import javax.persistence.*;
+import play.Play;
 
 /**
  *
@@ -62,7 +63,7 @@ public class Template extends Model
 
   public void calculateForm()
   {
-    this.textFile = new TextFile("/Users/moped31/Uni/SW11/Alt_F4/expleo/public/templates/" + filename_).getText();
+    this.textFile = new TextFile(Play.applicationPath.getAbsolutePath()+ "/public/templates/" + filename_).getText();
 
     Set<String> commands = new TreeSet<String>();
 

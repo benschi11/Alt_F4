@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
+import play.Play;
 import utils.Substitution;
 
 /**
@@ -20,7 +21,7 @@ public class DocumentGenerator {
 
     protected File templateFile;
     protected Map<String, String> keywordMap;
-    private final File file = new File("expleo/public/tmp/");
+    private final File file = new File(Play.applicationPath.getAbsolutePath() + "/public/tmp/");
 
     public DocumentGenerator(File templateFile, Map<String, String> keywordMap) {
         this.templateFile = templateFile;
