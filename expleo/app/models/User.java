@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package models;
 
 import play.*;
@@ -15,10 +14,9 @@ import javax.persistence.*;
  *
  * @author slaven
  */
-
 @Entity
-public class User extends Model
-{
+public class User extends Model {
+
     public String email_;
     public String password_;
     public String firstname_;
@@ -27,9 +25,7 @@ public class User extends Model
     public String answer_;
     public boolean admin_;
 
-
-    public void register(String email, String password, String firstname, String lastname, String question, String answer)
-    {
+    public void register(String email, String password, String firstname, String lastname, String question, String answer) {
         this.email_ = email;
         this.password_ = password;
         this.firstname_ = firstname;
@@ -38,8 +34,4 @@ public class User extends Model
         this.answer_ = answer;
         this.admin_ = false;
     }
-
-
-
-
 }
