@@ -56,8 +56,10 @@ public class Application extends Controller {
         try {
 
             List<Template> all_templates = Template.findAll();
+            
             render(all_templates);
         } catch (Exception e) {
+           System.out.println(e.getMessage());
             render("Application/upload.html");
         }
 
@@ -70,6 +72,11 @@ public class Application extends Controller {
     }
 
     public static void showSingleTemplate(Template template) {
+        System.out.println("-------------------------");
+        System.out.println("-------------------------");
+        System.out.println("-------------------------");
+        System.out.println("-------------------------");
+        System.out.println("TEMPLATE: " + template);
         render(template);
     }
 
@@ -121,10 +128,11 @@ public class Application extends Controller {
 
 //      document.getFile().delete();
 
-        template.textFile = document.getContent();
+        template.pathToFilledFile = document.getFile().getAbsolutePath();
 
-        //showSingleTemplate(template);
+        render(template);
 
+        
 
     }
 }

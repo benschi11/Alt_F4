@@ -21,12 +21,13 @@ and open the template in the editor.
       while(iterator.hasNext())
       {
        String key = iterator.next();
+       String value = loadedTemplate.getValue(key);
        i++;
        }%
 
        <br/>
        ${key}
-       <input type="text" name="${key}" value="">
+       <input type="text" name="${key}" value="${value}">
 
        %{
       }

@@ -35,6 +35,9 @@ public class Template extends Model
   public String textFile;
   
   public String documentPath;
+  
+  public String pathToFilledFile;
+  
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
     {
@@ -44,6 +47,7 @@ public class Template extends Model
         this.dateCreated_ = dateCreated_;
         this.description_ = description_;
         this.counterDownloads_ = counterDownloads_;
+        this.pathToFilledFile = null;
 
 
     }
