@@ -8,3 +8,6 @@ tmp/
 expleo/bin
 expleo/test-result
 expleo/logs
+/expleo/db/
+/expleo/app/controllers/test
+/framework/classes/
