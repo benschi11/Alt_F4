@@ -27,6 +27,7 @@ public class Application extends Controller
         if (Security.isConnected())
         {
             User user = User.find("email_", Security.connected()).first();
+            if (user != null)
             renderArgs.put("user", user.email_);
         }
     }

@@ -92,8 +92,11 @@ public class Template extends Model
                 return "File must be in Plaintext (UTF 8).";
             }
             
+            String author = userRegistered;
+            
+            
             Date now = new Date();
-            Template temp = new Template(name, template.getName(), "DummyAuthor", now, description, 4);
+            Template temp = new Template(name, template.getName(), author, now, description, 4);
             temp.userRegistered = userRegistered;
             temp.save();
 
