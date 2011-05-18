@@ -37,6 +37,7 @@ public class Template extends Model
   public String documentPath;
   
   public String pathToFilledFile;
+  
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
     {
