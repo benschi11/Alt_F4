@@ -15,38 +15,45 @@
     </head>
     <body>
         <div id="container">
-        <div id ="header">
-            <div id="menu_bar">
-                <div id="logo">
-                     <a href="@{Application.index()}"><img src="@{'/public/images/logo.png'}" /></a>
+            <div id ="header">
+                <div id="menu_bar">
+                    <div id="logo">
+                        <a href="@{Application.index()}"><img src="@{'/public/images/logo.png'}" /></a>
+                    </div>
+                    <div id="menu">
+                        <a href="@{Application.showAllTemplates()}">TEMPLATES</a>
+                        <a href="@{Application.upload()}">UPLOAD</a>
+                        <a href="#">HOWTO</a>
+                    </div>
                 </div>
-                <div id="menu">
-                    <a href="@{Application.showAllTemplates()}">TEMPLATES</a>
-                    <a href="@{Application.upload()}">UPLOAD</a>
-                    <a href="#">HOWTO</a>
-                </div>
-            </div>
-            <div id="header_bottom">
+                <div id="header_bottom">
 
-                <form id="searchform">
-                    <h6>Suche:</h6>
-                    <input class="input" type="text" id="search"/>
-                    <input class="search_button" type="submit" id="submit_search" value="">
-                </form>
+                    <form id="searchform">
+                        <h6>Search:</h6>
+                        <input class="input" type="text" id="search"/>
+                        <input class="search_button" type="submit" id="submit_search" value="">
+                    </form>
+                    
+                    #{if user}
+                    Logged in as ${user}
+                    <a href="@{Secure.logout}">Logout</a>
+                    #{/ if}
+                    #{else}
                     <a href="@{Secure.login}">Login</a>
                     <a href="@{Application.register()}">Register</a>
-                <div id="lang"></div>
-                <div id="font_size"></div>
+                    #{/ else}
+                    <div id="lang"></div>
+                    <div id="font_size"></div>
+                </div>
             </div>
-        </div>
-        <div id="content">
-        #{doLayout /}
-        </div>
-        <div id="footer">
-                    <a href="#">AGB</a>
-                    <a href="#">Impressum</a>
-                    <a href="#">Kontakt</a>
-        </div>
+            <div id="content">
+                #{doLayout /}
+            </div>
+            <div id="footer">
+                <a href="#">AGB</a>
+                <a href="#">Impressum</a>
+                <a href="#">Kontakt</a>
+            </div>
         </div>
     </body>
 </html>
