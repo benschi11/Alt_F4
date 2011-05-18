@@ -12,3 +12,4 @@ expleo/data/test/SimpleWrite.txt
 /expleo/db/
 /expleo/app/controllers/test
 /framework/classes/
+*.orig
