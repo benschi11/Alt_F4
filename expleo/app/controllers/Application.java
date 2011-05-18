@@ -196,7 +196,7 @@ public class Application extends Controller {
 
 //      document.getFile().delete();
 
-        template.pathToFilledFile = document.getFile().getAbsolutePath();
+        template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
 
         render(template);
 
