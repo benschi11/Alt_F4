@@ -7,12 +7,14 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import models.generate.Document;
 
 import models.generate.DocumentGenerator;
 import play.Play;
 import play.data.validation.Required;
 
 public class Application extends Controller {
+
 
     public static void index() {
         render();
@@ -48,7 +50,17 @@ public class Application extends Controller {
     }
 
     public static void showAllTemplates() {
+
+        // Template Test
+/*
+        Template.deleteAll();       
+        Template template = new Template("example", "example.txt", "niemand2", new Date(123456l), "Example config", 15000);
+        template.calculateForm();      
+        
+        template.save();*/
+
         try {
+
             List<Template> all_templates = Template.findAll();
             render(all_templates);
         } catch (Exception e) {
@@ -62,6 +74,13 @@ public class Application extends Controller {
 
         render(template);
     }
+
+    
+    public static void showSingleTemplate(Template template)
+    {
+        render(template);
+    }
+
 
     public static void simpleLink() {
         String applicationPath = Play.applicationPath.getAbsolutePath();
@@ -78,24 +97,9 @@ public class Application extends Controller {
 
     public static void selectedTemplate(Long id) {
         Template loadedTemplate = Template.findById(id);
+        render(loadedTemplate);
     }
 
-    public static void insertionComplete() {
-        //Template template = Template.findById(id);
-
-        Map<String, String[]> map = request.params.all();
-        Template template = Template.findById(Long.decode(map.get("ID")[0]));
-
-        template.doMap(map);
-
-        Iterator iterator = template.templates_.keySet().iterator();
-
-        while (iterator.hasNext()) {
-            String key = (String) iterator.next();
-            System.out.println("Key: " + key + " value: " + template.templates_.get(key));
-        }
-
-    }
 
     public static void register() {
         render();
@@ -113,5 +117,40 @@ public class Application extends Controller {
             }
         }
         // FALSCHE EINGABE
+        
+    }
+
+
+    public static void insertionComplete() {
+        //Template template = Template.findById(id);
+
+        Map<String, String[]> map = request.params.all();
+        Template template = Template.findById(Long.decode(map.get("ID")[0]));
+
+        template.doMap(map);
+
+        Iterator iterator = template.templates_.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            System.out.println("Key: " + key + " value: " + template.templates_.get(key));
+        }
+
+        DocumentGenerator generator = new DocumentGenerator(new File("/Users/moped31/Uni/SW11/Alt_F4/expleo/public/templates/" + template.filename_), template.getTemplates_());
+
+        Document document = generator.create();
+
+        System.out.println(document);
+        System.out.println(document.getFile());
+        System.out.println(document.getFile().getAbsolutePath());
+        System.out.println(document.getContent());
+
+//      document.getFile().delete();
+
+        template.textFile = document.getContent();
+
+        //showSingleTemplate(template);
+
+
     }
 }

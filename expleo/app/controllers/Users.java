@@ -9,7 +9,7 @@ package controllers;
  *
  * @author slaven
  */
-public class Users extends CRUD
+public class Users //extends CRUD
 {
 
 }
