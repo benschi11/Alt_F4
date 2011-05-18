@@ -23,7 +23,7 @@ public class Substitution {
         Iterator iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry replacePairs = (Map.Entry) iterator.next();
-            text = text.replaceAll(replacePairs.getKey().toString(), replacePairs.getValue().toString());
+            text = text.replaceAll("%%" + replacePairs.getKey().toString() + "%%", replacePairs.getValue().toString());
         }
     }
 
