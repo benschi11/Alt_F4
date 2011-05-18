@@ -9,3 +9,7 @@ expleo/bin
 expleo/test-result
 expleo/logs
 expleo/data/test/SimpleWrite.txt
+/expleo/db/
+/expleo/app/controllers/test
+/framework/classes/
+*.orig
