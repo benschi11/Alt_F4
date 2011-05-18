@@ -17,6 +17,12 @@
 
     <div class="tempAjax"><a href="@{Application.selectedTemplate(template.id)}"><h2>--Input Data--</h2></a></div>
     
+    %{
+        
+   if(template.pathToFilledFile != null)
+    {
+    
+    }%
     <div class="tempPreview">
         <h2>Preview as</h2>
         <a href="#">PDF</a>
@@ -28,3 +34,9 @@
         <h2>As registered User you can choose between:</h2>
       <a href="#"><h2>Save</h2></a>
     </div>
+   
+%{
+
+}
+
+}%

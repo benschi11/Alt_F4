@@ -13,8 +13,8 @@ import javax.persistence.*;
 
 
 @Entity
-public class User extends Model
-{
+public class User extends Model {
+
 
 
     public String email_;
@@ -61,4 +61,5 @@ public class User extends Model
         return find("byEmail_AndPassword_", email, password).first();
 
     }
+
 }

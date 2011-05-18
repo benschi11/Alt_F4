@@ -10,6 +10,7 @@ GET     /public/                                staticDir:public
 
 GET     /show/{id}                              Application.showSingleTemplate
 
+
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
 
