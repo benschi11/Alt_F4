@@ -52,7 +52,7 @@ public class Template extends Model
     @Lob
     public HashMap templates_ = new HashMap<String, String>();
     @Lob
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     public Set<Tag> tags;
     @Lob
     public String textFile;
