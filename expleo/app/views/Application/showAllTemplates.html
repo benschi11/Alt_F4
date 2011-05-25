@@ -3,7 +3,7 @@
     
 #{list items:all_templates, as: 'template'}
 %{
- if(user == template.userRegistered || (template.userRegistered == null && template.isHidden == false)){  }%
+ if(user.email_ == template.userRegistered || (template.userRegistered == null )){  }%
 <div class="tempgalitem">
 ${template.name_}<br />
   <a href="@{Application.showSingleTemplate(template.id)}"><img src="@{'/public/images/test_pic.jpg'}"></img></a>
