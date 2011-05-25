@@ -40,29 +40,25 @@ public class Template extends Model
 {
 
     @Lob
-  public String name_;
+    public String name_;
     @Lob
-  public String filename_;
+    public String filename_;
     @Lob
-  public String author_;
-  public Date dateCreated_;
+    public String author_;
+    public Date dateCreated_;
     @Lob
-  public String description_;
-  
-  public int counterDownloads_;
-  @Lob
-  public HashMap templates_ = new HashMap<String, String>();
-  @Lob
-  public String textFile;
-  
-  public String documentPath;
-  
-  public String pathToFilledFile;
-          
-  public String userRegistered;
-          
-  public Boolean isHidden;
-  
+    public String description_;
+    public int counterDownloads_;
+    @Lob
+    public HashMap templates_ = new HashMap<String, String>();
+    @Lob
+    public Set<Tag> tags;
+    @Lob
+    public String textFile;
+    public String documentPath;
+    public String pathToFilledFile;
+    public String userRegistered;
+    public Boolean isHidden;
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
     {
@@ -72,6 +68,7 @@ public class Template extends Model
         this.dateCreated_ = dateCreated_;
         this.description_ = description_;
         this.counterDownloads_ = counterDownloads_;
+        this.tags = new TreeSet<Tag>();
         this.pathToFilledFile = null;
         this.userRegistered = null;
         this.isHidden = false;
@@ -79,10 +76,9 @@ public class Template extends Model
 
     }
 
-
-  public void calculateForm()
-  {
-    this.textFile = new TextFile(Play.applicationPath.getAbsolutePath()+ "/public/templates/" + filename_).getText();
+    public void calculateForm()
+    {
+        this.textFile = new TextFile(Play.applicationPath.getAbsolutePath() + "/public/templates/" + filename_).getText();
 
         Set<String> commands = new TreeSet<String>();
 
@@ -105,21 +101,21 @@ public class Template extends Model
     }
 
     public static String upload(String name, String description, File template, String userRegistered, Boolean isHidden)
-    {   
+    {
         try
         {
             FileStringReader reader = new FileStringReader(template);
             String text = reader.read();
-            
 
-            if(!Helper.isUtf8(text))
+
+            if (!Helper.isUtf8(text))
             {
                 return "File must be in Plaintext (UTF 8).";
             }
-            
+
             String author = userRegistered;
-            
-            
+
+
             Date now = new Date();
             Template temp = new Template(name, template.getName(), author, now, description, 4);
             temp.userRegistered = userRegistered;
@@ -158,9 +154,8 @@ public class Template extends Model
             return e.toString();
         }
     }
-    
-    //this.textFile = null;
 
+    //this.textFile = null;
     public static void delete(long id)
     {
         Template temp = Template.find("id", id).first();
@@ -209,8 +204,4 @@ public class Template extends Model
             }
         }
     }
-
 }
-
-
-
