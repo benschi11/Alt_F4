@@ -52,6 +52,8 @@ public class Helper
     
     public static Boolean texToPdf(File tex, File dest)
     {
+        System.out.println(dest.getAbsolutePath());
+        System.out.println(tex.getAbsolutePath());
         ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", tex.getAbsolutePath(), "-output-directory="+ dest.getAbsolutePath());
         texBuilder.redirectErrorStream(true);
         Process p;

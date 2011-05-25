@@ -12,6 +12,7 @@ import models.generate.Document;
 import models.generate.DocumentGenerator;
 import play.Play;
 import play.data.validation.Required;
+import play.mvc.results.Redirect;
 
 public class Application extends Controller
 {
@@ -176,12 +177,16 @@ public class Application extends Controller
     {
         String path = Play.applicationPath.toString() + temp;
         path = path.replaceAll("\\\\", "/");
-        System.out.println(path);
         File tex = new File(path);
-        File dest = new File("expleo/public/tmp/pdf/");
+        File dest = new File(tex.getParent());
         if(Helper.texToPdf(tex, dest))
         {
+            String[] files = tex.getParent().split("tmp");
+            System.out.println(files[1]);
+            String name = tex.getName().substring(0,tex.getName().lastIndexOf("."));
+            
             System.out.println("PDF successfully!");
+            redirect("/public/tmp"+files[1]+"/"+name+".pdf");
         }
         else
         {
