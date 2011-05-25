@@ -7,9 +7,9 @@
 	#{form @authenticate()}
 		
 		#{if flash.error}
-			<p class="error">
+			<div class="notification error">
 				&{flash.error}
-			</p>
+			</div>
 		#{/if}
 		#{if flash.success}
 			<p class="success">

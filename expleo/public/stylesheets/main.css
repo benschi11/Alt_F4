@@ -19,17 +19,22 @@ body {
 }
 
 #logo {
-    width: 100px;
+    width: 220px;
     height: 80px;
     float: left;
     text-align: center;
 }
 
+#logo img{
+    text-decoration: none;
+    border: 0;
+}
+
 #menu {
-    width: 500px;
+    width: 550px;
     height: 80px;
     float: left;
-    padding-left: 200px;
+    padding-left: 70px;
    
 }
 
@@ -41,7 +46,7 @@ body {
     display: block;
     float: left;
     margin: 0 5px;
-    padding: 25px 30px 0px 0px;
+    padding: 25px 25px 0px 10px;
     background-image: url('../images/pfeil.png');
     background-repeat: no-repeat;
     background-position: right;
@@ -135,9 +140,6 @@ h6 {
     height: 80px;
 
 }
-
-
-
 
 .notification
 {
