@@ -153,11 +153,18 @@ public class Application extends Controller
 
 //      document.getFile().delete();
         
-        System.out.println(document.getFile().getAbsolutePath());
-        System.out.println(Play.applicationPath.getAbsolutePath());
+        String path1 = document.getFile().getAbsolutePath();
+        String playPath = Play.applicationPath.getAbsolutePath();
+        
+        
+        
+        path1 = path1.replaceAll("\\\\", "/");
+        playPath = playPath.replaceAll("\\\\", "/"); 
+        
 
         //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
-        template.pathToFilledFile = "public/tmp/1305726987921/Testfile 144.txt";
+        template.pathToFilledFile = path1.replaceAll(playPath, "");
+        //template.pathToFilledFile = "public/tmp/1305726987921/test123.txt";
 
         render(template);
 
@@ -165,9 +172,12 @@ public class Application extends Controller
 
     }
     
-    public static void generatePdf(Template temp)
+    public static void generatePdf(String temp)
     {
-        File tex = new File(temp.pathToFilledFile);
+        String path = Play.applicationPath.toString() + temp;
+        path = path.replaceAll("\\\\", "/");
+        System.out.println(path);
+        File tex = new File(path);
         File dest = new File("expleo/public/tmp/pdf/");
         if(Helper.texToPdf(tex, dest))
         {

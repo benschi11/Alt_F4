@@ -83,9 +83,9 @@ public class Template extends Model
     {   
         try
         {
-
             FileStringReader reader = new FileStringReader(template);
             String text = reader.read();
+            
 
             if(!Helper.isUtf8(text))
             {

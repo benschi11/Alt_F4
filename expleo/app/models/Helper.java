@@ -64,15 +64,16 @@ public class Helper
             System.out.println(ex.toString());
             return false;
         }
-        System.out.println("latex wird kompiliert");
         String tmp = null;
         String error = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        System.out.println("latex wird kompiliert");
 
         try
         {
             while ((tmp = br.readLine()) != null)
             {
+                System.out.println("In while");
                 error = error + tmp + "\n";
             }
 
@@ -81,7 +82,6 @@ public class Helper
         {
             System.out.println(ioe.toString());
         }
-
         System.out.println(error);
 
         try
@@ -94,7 +94,7 @@ public class Helper
         }
         if (p.exitValue() == 0)
         {
-            System.out.println("Fertig");
+            System.out.println("Latex compilition successfull.");
             return true;
         }
         else
