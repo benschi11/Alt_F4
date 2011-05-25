@@ -3,7 +3,9 @@
     
 #{list items:all_templates, as: 'template'}
 %{
- if(user.email_ == template.userRegistered || (template.userRegistered == null )){  }%
+ if(template.userRegistered == null || (template.isHidden == false))
+ {  }%
+ 
 <div class="tempgalitem">
 ${template.name_}<br />
   <a href="@{Application.showSingleTemplate(template.id)}"><img src="@{'/public/images/test_pic.jpg'}"></img></a>
@@ -16,7 +18,30 @@ ${template.name_}<br />
 </div>
 
   %{}
+  else if(user != NULL)
+  if(user.email_ == template.userRegistered)
+  {
+   }%
+   <div class="tempgalitem">
+${template.name_}<br />
+  <a href="@{Application.showSingleTemplate(template.id)}"><img src="@{'/public/images/test_pic.jpg'}"></img></a>
+
+    <br />
+<div style="text-align:left; width: 20%; float:left">#${template.counterDownloads_}</div>
+<div style="text-align:right; width: 80%; float:left;">${template.author_}</div>
+    
+
+</div>
+  
+   %{
+   }
+  
   }%
+  
+  
+  
 #{/list}
 </div>
+
+
 <div class="clear"></div>

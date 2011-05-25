@@ -43,13 +43,11 @@ public class Application extends Controller
           
           String hidden = request.params.get("isHidden");
         
-          if(hidden == "null")
+          if(hidden == null)
               isHidden = false;
-          
-          if(hidden == "on")
-              isHidden = true;
           else
-              isHidden = false;
+              isHidden = true;
+          
 
         if (upload != null)
         {
