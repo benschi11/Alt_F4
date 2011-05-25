@@ -14,6 +14,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Helper
 {
@@ -46,5 +48,60 @@ public class Helper
             return false;
         }
         return true;
+    }
+    
+    public static Boolean texToPdf(File tex, File dest)
+    {
+        System.out.println(dest.getAbsolutePath());
+        System.out.println(tex.getAbsolutePath());
+        ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", tex.getAbsolutePath(), "-output-directory="+ dest.getAbsolutePath());
+        texBuilder.redirectErrorStream(true);
+        Process p;
+        try
+        {
+            p = texBuilder.start();
+        }
+        catch (IOException ex)
+        {
+            System.out.println(ex.toString());
+            return false;
+        }
+        String tmp = null;
+        String error = null;
+        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        System.out.println("latex wird kompiliert");
+
+        try
+        {
+            while ((tmp = br.readLine()) != null)
+            {
+                System.out.println("In while");
+                error = error + tmp + "\n";
+            }
+
+        }
+        catch (IOException ioe)
+        {
+            System.out.println(ioe.toString());
+        }
+        System.out.println(error);
+
+        try
+        {
+            p.waitFor();
+        }
+        catch (InterruptedException ex)
+        {
+            System.out.println(ex.toString());
+        }
+        if (p.exitValue() == 0)
+        {
+            System.out.println("Latex compilition successfull.");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
