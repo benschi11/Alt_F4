@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+<h1>All Profiles</h1>
+
+<table style="width: 100%; border-top: #EEEEEE solid 1px;">
+
+#{list items:all_users, as: 'curuser'}
+
+<tr>
+    <td style="width: 50%; border-bottom: #EEEEEE solid 1px;">
+${curuser.email_}
+    </td>
+
+    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            <a href="@{Application.editOtherProfileNow(curuser.email_)}">Edit User</a>
+    </td>
+
+    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            <a href="@{Application.deleteUser(curuser.email_)}">Delete User</a>
+    </td>
+</tr>
+
+#{/list}
+
+</table>
+
+
+<div class="clear"></div>

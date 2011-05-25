@@ -1,0 +1,27 @@
+#{extends 'main.html' /}
+<h1>Edit Templates</h1>
+
+<table style="width: 100%; border-top: #EEEEEE solid 1px;">
+
+#{list items:all_templates, as: 'template'}
+
+<tr>
+    <td style="width: 50%; border-bottom: #EEEEEE solid 1px;">
+${template.name_}
+    </td>
+
+    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            <a href="#">Edit Template</a>
+    </td>
+
+    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            <a href="#">Delete Template</a>
+    </td>
+</tr>
+
+#{/list}
+
+</table>
+
+
+<div class="clear"></div>

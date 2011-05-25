@@ -33,7 +33,7 @@ public class User extends Model {
 		this.lastname_ = lastname_;
 		this.question_ = question_;
 		this.answer_ = answer_;
-		this.admin_ = false;
+		this.admin_ = true;
 	}
 
 	public User()
@@ -62,4 +62,15 @@ public class User extends Model {
 
     }
 
+    public void edit(String password, String firstname, String lastname, String question, String answer)
+    {
+
+        if (password.length() > 0)
+          this.password_ = password;
+
+        this.firstname_ = firstname;
+        this.lastname_ = lastname;
+        this.question_ = question;
+        this.answer_ = answer;
+    }
 }
