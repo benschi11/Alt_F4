@@ -83,7 +83,7 @@ public class Helper
     {
         System.out.println(dest.getAbsolutePath());
         System.out.println(tex.getAbsolutePath());
-        ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", tex.getAbsolutePath(), "-output-directory="+ dest.getAbsolutePath());
+        ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", "-output-directory="+ dest.getAbsolutePath(),tex.getAbsolutePath());
         texBuilder.redirectErrorStream(true);
         Process p;
         try
@@ -98,7 +98,7 @@ public class Helper
         String tmp = null;
         String error = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        System.out.println("latex wird kompiliert");
+        System.out.println("latex generation started");
 
         try
         {
@@ -125,7 +125,7 @@ public class Helper
         }
         if (p.exitValue() == 0)
         {
-            System.out.println("Latex compilition successfull.");
+            System.out.println("Latex generation successfull.");
             return true;
         }
         else
