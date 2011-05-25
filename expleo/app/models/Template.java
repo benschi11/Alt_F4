@@ -57,6 +57,7 @@ public class Template extends Model
 
   public void calculateForm()
   {
+	  // DOCX Blasdoidfoie
     this.textFile = new TextFile(Play.applicationPath.getAbsolutePath()+ "/public/templates/" + filename_).getText();
 
         Set<String> commands = new TreeSet<String>();
@@ -171,7 +172,7 @@ public class Template extends Model
         return templates_;
     }
 
-    public void doMap(Map<String, String[]> map)
+		 public void doMap(Map<String, String[]> map)
     {
         Iterator mapIterator = map.keySet().iterator();
         while (mapIterator.hasNext())

@@ -143,13 +143,12 @@ public class Application extends Controller
         }
 
         DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_), template.getTemplates_());
-
         Document document = generator.create();
 
-        System.out.println(document);
-        System.out.println(document.getFile());
-        System.out.println(document.getFile().getAbsolutePath());
-        System.out.println(document.getContent());
+//        System.out.println(document);
+//        System.out.println(document.getFile());
+//        System.out.println(document.getFile().getAbsolutePath());
+//        System.out.println(document.getContent());
 
 //      document.getFile().delete();
 
