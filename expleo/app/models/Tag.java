@@ -10,7 +10,7 @@ import javax.persistence.*;
 import play.db.jpa.*;
 
 @Entity
-public class Tag extends Model implements Compareable<Tag>
+public class Tag extends Model implements Comparable<Tag>
 {
 
     public String name;
