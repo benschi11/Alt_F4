@@ -52,7 +52,7 @@ public class Template extends Model
     @Lob
     public HashMap templates_ = new HashMap<String, String>();
     @Lob
-    @ManyToMany(cascade=CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Tag> tags;
     @Lob
     public String textFile;
@@ -206,9 +206,12 @@ public class Template extends Model
         }
     }
 
-    public Template tagItWith(String name)
+    public Template tagItWith(List<String> name)
     {
-        tags.add(Tag.findOrCreateByName(name));
+        for (String item : name)
+        {
+            tags.add(Tag.findOrCreateByName(item));
+        }
         return this;
     }
 

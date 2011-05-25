@@ -93,6 +93,8 @@ public class Application extends Controller
             String error = Template.upload(name, description, template, user, isHidden);
             if (error == null)
             {
+                Template uploaded = Template.find("name_", name).first();
+                uploaded.tagItWith(tagList);
                 success = true;
 
             }
