@@ -63,18 +63,38 @@ html, body {
     margin-top: 10px;
 }
 
-#login .error, #login .success  {
-    color: #fff;
-    font-size: 12px;
-    text-align: center;
-    margin-bottom: 10px;
-    padding: 5px;
-}
-
-#login .error {
-    background: #c00 !important;
-}
 
 #login .success {
     background: #008800 !important;
+}
+
+.notification
+{
+    border-color: #666666;
+    border-width: 1px;
+    border-style: solid;
+    display: block;
+    margin-bottom: 15px;
+    padding-top: 9px;
+    padding-bottom: 6px;
+    position: relative;
+    z-index: 1;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 10px;
+
+
+}
+
+.error
+{
+    background-color: #fae2e3;
+    background-image: url("../images/error.png");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 10px 50%;
+    border-color: #ec9b9b;
+    border-width: 1px;
+    border-style: solid;
 }
