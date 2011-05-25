@@ -32,10 +32,18 @@ public class DocumentGenerator {
         
         File folder = new File(file.getAbsolutePath()+ "/" + System.currentTimeMillis());        
         folder.mkdir();
+
+		  System.out.println(templateFile.getName());
+        String filenames[] = templateFile.getName().split("_", 2);
+
+		  String filename;
+		  if (filenames.length == 1) {
+			  filename = filenames[0];
+		  } else {
+			  filename = filenames[1];
+		  }
         
-        String filename[] = templateFile.getName().split("_", 2);
-        
-        return new File(folder.getAbsolutePath() + "/"+ filename[1]);
+        return new File(folder.getAbsolutePath() + "/"+ filename);
     }
 
     private String readInTemplate() throws IOException {
