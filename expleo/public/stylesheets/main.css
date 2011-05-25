@@ -321,3 +321,14 @@ h6 {
     background: #008800 !important;
 }
 
+.label {
+    font-size: 14px;
+    text-decoration: underline;
+    padding-top: 20px;
+    padding-bottom: 7px;
+}
+
+.key_words {
+    padding-left: 25px;
+}
+

@@ -40,24 +40,32 @@ and open the template in the editor.
      <br/>
      <div style="margin-left: 10%;">
 <table id="templateinputform">
-
     %{
-      Iterator iterator = loadedTemplate.getTemplates_().keySet().iterator();
-      int i=0;
+      Iterator iterator = loadedTemplate.labels_.keySet().iterator();
       while(iterator.hasNext())
       {
-       String key = iterator.next();
-       String value = loadedTemplate.getValue(key);
-       i++;
+       String label = iterator.next();
+       Iterator label_iterator = loadedTemplate.labels_.iterator(label);
+       
        }%
-       <tr>
-           <td><h6>${key}:</h6></td>
-           <td><input class="input" type="text" name="${key}" value="${value}"></td>
-            <td><h7></h7></td>
-       </tr>
+           <tr>
+                <td class ="label">${label}</td>
+           </tr>
+       
+       %{
+       while(label_iterator.hasNext())
+       {
+        String key = label_iterator.next();               
+       }%
+            <tr>
+                <td class ="key_words">${key}:</td>
+                <td><input class="input" type="text" name="${label}:${key}" value=""></td>
+                <td><h7></h7></td>
+            </tr>
 
        %{
       }
+     }
      }%
      <tr>
          <td colspan=3>

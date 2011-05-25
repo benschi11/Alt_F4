@@ -32,6 +32,9 @@ import play.data.validation.*;
 
 import java.util.*;
 import javax.persistence.*;
+import java.util.Map;
+import org.apache.commons.collections.MultiHashMap;
+//import org.apache.commons.collections.map.MultiValueMap;
 import utils.io.FileStringReader;
 import play.Play;
 
@@ -52,6 +55,9 @@ public class Template extends Model
   public int counterDownloads_;
   @Lob
   public HashMap templates_ = new HashMap<String, String>();
+  
+  public MultiHashMap labels_ = new MultiHashMap();
+  
   @Lob
   public String textFile;
   
@@ -100,6 +106,16 @@ public class Template extends Model
         {
             String command = (String) iterator.next();
             templates_.put(command, "");
+            
+            if(command.contains(":"))
+            {
+                String[] command_label = command.split(":");
+                labels_.put(command_label[0], command_label[1]);
+            }
+            else
+            {
+                labels_.put("No Label",command);
+            }
         }
 
     }
