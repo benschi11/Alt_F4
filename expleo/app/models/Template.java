@@ -114,7 +114,7 @@ public class Template extends Model
             }
             else
             {
-                labels_.put("No Label",command);
+                labels_.put("0",command);
             }
         }
 

@@ -30,6 +30,11 @@ package models;
  *
  * @author Benedikt
  */
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -38,6 +43,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import play.Play;
 
 public class Helper
 {
@@ -126,4 +133,95 @@ public class Helper
             return false;
         }
     }
+    
+   
+   public static void pdfToImage(File source, File destination)
+   {
+       ProcessBuilder imageBuilder = new ProcessBuilder("java -jar pdfbox-app-x.y.z.jar PDFToImage -endPage 1 ", source.getAbsolutePath());
+       File directory = new File(Play.applicationPath.getAbsolutePath() +"/lib/");
+       imageBuilder.directory(directory);
+       
+       Process p;
+        try
+        {
+            p = imageBuilder.start();
+        }
+        catch (IOException ex)
+        {
+            System.out.println(ex.toString());
+            return;
+        }
+        
+        String tmp = null;
+        String error = null;
+        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        System.out.println("latex wird kompiliert");
+
+        try
+        {
+            while ((tmp = br.readLine()) != null)
+            {
+                System.out.println("In while");
+                error = error + tmp + "\n";
+            }
+
+        }
+        catch (IOException ioe)
+        {
+            System.out.println(ioe.toString());
+        }
+        System.out.println(error);
+
+        try
+        {
+            p.waitFor();
+        }
+        catch (InterruptedException ex)
+        {
+            System.out.println(ex.toString());
+        }
+        if (p.exitValue() == 0)
+        {
+            System.out.println("Latex compilition successfull.");
+            return;
+        }
+        else
+        {
+            return;
+        }
+       
+   }
+   
+   
+   
+   public static void textToImage(Template template) throws FileNotFoundException
+   {
+       BufferedImage image = new BufferedImage(500,500,BufferedImage.TYPE_INT_RGB);
+       System.out.println("DOCUMENTPATH: "+Play.applicationPath.getAbsolutePath()+"/public/templates/"+template.filename_+".jpg");
+
+       File image_file = new File(Play.applicationPath.getAbsolutePath()+"/public/templates/"+template.filename_+".jpg");
+       
+       Image image2 = Toolkit.getDefaultToolkit().createImage(Play.applicationPath.getAbsolutePath()+"/public/templates/"+template.filename_+".jpg");
+       System.out.println("image2"+image2);
+       
+         image.createGraphics().drawImage(image2, 0, 0, null);
+        // image.getGraphics().setColor(Color.WHITE);
+         //image.getGraphics().fillRect(0, 0, 200, 200);
+         image.getGraphics().setColor(Color.RED);
+         image.getGraphics().setFont(new Font("Serif",Font.PLAIN,12));
+         
+         image.getGraphics().drawString(template.textFile,10,10);
+         
+         try
+{
+ImageIO.write(image, "jpg", image_file);
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+       
+         
+         
+   }
 }

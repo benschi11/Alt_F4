@@ -41,24 +41,42 @@ and open the template in the editor.
      <div style="margin-left: 10%;">
 <table id="templateinputform">
     %{
-      Iterator iterator = loadedTemplate.labels_.keySet().iterator();
+      Vector v = new Vector(loadedTemplate.labels_.keySet());
+      Collections.sort(v);
+      Iterator iterator = v.iterator();
       while(iterator.hasNext())
       {
        String label = iterator.next();
        Iterator label_iterator = loadedTemplate.labels_.iterator(label);
        
+       if(label != "0")
+       {
        }%
            <tr>
                 <td class ="label">${label}</td>
            </tr>
        
        %{
+       }
        while(label_iterator.hasNext())
        {
-        String key = label_iterator.next();               
+        String key = label_iterator.next();   
+        
        }%
             <tr>
+                %{
+                if(label != "0"){
+                }%
                 <td class ="key_words">${key}:</td>
+                %{
+                }else
+                {
+                }%
+                <td class ="key_words_no_label">${key}:</td>
+                %{
+                }
+                }%
+                
                 <td><input class="input" type="text" name="${label}:${key}" value=""></td>
                 <td><h7></h7></td>
             </tr>
