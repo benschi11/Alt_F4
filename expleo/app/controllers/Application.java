@@ -97,12 +97,6 @@ public class Application extends Controller
                 uploaded.tagItWith(tagList);
                 success = true;
 
-                for (Tag item : uploaded.tags)
-                {
-                    System.out.println("Counter: " + uploaded.tags.size());
-                    System.out.println("Tags: " + item);
-                }
-
             }
             else
             {
