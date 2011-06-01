@@ -24,25 +24,50 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controllers;
 
-import play.mvc.Controller;
+import java.io.File;
+import play.*;
+import play.mvc.*;
+
+import java.util.*;
+
+import models.*;
+import models.generate.Document;
+
+import models.generate.DocumentGenerator;
+import play.Play;
+import play.data.validation.Required;
+import play.data.validation.Validation;
+import play.mvc.results.Redirect;
 
 /**
  *
  * @author Benedikt
  */
-public class Errors extends Controller {
-    
+public class Errors extends Controller
+{
+
+    @Before
+    public static void setConnectedUser()
+    {
+        if (Security.isConnected())
+        {
+            User user = User.find("email_", Security.connected()).first();
+            if (user != null)
+            {
+                renderArgs.put("user", user);
+            }
+        }
+    }
+
     public static void displayError(long errorNumber, String errorString)
     {
         render(errorNumber, errorString);
     }
-    
+
     public static void displayInlineError(long errorNumber, String errorString, String location)
     {
         render(errorString, location);
     }
-
 }
