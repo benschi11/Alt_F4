@@ -83,8 +83,8 @@ public class Zip
 			String filename = input.substring(input.lastIndexOf("/"), input.lastIndexOf("."));
 			String folders = directory + filename + "/";
 
-			File x = new File(directory + filename + "/");
-			x.mkdirs();
+			File zipEntryFolder = new File(directory + filename + "/");
+			zipEntryFolder.mkdirs();
 
 			int index = ze.getName().lastIndexOf("/");
 			if (index > 0)
@@ -94,10 +94,9 @@ public class Zip
 				test.mkdirs();
 			}
 
-			File fu = new File(directory + filename + "/" + ze.getName());
-			if (fu.isDirectory())
+			File zipEntryFile = new File(directory + filename + "/" + ze.getName());
+			if (zipEntryFile.isDirectory())
 			{
-//				fu.mkdirs();
 				continue;
 			}
 

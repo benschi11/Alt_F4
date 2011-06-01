@@ -20,42 +20,37 @@ import utils.Zip;
 public class Template extends Model
 {
 
-    @Lob
-  public String name_;
-    @Lob
-  public String filename_;
-    @Lob
-  public String author_;
-  public Date dateCreated_;
-    @Lob
-  public String description_;
-  
-  public int counterDownloads_;
-  @Lob
-  public HashMap templates_ = new HashMap<String, String>();
-  @Lob
-  public String textFile;
-  
-  public String documentPath;
-  
-  public String pathToFilledFile;
-          
-  public String userRegistered;
-  
+	@Lob
+	public String name_;
+	@Lob
+	public String filename_;
+	@Lob
+	public String author_;
+	public Date dateCreated_;
+	@Lob
+	public String description_;
+	public int counterDownloads_;
+	@Lob
+	public HashMap templates_ = new HashMap<String, String>();
+	@Lob
+	public String textFile;
+	public String documentPath;
+	public String pathToFilledFile;
+	public String userRegistered;
 
-    public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
-    {
-        this.name_ = name_;
-        this.filename_ = filename_;
-        this.author_ = author_;
-        this.dateCreated_ = dateCreated_;
-        this.description_ = description_;
-        this.counterDownloads_ = counterDownloads_;
-        this.pathToFilledFile = null;
-        this.userRegistered = null;
+	public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
+	{
+		this.name_ = name_;
+		this.filename_ = filename_;
+		this.author_ = author_;
+		this.dateCreated_ = dateCreated_;
+		this.description_ = description_;
+		this.counterDownloads_ = counterDownloads_;
+		this.pathToFilledFile = null;
+		this.userRegistered = null;
 
 
-    }
+	}
 
 	public void parsePlaceholder(File file) throws FileNotFoundException, IOException
 	{
@@ -94,10 +89,10 @@ public class Template extends Model
 		return dir.delete();
 	}
 
-  public void calculateForm()
+	public void calculateForm()
 	{
-	  String templatePath = Play.applicationPath.getAbsolutePath() + "/public/templates/";
-	  String templateFile = templatePath + filename_;
+		String templatePath = Play.applicationPath.getAbsolutePath() + "/public/templates/";
+		String templateFile = templatePath + filename_;
 		// DOCX Blasdoidfoie
 		try
 		{
@@ -107,13 +102,15 @@ public class Template extends Model
 				Zip zip = new Zip();
 				zip.unzip(templateFile, templatePath);
 
-				String s = templatePath + filename_.replace("." + extension, "/") + "word";
-				File file = new File(s);
-				for (File x : file.listFiles()) {
-					if (x.isDirectory()) {
+				String docxContent = templatePath + filename_.replace("." + extension, "/") + "word";
+				File file = new File(docxContent);
+				for (File currentFile : file.listFiles())
+				{
+					if (currentFile.isDirectory())
+					{
 						continue;
 					}
-					parsePlaceholder(x);
+					parsePlaceholder(currentFile);
 				}
 				File templateFolder = new File(templatePath + filename_.replace("." + extension, ""));
 				deleteDir(templateFolder);
@@ -130,112 +127,107 @@ public class Template extends Model
 
 	}
 
-    public static String upload(String name, String description, File template, String userRegistered)
-    {   
-        try
-        {
+	public static String upload(String name, String description, File template, String userRegistered)
+	{
+		try
+		{
 
-            FileStringReader reader = new FileStringReader(template);
-            String text = reader.read();
+			FileStringReader reader = new FileStringReader(template);
+			String text = reader.read();
 
-            if(!Helper.isUtf8(text))
-            {
-                return "File must be in Plaintext (UTF 8).";
-            }
-            
-            String author = userRegistered;
-            
-            
-            Date now = new Date();
-            Template temp = new Template(name, template.getName(), author, now, description, 4);
-            temp.userRegistered = userRegistered;
-            temp.save();
+			if (!Helper.isUtf8(text))
+			{
+				return "File must be in Plaintext (UTF 8).";
+			}
 
-            int dotPos = template.getName().lastIndexOf(".");
-            String newName;
-            String extension;
-
-            if (dotPos != -1)
-            {
-                extension = template.getName().substring(dotPos);
-                newName = temp.id + "_" + name + extension;
-            }
-            else
-            {
-                newName = temp.id + "_" + name;
-            }
+			String author = userRegistered;
 
 
-            File copy_to = new File("expleo/public/templates/" + newName);
+			Date now = new Date();
+			Template temp = new Template(name, template.getName(), author, now, description, 4);
+			temp.userRegistered = userRegistered;
+			temp.save();
 
-            System.out.println(copy_to.getAbsolutePath());
-            Helper.copy(template, copy_to);
+			int dotPos = template.getName().lastIndexOf(".");
+			String newName;
+			String extension;
 
-            temp.filename_ = newName;
-            temp.calculateForm();
-            temp.save();
+			if (dotPos != -1)
+			{
+				extension = template.getName().substring(dotPos);
+				newName = temp.id + "_" + name + extension;
+			}
+			else
+			{
+				newName = temp.id + "_" + name;
+			}
 
-            return null;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.toString());
-            return e.toString();
-        }
-    }
-    
-    //this.textFile = null;
 
-    public static void delete(long id)
-    {
-        Template temp = Template.find("id", id).first();
+			File copy_to = new File("expleo/public/templates/" + newName);
 
-        if (temp != null)
-        {
-            temp.delete();
-        }
-    }
+			System.out.println(copy_to.getAbsolutePath());
+			Helper.copy(template, copy_to);
 
-    public void addCommand(String command)
-    {
-        templates_.put(command, "");
-    }
+			temp.filename_ = newName;
+			temp.calculateForm();
+			temp.save();
 
-    public void addSubstitution(String key, String userInput)
-    {
-        templates_.put(key, userInput);
-    }
+			return null;
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.toString());
+			return e.toString();
+		}
+	}
 
-    public String getValue(String command)
-    {
-        return templates_.get(command).toString();
-    }
+	//this.textFile = null;
+	public static void delete(long id)
+	{
+		Template temp = Template.find("id", id).first();
 
-    @Override
-    public String toString()
-    {
-        return this.name_;
-    }
+		if (temp != null)
+		{
+			temp.delete();
+		}
+	}
 
-    public HashMap getTemplates_()
-    {
-        return templates_;
-    }
+	public void addCommand(String command)
+	{
+		templates_.put(command, "");
+	}
 
-		 public void doMap(Map<String, String[]> map)
-    {
-        Iterator mapIterator = map.keySet().iterator();
-        while (mapIterator.hasNext())
-        {
-            String temp = (String) mapIterator.next();
-            if (this.templates_.containsKey(temp))
-            {
-                this.addSubstitution(temp, map.get(temp)[0]);
-            }
-        }
-    }
+	public void addSubstitution(String key, String userInput)
+	{
+		templates_.put(key, userInput);
+	}
 
+	public String getValue(String command)
+	{
+		return templates_.get(command).toString();
+	}
+
+	@Override
+	public String toString()
+	{
+		return this.name_;
+	}
+
+	public HashMap getTemplates_()
+	{
+		return templates_;
+	}
+
+	public void doMap(Map<String, String[]> map)
+	{
+		Iterator mapIterator = map.keySet().iterator();
+		while (mapIterator.hasNext())
+		{
+			String temp = (String) mapIterator.next();
+			if (this.templates_.containsKey(temp))
+			{
+				this.addSubstitution(temp, map.get(temp)[0]);
+			}
+		}
+	}
 }
-
-
-

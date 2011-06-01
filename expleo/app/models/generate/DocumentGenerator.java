@@ -105,26 +105,27 @@ public class DocumentGenerator
 
 
 				String path = uniqueFolder.getAbsolutePath() + "/" + filename;
-				String s = path + "/word";
-				File file = new File(s);
+				String docxContent = path + "/word";
+				File file = new File(docxContent);
 				System.out.println("FILE: " + file);
 				try
 				{
-					for (File x : file.listFiles())
+					for (File currentFile : file.listFiles())
 					{
-						if (x.isDirectory())
+						if (currentFile.isDirectory())
 						{
 							continue;
 						}
-						FileStringReader reader = new FileStringReader(x);
+						FileStringReader reader = new FileStringReader(currentFile);
 						String templatedText = reader.read();
 						String replacedText = replaceKeywords(templatedText);
 
-						FileStringWriter writer = new FileStringWriter(x);
+						FileStringWriter writer = new FileStringWriter(currentFile);
 						writer.write(replacedText);
 					}
-					zip.zipDir(path + "/", path + ".docx");
-					document = new File(path + ".docx");
+					String downloadFileName = uniqueFolder.getAbsolutePath() + "/" + filename.substring(filename.indexOf("_") + 1);
+					zip.zipDir(path + "/", downloadFileName + ".docx");
+					document = new File(downloadFileName + ".docx");
 				}
 				catch (IOException iOException)
 				{
