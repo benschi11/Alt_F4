@@ -88,20 +88,10 @@ public class Application extends Controller
 
         if (template != null)
         {
-            List<String> tagList = null;
-            tagList = createTags(tags);
-
             String error = Template.upload(name, description, template, user, isHidden);
             if (error == null)
             {
-                Template uploaded = Template.find("name_", name).first();
-                uploaded.tagItWith(tagList);
-
-                for (Tag item : uploaded.tags)
-                {
-                    System.out.println("Tags: " + item);
-                }
-
+                tagIt(name, tags);
                 success = true;
 
             }
@@ -113,6 +103,15 @@ public class Application extends Controller
 
         render(name, description, template, success);
 
+    }
+
+    public static void tagIt(String template, String tags)
+    {
+        List<String> tagList = null;
+        tagList = createTags(tags);
+        Template temp = Template.find("name_", template).first();
+        temp.tagItWith(tagList);
+        showAllTemplates();
     }
 
     public static List<String> createTags(String fullString)
