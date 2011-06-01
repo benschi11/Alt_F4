@@ -24,6 +24,7 @@ package controllers;
 import java.io.File;
 import play.*;
 import play.mvc.*;
+import java.util.regex.*;
 
 import java.util.*;
 
@@ -95,6 +96,12 @@ public class Application extends Controller
             {
                 Template uploaded = Template.find("name_", name).first();
                 uploaded.tagItWith(tagList);
+
+                for (Tag item : uploaded.tags)
+                {
+                    System.out.println("Tags: " + item);
+                }
+
                 success = true;
 
             }
@@ -110,11 +117,14 @@ public class Application extends Controller
 
     public static List<String> createTags(String fullString)
     {
-        String[] alltags = fullString.split(" ");
-
+        fullString = fullString.replace("^\\s*", "");
+        fullString = fullString.replace("\\s*$", "");
+        fullString = fullString.replaceAll("\\s+", " ");
+        String[] alltags = fullString.split(",");
 
         List<String> tagList = new ArrayList<String>();
         tagList.addAll(Arrays.asList(alltags));
+        
         return tagList;
     }
 
