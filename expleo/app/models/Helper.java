@@ -226,7 +226,7 @@ public class Helper
 
     public static void textToImage(Template template) throws FileNotFoundException
     {
-        BufferedImage image = new BufferedImage(400, 300, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(315, 446, BufferedImage.TYPE_INT_RGB);
         System.out.println("DOCUMENTPATH: " + Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_ + ".jpg");
 
         File image_file = new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_ + ".jpg");
@@ -250,7 +250,7 @@ public class Helper
 
         image.createGraphics().drawImage(image2, 0, 0, null);
         image.getGraphics().setColor(Color.WHITE);
-        image.getGraphics().fillRect(0, 0, 400, 300);
+        image.getGraphics().fillRect(0, 0, 315, 446);
         image.getGraphics().setColor(Color.BLACK);
         image.getGraphics().setFont(new Font("Serif", Font.PLAIN, 12));
 
