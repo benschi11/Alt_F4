@@ -20,6 +20,8 @@
 package models;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import play.db.jpa.*;
 import play.data.validation.*;
 
@@ -32,11 +34,13 @@ import utils.io.FileStringReader;
 import play.Play;
 import utils.Substitution;
 import utils.io.FileStringWriter;
+import utils.Zip;
 
 @Entity
 public class Template extends Model
 {
 
+//<<<<<<< HEAD
     @Lob
     @Required
   public String name_;
@@ -83,12 +87,13 @@ public class Template extends Model
 
     }
 
+	 public void parsePlaceholder(File file) throws FileNotFoundException, IOException
+	{
+		FileStringReader reader = new FileStringReader(file);
+		String content = reader.read();
+		textFile = content;
 
-  public void calculateForm()
-  {
-    this.textFile = new TextFile(Play.applicationPath.getAbsolutePath()+ "/public/templates/" + filename_).getText();
-
-        Set<String> commands = new TreeSet<String>();
+Set<String> commands = new TreeSet<String>();
 
         String[] commands_temp = this.textFile.split("%%");
 
@@ -104,7 +109,7 @@ public class Template extends Model
         {
             String command = (String) iterator.next();
             templates_.put(command, "");
-            
+
             if(command.contains(":"))
             {
                 String[] command_label = command.split(":");
@@ -115,8 +120,63 @@ public class Template extends Model
                 labels_.put("0",command);
             }
         }
+	}
 
-    }
+	public static boolean deleteDir(File dir)
+	{
+		if (dir.isDirectory())
+		{
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				boolean success = deleteDir(new File(dir, children[i]));
+				if (!success)
+				{
+					return false;
+				}
+			}
+		}
+
+		return dir.delete();
+	}
+
+	public void calculateForm()
+	{
+		String templatePath = Play.applicationPath.getAbsolutePath() + "/public/templates/";
+		String templateFile = templatePath + filename_;
+		// DOCX Blasdoidfoie
+		try
+		{
+			String extension = filename_.substring(filename_.lastIndexOf(".") + 1);
+			if (extension.equals("docx"))
+			{
+				Zip zip = new Zip();
+				zip.unzip(templateFile, templatePath);
+
+				String docxContent = templatePath + filename_.replace("." + extension, "/") + "word";
+				File file = new File(docxContent);
+				for (File currentFile : file.listFiles())
+				{
+					if (currentFile.isDirectory())
+					{
+						continue;
+					}
+					parsePlaceholder(currentFile);
+				}
+				File templateFolder = new File(templatePath + filename_.replace("." + extension, ""));
+				deleteDir(templateFolder);
+			}
+			else
+			{
+				parsePlaceholder(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + filename_));
+			}
+		}
+		catch (Exception exception)
+		{
+			exception.printStackTrace();
+		}
+
+	}
 
     public static String upload(String name, String description, File template, String userRegistered, Boolean isHidden)
     {   
@@ -272,6 +332,3 @@ public class Template extends Model
     }
 
 }
-
-
-
