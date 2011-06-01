@@ -65,8 +65,11 @@ public class TagTest extends UnitTest
             System.out.println("All Tags in Database: " + item);
         }
 
+
         assert (templates != null);
         assertEquals(templates2.size(), 3);
+        assertEquals(templates.size(), 2);
+        assertEquals(templates3.size(), 1);
 
     }
 }
