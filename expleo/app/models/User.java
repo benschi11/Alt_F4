@@ -55,7 +55,7 @@ public class User extends Model {
 		this.lastname_ = lastname_;
 		this.question_ = question_;
 		this.answer_ = answer_;
-		this.admin_ = true;
+		this.admin_ = false;
 	}
 
 	public User()
@@ -75,7 +75,7 @@ public class User extends Model {
         this.lastname_ = lastname;
         this.question_ = question;
         this.answer_ = answer;
-        this.admin_ = false;
+        this.admin_ = true;
     }
 
     public static User connect(String email, String password)
