@@ -85,7 +85,7 @@ public class Helper
     {
         System.out.println(dest.getAbsolutePath());
         System.out.println(tex.getAbsolutePath());
-        ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", tex.getAbsolutePath(), "-output-directory=" + dest.getAbsolutePath());
+        ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", "-output-directory=" + dest.getAbsolutePath(), tex.getAbsolutePath());
         texBuilder.redirectErrorStream(true);
         Process p;
         try
