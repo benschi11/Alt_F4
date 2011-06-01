@@ -162,7 +162,7 @@ public class Template extends Model
 
             File copy_to = new File(Play.applicationPath.getAbsolutePath()+"/public/templates/" + newName);
 
-            System.out.println(copy_to.getAbsolutePath());
+            //System.out.println(copy_to.getAbsolutePath());
             Helper.copy(template, copy_to);
 
             temp.filename_ = newName;
@@ -185,7 +185,11 @@ public class Template extends Model
                 }
                 sub.replace(map);
                 File replaced_file = new File(Play.applicationPath.getAbsolutePath()+"/public/tmp/replace_"+temp.filename_);
+                File destination = new File(Play.applicationPath.getAbsolutePath()+"/public/templates/");
                 FileStringWriter writer = new FileStringWriter(replaced_file);
+                
+                writer.write(sub.getText());
+                helper.texToPdf(replaced_file, destination);
                 
             }
 
