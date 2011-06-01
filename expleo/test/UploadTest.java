@@ -11,7 +11,10 @@ public class UploadTest extends UnitTest
     @Test
     public void uploadSuccess()
     {
-        Template.deleteAll();
+        for (Template item : Template.<Template>findAll())
+        {
+            item.delete();
+        }
         File testfile = new File("expleo/test/testfiles/temp1.txt");
 
         String error = Template.upload("testname", "test", testfile, "Benutzer", true);
@@ -24,7 +27,10 @@ public class UploadTest extends UnitTest
     @Test
     public void uploadError()
     {
-        Template.deleteAll();
+        for (Template item : Template.<Template>findAll())
+        {
+            item.delete();
+        }
         
         File testfile = new File("expleo/test/testfiles/testfile_error.png");
         
