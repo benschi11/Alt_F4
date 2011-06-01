@@ -41,7 +41,8 @@ public class Application extends Controller
 
     public static void index()
     {
-        render();
+        List<Template> test = Template.findAll();
+        render(test);
     }
 
     @Before
@@ -110,7 +111,7 @@ public class Application extends Controller
         List<String> tagList = null;
         tagList = createTags(tags);
         Template temp = Template.find("name_", template).first();
-        temp.tagItWith(tagList);
+        temp.tagItWith(tagList).save();
         showAllTemplates();
     }
 
