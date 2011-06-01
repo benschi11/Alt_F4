@@ -17,9 +17,16 @@ public class TagTest extends UnitTest
         Date now = new Date();
         Template temp = new Template("tagtest", "tagtest.txt", "Hanni", now, "Whhoot?", 11);
         Template temp2 = new Template("tagtest2", "tagtest2.txt", "Hanni", now, "lala", 21);
-        temp.tagItWith("Boom").save();
-        temp2.tagItWith("Boom").save();
-        temp.tagItWith("Hallo").save();
+
+        List<String>tagList1 = new ArrayList();
+        List<String>tagList2 = new ArrayList();
+        tagList1.add("Boom");
+        tagList1.add("Hallo");
+        tagList2.add("Hallo123");
+
+        temp.tagItWith(tagList1).save();
+        temp2.tagItWith(tagList1).save();
+        temp.tagItWith(tagList2).save();
 
         List<Template> templates = Template.findTaggedWith("Boom");
         List<Template> templates2 = Template.findTaggedWith("Hallo");
