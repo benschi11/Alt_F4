@@ -6,7 +6,8 @@
 
 type('name','Test')
 type('tags','Hallo wie gehts')
-clickAndWait('css=input[type=submit]')
-
-open('/application/')
+click('css=input[type=file]')
+waitForPageToLoad(10000)
+click('css=input[type=submit]')
+assertTextPresent('Template')
 #{/selenium}
