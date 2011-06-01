@@ -19,9 +19,6 @@
  * 
  * 
  */
-
-
-
 package controllers;
 
 import java.io.File;
@@ -36,6 +33,7 @@ import models.generate.Document;
 import models.generate.DocumentGenerator;
 import play.Play;
 import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.mvc.results.Redirect;
 
 public class Application extends Controller
@@ -53,7 +51,9 @@ public class Application extends Controller
         {
             User user = User.find("email_", Security.connected()).first();
             if (user != null)
-            renderArgs.put("user", user);
+            {
+                renderArgs.put("user", user);
+            }
         }
     }
 
@@ -61,35 +61,42 @@ public class Application extends Controller
     {
         String upload = request.params.get("upload");
         Boolean success = false;
-        
+
         String user = Security.connected();
-        
-          System.out.println("ISHIDDEN: "+ request.params.get("isHidden"));
-          
-          String hidden = request.params.get("isHidden");
-        
-          if(hidden == null)
-              isHidden = false;
-          else
-              isHidden = true;
-          
+
+        System.out.println("ISHIDDEN: " + request.params.get("isHidden"));
+
+        String hidden = request.params.get("isHidden");
+
+        if (hidden == null)
+        {
+            isHidden = false;
+        }
+        else
+        {
+            isHidden = true;
+        }
+
 
         if (upload != null)
         {
             validation.clear();
             validation.required(name).message("Please insert a name.");
             validation.required(template).message("Please select a file.");
-        }
 
-        if (template != null) {
-            String error = Template.upload(name, description, template, user, isHidden);
-            if (error == null) {
-                success = true;
 
-            }
-            else
+            if (template != null && !Validation.hasErrors())
             {
-                Errors.displayInlineError(1, "Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
+                String error = Template.upload(name, description, template, user, isHidden);
+                if (error == null)
+                {
+                    success = true;
+
+                }
+                else
+                {
+                    Errors.displayInlineError(1, error, "../Application/upload");
+                }
             }
         }
 
@@ -182,15 +189,15 @@ public class Application extends Controller
         System.out.println(document.getContent());
 
 //      document.getFile().delete();
-        
+
         String path1 = document.getFile().getAbsolutePath();
         String playPath = Play.applicationPath.getAbsolutePath();
-        
-        
-        
+
+
+
         path1 = path1.replaceAll("\\\\", "/");
-        playPath = playPath.replaceAll("\\\\", "/"); 
-        
+        playPath = playPath.replaceAll("\\\\", "/");
+
 
         //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
         template.pathToFilledFile = path1.replaceAll(playPath, "");
@@ -201,21 +208,21 @@ public class Application extends Controller
 
 
     }
-    
+
     public static void generatePdf(String temp)
     {
         String path = Play.applicationPath.toString() + temp;
         path = path.replaceAll("\\\\", "/");
         File tex = new File(path);
         File dest = new File(tex.getParent());
-        if(Helper.texToPdf(tex, dest))
+        if (Helper.texToPdf(tex, dest))
         {
             String[] files = tex.getParent().split("tmp");
             System.out.println(files[1]);
-            String name = tex.getName().substring(0,tex.getName().lastIndexOf("."));
-            
+            String name = tex.getName().substring(0, tex.getName().lastIndexOf("."));
+
             System.out.println("PDF successfully!");
-            redirect("/public/tmp"+files[1]+"/"+name+".pdf");
+            redirect("/public/tmp" + files[1] + "/" + name + ".pdf");
         }
         else
         {

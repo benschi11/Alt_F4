@@ -43,8 +43,10 @@ public class Template extends Model
 {
 
     @Lob
+    @Required
   public String name_;
     @Lob
+    @Required
   public String filename_;
     @Lob
   public String author_;
