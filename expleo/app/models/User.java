@@ -55,7 +55,7 @@ public class User extends Model {
 		this.lastname_ = lastname_;
 		this.question_ = question_;
 		this.answer_ = answer_;
-		this.admin_ = false;
+		this.admin_ = true;
 	}
 
 	public User()
