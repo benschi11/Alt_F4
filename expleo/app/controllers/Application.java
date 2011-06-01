@@ -117,25 +117,26 @@ public class Application extends Controller
 
     public static List<String> createTags(String fullString)
     {
-        fullString = fullString.replace("^\\s*", "");
-        fullString = fullString.replace("\\s*$", "");
-        fullString = fullString.replaceAll("\\s+", "");
+        //fullString = fullString.replace("^\\s*", "");
+        //fullString = fullString.replace("\\s*$", "");
+        fullString = fullString.replaceAll("\\s+", " ");
         String[] alltags = fullString.split(",");
 
         List<String> tagList = new ArrayList<String>();
+        List<String> realTags = new ArrayList<String>();
         tagList.addAll(Arrays.asList(alltags));
 
         for (int index = 0; index < tagList.size(); index++)
         {
-            tagList.set(index, tagList.get(index).replace("^\\s*", ""));
-            tagList.set(index, tagList.get(index).replace("\\s*$", ""));
-            if (tagList.get(index).equals(""))
+            //tagList.set(index, tagList.get(index).replace("^\\s*", ""));
+            //tagList.set(index, tagList.get(index).replace("\\s*$", ""));
+            tagList.set(index, tagList.get(index).trim());
+            if ((tagList.get(index).length() > 0) && (tagList.get(index).equals(" ")) == false)
             {
-                tagList.remove(index);
+                realTags.add(tagList.get(index));
             }
         }
-
-        return tagList;
+        return realTags;
     }
 
     public static void showAllTemplates()
