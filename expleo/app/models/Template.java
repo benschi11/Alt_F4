@@ -5,6 +5,8 @@
 package models;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import play.db.jpa.*;
 import play.data.validation.*;
 
@@ -12,6 +14,7 @@ import java.util.*;
 import javax.persistence.*;
 import utils.io.FileStringReader;
 import play.Play;
+import utils.Zip;
 
 @Entity
 public class Template extends Model
@@ -54,31 +57,78 @@ public class Template extends Model
 
     }
 
+	public void parsePlaceholder(File file) throws FileNotFoundException, IOException
+	{
+		FileStringReader reader = new FileStringReader(file);
+		String content = reader.read();
+
+		Set<String> commands = new TreeSet<String>();
+		String[] commands_temp = content.split("%%");
+
+		for (int i = 1; i < commands_temp.length; i += 2)
+		{
+			commands.add(commands_temp[i]);
+		}
+
+		for (String command : commands)
+		{
+			templates_.put(command, "");
+		}
+	}
+
+	public static boolean deleteDir(File dir)
+	{
+		if (dir.isDirectory())
+		{
+			String[] children = dir.list();
+			for (int i = 0; i < children.length; i++)
+			{
+				boolean success = deleteDir(new File(dir, children[i]));
+				if (!success)
+				{
+					return false;
+				}
+			}
+		}
+
+		return dir.delete();
+	}
 
   public void calculateForm()
-  {
-	  // DOCX Blasdoidfoie
-    this.textFile = new TextFile(Play.applicationPath.getAbsolutePath()+ "/public/templates/" + filename_).getText();
+	{
+	  String templatePath = Play.applicationPath.getAbsolutePath() + "/public/templates/";
+	  String templateFile = templatePath + filename_;
+		// DOCX Blasdoidfoie
+		try
+		{
+			String extension = filename_.substring(filename_.lastIndexOf(".") + 1);
+			if (extension.equals("docx"))
+			{
+				Zip zip = new Zip();
+				zip.unzip(templateFile, templatePath);
 
-        Set<String> commands = new TreeSet<String>();
+				String s = templatePath + filename_.replace("." + extension, "/") + "word";
+				File file = new File(s);
+				for (File x : file.listFiles()) {
+					if (x.isDirectory()) {
+						continue;
+					}
+					parsePlaceholder(x);
+				}
+				File templateFolder = new File(templatePath + filename_.replace("." + extension, ""));
+				deleteDir(templateFolder);
+			}
+			else
+			{
+				parsePlaceholder(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + filename_));
+			}
+		}
+		catch (Exception exception)
+		{
+			exception.printStackTrace();
+		}
 
-        String[] commands_temp = this.textFile.split("%%");
-
-
-        for (int i = 1; i < commands_temp.length; i += 2)
-        {
-            commands.add(commands_temp[i]);
-        }
-
-        Iterator iterator = commands.iterator();
-
-        while (iterator.hasNext())
-        {
-            String command = (String) iterator.next();
-            templates_.put(command, "");
-        }
-
-    }
+	}
 
     public static String upload(String name, String description, File template, String userRegistered)
     {   

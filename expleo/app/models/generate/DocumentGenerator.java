@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
+import models.Template;
 import play.Play;
 import utils.Substitution;
 import utils.Zip;
@@ -69,18 +70,18 @@ public class DocumentGenerator
 		return substitution.getText();
 	}
 
-	private Document saveGeneratedDocument(String text) throws IOException
+	private File saveGeneratedDocument(String text) throws IOException
 	{
 		File url = createUniqueFile();
 		FileStringWriter writer = new FileStringWriter(url);
 		writer.write(text);
-		return new Document(url, text);
+		return url;
 	}
 
 	private String getExtension()
 	{
 		String filename = templateFile.getAbsolutePath();
-		return filename.substring(filename.lastIndexOf(".") + 1, filename.length());
+		return filename.substring(filename.lastIndexOf(".") + 1);
 	}
 
 	private String getFilename() {
@@ -88,9 +89,9 @@ public class DocumentGenerator
 		return filename.substring(filename.lastIndexOf("/") + 1, filename.lastIndexOf("."));
 	}
 
-	public Document create()
+	public File create()
 	{
-		Document document = null;
+		File document = null;
 		try
 		{
 			String filename = getFilename();
@@ -99,24 +100,38 @@ public class DocumentGenerator
 			{
 				File uniqueFolder = createUniqueFolder();
 				Zip zip = new Zip();
-				zip.unzip(templateFile.getAbsolutePath(), uniqueFolder.getAbsolutePath() );
+				System.out.println("TEMPLATEFILE: " + templateFile.getAbsolutePath());
+				zip.unzip(templateFile.getAbsolutePath(), uniqueFolder.getAbsolutePath() + "/");
+
 
 				String path = uniqueFolder.getAbsolutePath() + "/" + filename;
-				FileStringReader reader = new FileStringReader(new File(path + "/word/document.xml"));
+				String s = path + "/word";
+				File file = new File(s);
+				System.out.println("FILE: " + file);
 				try
 				{
-					String templatedText = reader.read();
-					String replacedText = replaceKeywords(templatedText);
+					for (File x : file.listFiles())
+					{
+						if (x.isDirectory())
+						{
+							continue;
+						}
+						FileStringReader reader = new FileStringReader(x);
+						String templatedText = reader.read();
+						String replacedText = replaceKeywords(templatedText);
 
-					FileStringWriter writer = new FileStringWriter(new File(path + "/word/document.xml"));
-					writer.write(document.getContent());
-
-					zip.zipDir(path, path + ".zip");
+						FileStringWriter writer = new FileStringWriter(x);
+						writer.write(replacedText);
+					}
+					zip.zipDir(path + "/", path + ".docx");
+					document = new File(path + ".docx");
 				}
 				catch (IOException iOException)
 				{
 					iOException.printStackTrace();
 				}
+
+				Template.deleteDir(new File(path));
 			}
 			else
 			{

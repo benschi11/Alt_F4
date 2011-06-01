@@ -21,9 +21,9 @@ public class Document {
         this.content = content;
     }
 
-    public String getContent() {
-        return content;
-    }
+//    public String getContent() {
+//        return content;
+//    }
 
     public File getFile() {
         return file;

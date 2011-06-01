@@ -100,19 +100,19 @@ public class Application extends Controller
         render(template);
     }
 
-    public static void simpleLink()
-    {
-        String applicationPath = Play.applicationPath.getAbsolutePath();
-        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
-        Map<String, String> replaceMap = new HashMap<String, String>();
-        replaceMap.put("%name%", "John");
-
-
-        DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
-        models.generate.Document document = generator.create();
-        String path = "/public/tmp/" + document.getFile().getName();
-        render(path);
-    }
+//    public static void simpleLink()
+//    {
+//        String applicationPath = Play.applicationPath.getAbsolutePath();
+//        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
+//        Map<String, String> replaceMap = new HashMap<String, String>();
+//        replaceMap.put("%name%", "John");
+//
+//
+//        DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
+//        models.generate.Document document = generator.create();
+//        String path = "/public/tmp/" + document.getFile().getName();
+//        render(path);
+//    }
 
     public static void selectedTemplate(Long id)
     {
@@ -143,7 +143,7 @@ public class Application extends Controller
         }
 
         DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_), template.getTemplates_());
-        Document document = generator.create();
+        File document = generator.create();
 
 //        System.out.println(document);
 //        System.out.println(document.getFile());
@@ -152,7 +152,7 @@ public class Application extends Controller
 
 //      document.getFile().delete();
 
-        template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
+        template.pathToFilledFile = document.getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
 
         render(template);
 
