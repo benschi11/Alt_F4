@@ -31,7 +31,7 @@
  
 <div class="tempgalitem">
 ${template.name_}<br />
-  <a href="@{Application.showSingleTemplate(template.id)}"><img src="@{'/public/images/test_pic.jpg'}"></img></a>
+<a href="@{Application.showSingleTemplate(template.id)}"><img  src="${template.getImagePath()}"></img></a>
 
     <br />
 <div style="text-align:left; width: 20%; float:left">#${template.counterDownloads_}</div>

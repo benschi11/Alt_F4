@@ -336,3 +336,12 @@ h6 {
     padding-left: 0px;
 }
 
+
+.tempPreviewImage{
+    border: 1px black solid;
+}
+
+.tempgalitem img{
+    height: 130px;
+    width: 100px;
+}

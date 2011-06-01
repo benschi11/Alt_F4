@@ -83,13 +83,14 @@ public class Application extends Controller
 
         if (template != null) {
             String error = Template.upload(name, description, template, user, isHidden);
-            if (error == null) {
+            if (error == null) 
+            {
                 success = true;
 
             }
             else
             {
-                Errors.displayInlineError(1, "Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
+                Errors.displayInlineError(1, error, "../Application/upload");
             }
         }
 

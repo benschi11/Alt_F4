@@ -34,6 +34,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -41,6 +42,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.text.AttributedCharacterIterator.Attribute;
+import java.text.AttributedString;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -71,26 +74,24 @@ public class Helper
         {
             CharBuffer r = d.decode(ByteBuffer.wrap(bytearray));
             r.toString();
-        }
-        catch (CharacterCodingException e)
+        } catch (CharacterCodingException e)
         {
             return false;
         }
         return true;
     }
-    
+
     public static Boolean texToPdf(File tex, File dest)
     {
         System.out.println(dest.getAbsolutePath());
         System.out.println(tex.getAbsolutePath());
-        ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", tex.getAbsolutePath(), "-output-directory="+ dest.getAbsolutePath());
+        ProcessBuilder texBuilder = new ProcessBuilder("pdflatex", tex.getAbsolutePath(), "-output-directory=" + dest.getAbsolutePath());
         texBuilder.redirectErrorStream(true);
         Process p;
         try
         {
             p = texBuilder.start();
-        }
-        catch (IOException ex)
+        } catch (IOException ex)
         {
             System.out.println(ex.toString());
             return false;
@@ -108,8 +109,7 @@ public class Helper
                 error = error + tmp + "\n";
             }
 
-        }
-        catch (IOException ioe)
+        } catch (IOException ioe)
         {
             System.out.println(ioe.toString());
         }
@@ -118,8 +118,7 @@ public class Helper
         try
         {
             p.waitFor();
-        }
-        catch (InterruptedException ex)
+        } catch (InterruptedException ex)
         {
             System.out.println(ex.toString());
         }
@@ -127,31 +126,28 @@ public class Helper
         {
             System.out.println("Latex compilition successfull.");
             return true;
-        }
-        else
+        } else
         {
             return false;
         }
     }
-    
-   
-   public static void pdfToImage(File source, File destination)
-   {
-       ProcessBuilder imageBuilder = new ProcessBuilder("java -jar pdfbox-app-x.y.z.jar PDFToImage -endPage 1 ", source.getAbsolutePath());
-       File directory = new File(Play.applicationPath.getAbsolutePath() +"/lib/");
-       imageBuilder.directory(directory);
-       
-       Process p;
+
+    public static void pdfToImage(File source, File destination)
+    {
+        ProcessBuilder imageBuilder = new ProcessBuilder("java -jar pdfbox-app-x.y.z.jar PDFToImage -endPage 1 ", source.getAbsolutePath());
+        File directory = new File(Play.applicationPath.getAbsolutePath() + "/lib/");
+        imageBuilder.directory(directory);
+
+        Process p;
         try
         {
             p = imageBuilder.start();
-        }
-        catch (IOException ex)
+        } catch (IOException ex)
         {
             System.out.println(ex.toString());
             return;
         }
-        
+
         String tmp = null;
         String error = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -165,8 +161,7 @@ public class Helper
                 error = error + tmp + "\n";
             }
 
-        }
-        catch (IOException ioe)
+        } catch (IOException ioe)
         {
             System.out.println(ioe.toString());
         }
@@ -175,8 +170,7 @@ public class Helper
         try
         {
             p.waitFor();
-        }
-        catch (InterruptedException ex)
+        } catch (InterruptedException ex)
         {
             System.out.println(ex.toString());
         }
@@ -184,44 +178,55 @@ public class Helper
         {
             System.out.println("Latex compilition successfull.");
             return;
-        }
-        else
+        } else
         {
             return;
         }
-       
-   }
-   
-   
-   
-   public static void textToImage(Template template) throws FileNotFoundException
-   {
-       BufferedImage image = new BufferedImage(500,500,BufferedImage.TYPE_INT_RGB);
-       System.out.println("DOCUMENTPATH: "+Play.applicationPath.getAbsolutePath()+"/public/templates/"+template.filename_+".jpg");
 
-       File image_file = new File(Play.applicationPath.getAbsolutePath()+"/public/templates/"+template.filename_+".jpg");
-       
-       Image image2 = Toolkit.getDefaultToolkit().createImage(Play.applicationPath.getAbsolutePath()+"/public/templates/"+template.filename_+".jpg");
-       System.out.println("image2"+image2);
-       
-         image.createGraphics().drawImage(image2, 0, 0, null);
-        // image.getGraphics().setColor(Color.WHITE);
-         //image.getGraphics().fillRect(0, 0, 200, 200);
-         image.getGraphics().setColor(Color.RED);
-         image.getGraphics().setFont(new Font("Serif",Font.PLAIN,12));
-         
-         image.getGraphics().drawString(template.textFile,10,10);
-         
-         try
-{
-ImageIO.write(image, "jpg", image_file);
-}
-catch(Exception e)
-{
-System.out.println(e);
-}
-       
-         
-         
-   }
+    }
+
+    public static void textToImage(Template template) throws FileNotFoundException
+    {
+        BufferedImage image = new BufferedImage(400, 300, BufferedImage.TYPE_INT_RGB);
+        System.out.println("DOCUMENTPATH: " + Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_ + ".jpg");
+
+        File image_file = new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_ + ".jpg");
+
+        Image image2 = Toolkit.getDefaultToolkit().createImage(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_ + ".jpg");
+        System.out.println("image2" + image2);
+
+
+
+
+        image.createGraphics().drawImage(image2, 0, 0, null);
+        image.getGraphics().setColor(Color.WHITE);
+        image.getGraphics().fillRect(0, 0, 400, 300);        
+        image.getGraphics().setColor(Color.BLACK);
+        image.getGraphics().setFont(new Font("Serif", Font.PLAIN, 12));
+
+        String[] output = template.textFile.split("\n");
+
+        for (int i = 0; i < output.length; i++)
+        {
+            if(output[i].length() == 0)
+                continue;
+            AttributedString as = new AttributedString(output[i]);
+
+            
+            as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
+
+            image.getGraphics().drawString(as.getIterator(), 10, 20+(20*i));
+        }
+
+        try
+        {
+            ImageIO.write(image, "jpg", image_file);
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+
+
+    }
 }
