@@ -129,19 +129,19 @@ public class Application extends Controller
         render(template);
     }
 
-    public static void simpleLink()
-    {
-        String applicationPath = Play.applicationPath.getAbsolutePath();
-        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
-        Map<String, String> replaceMap = new HashMap<String, String>();
-        replaceMap.put("%name%", "John");
-
-
-        DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
-        models.generate.Document document = generator.create();
-        String path = "/public/tmp/" + document.getFile().getName();
-        render(path);
-    }
+//    public static void simpleLink()
+//    {
+//        String applicationPath = Play.applicationPath.getAbsolutePath();
+//        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
+//        Map<String, String> replaceMap = new HashMap<String, String>();
+//        replaceMap.put("%name%", "John");
+//
+//
+//        DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
+//        models.generate.Document document = generator.create();
+//        String path = "/public/tmp/" + document.getFile().getName();
+//        render(path);
+//    }
 
     public static void selectedTemplate(Long id)
     {
@@ -172,17 +172,16 @@ public class Application extends Controller
         }
 
         DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_), template.getTemplates_());
+        File document = generator.create();
 
-        Document document = generator.create();
-
-        System.out.println(document);
-        System.out.println(document.getFile());
-        System.out.println(document.getFile().getAbsolutePath());
-        System.out.println(document.getContent());
+//        System.out.println(document);
+//        System.out.println(document.getFile());
+//        System.out.println(document.getFile().getAbsolutePath());
+//        System.out.println(document.getContent());
 
 //      document.getFile().delete();
 
-        String path1 = document.getFile().getAbsolutePath();
+		  String path1 = document.getAbsolutePath();
         String playPath = Play.applicationPath.getAbsolutePath();
 
 
@@ -191,9 +190,7 @@ public class Application extends Controller
         playPath = playPath.replaceAll("\\\\", "/");
 
 
-        //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
-        template.pathToFilledFile = path1.replaceAll(playPath, "");
-        //template.pathToFilledFile = "public/tmp/1305726987921/test123.txt";
+       template.pathToFilledFile = path1.replaceAll(playPath, "");
 
         render(template);
 
