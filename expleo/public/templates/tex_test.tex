@@ -1,0 +1,50 @@
+\documentclass[%
+%DIV=14,% viel mehr Platz auf einer Seite
+%enlargefirstpage,% mehr Platz (bringt nicht viel)
+fontsize=12pt,%
+parskip=half,%
+subject=titled,% 'Betrifft: ' hinschreiben
+backaddress=false,% Absenderadresse nochmal (klein, einzeilig) ueber Empfaenger
+fromalign=left,%
+fromemail=true,%
+fromphone=true%
+]{scrlttr2}
+
+\usepackage{ucs}             
+\usepackage[utf8x]{inputenc} 
+
+\usepackage[ngerman]{babel}
+
+\setkomavar{fromname}{%%Absender:Name%%}
+\setkomavar{fromaddress}{%%Absender:Strasse%%\\%%Absender:PLZ%% %%Absender:Ort%%}
+\setkomavar{signature}{%%Absender:Name%%}
+\setkomavar{fromemail}{%%Absender:Email-Adresse%%}
+\setkomavar{fromphone}{%%Absender:Telefonnummer%%}
+
+\begin{document}
+
+% -------------------------------------------------------------
+
+\setkomavar{subject}{%%Betreff%%}  
+
+\begin{letter}{%
+%%Empfänger:Firma%%\\
+%%Empfänger:Name%%\\
+%%Empfänger:Strasse%%\\
+%%Empfänger:PLZ%% %%Empfänger:Ort%%}
+
+\LoadLetterOption{DINmtext} 
+
+\opening{%%Begrüssung%%}
+
+TEXT
+
+\closing{Mit freundlichen Grüßen}
+
+%\encl{Lebenslauf}% Anhang
+
+\end{letter}
+
+% -------------------------------------------------------------
+
+\end{document}
