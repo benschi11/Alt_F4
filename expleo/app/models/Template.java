@@ -15,6 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * 
+ * 
+ * 
+ * 
+ */
+
+/*
  */
 
 package models;
@@ -124,6 +130,7 @@ public class Template extends Model
         {
             FileStringReader reader = new FileStringReader(template);
             String text = reader.read();
+            
             
 
             if(!Helper.isUtf8(text))

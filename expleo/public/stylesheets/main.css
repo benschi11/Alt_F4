@@ -17,6 +17,9 @@
  * 
  */
 
+ * 
+ */
+
 h2,h3,h4,h5,h6,div,p,body,html,input,button {
     font: normal 12px Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, Sans-serif;
 }
@@ -316,6 +319,21 @@ h6 {
 
 #login .success {
     background: #008800 !important;
+}
+
+.label {
+    font-size: 14px;
+    text-decoration: underline;
+    padding-top: 20px;
+    padding-bottom: 7px;
+}
+
+.key_words {
+    padding-left: 25px;
+}
+
+.key_words_no_label{
+    padding-left: 0px;
 }
 
 .label {
