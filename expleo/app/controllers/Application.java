@@ -119,12 +119,22 @@ public class Application extends Controller
     {
         fullString = fullString.replace("^\\s*", "");
         fullString = fullString.replace("\\s*$", "");
-        fullString = fullString.replaceAll("\\s+", " ");
+        fullString = fullString.replaceAll("\\s+", "");
         String[] alltags = fullString.split(",");
 
         List<String> tagList = new ArrayList<String>();
         tagList.addAll(Arrays.asList(alltags));
-        
+
+        for (int index = 0; index < tagList.size(); index++)
+        {
+            tagList.set(index, tagList.get(index).replace("^\\s*", ""));
+            tagList.set(index, tagList.get(index).replace("\\s*$", ""));
+            if (tagList.get(index).equals(""))
+            {
+                tagList.remove(index);
+            }
+        }
+
         return tagList;
     }
 
