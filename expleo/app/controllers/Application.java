@@ -63,27 +63,21 @@ public class Application extends Controller
         Boolean success = false;
 
         String user = Security.connected();
-
-        System.out.println("ISHIDDEN: " + request.params.get("isHidden"));
-
-        String hidden = request.params.get("isHidden");
-
-        if (hidden == null)
-        {
-            isHidden = false;
-        }
-        else
-        {
-            isHidden = true;
-        }
-
+       
+          
+          String hidden = request.params.get("isHidden");
+        
+          if(hidden == null)
+              isHidden = false;
+          else
+              isHidden = true;
+          
 
         if (upload != null)
         {
             validation.clear();
             validation.required(name).message("Please insert a name.");
             validation.required(template).message("Please select a file.");
-
 
             if (template != null && !Validation.hasErrors())
             {
