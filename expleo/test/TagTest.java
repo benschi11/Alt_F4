@@ -18,7 +18,7 @@ public class TagTest extends UnitTest
         {
             item.delete();
         }
-        
+
         Date now = new Date();
         Template temp = new Template("tagtest", "tagtest.txt", "Hanni", now, "Whhoot?", 11);
         Template temp2 = new Template("tagtest2", "tagtest2.txt", "Hanni", now, "lala", 21);
@@ -53,9 +53,9 @@ public class TagTest extends UnitTest
             System.out.println("Templates tagged with Hallo: " + item);
         }
 
-        for (Template item:templates3)
-            {
-                System.out.println("Templates tagged with Hallo123: " + item);
+        for (Template item : templates3)
+        {
+            System.out.println("Templates tagged with Hallo123: " + item);
         }
 
         List<Tag> tags = Tag.findAll();

@@ -11,7 +11,8 @@ import play.db.jpa.*;
 
 @Entity
 public class Tag extends Model implements Comparable<Tag>
-{   
+{
+
     public String name;
 
     private Tag(String name)
@@ -29,13 +30,31 @@ public class Tag extends Model implements Comparable<Tag>
         return name.compareTo(otherTag.name);
     }
 
+    @Override
+    public boolean equals(Object otherTag)
+    {
+        if (otherTag instanceof Tag)
+        {
+            return this.name.equals(((Tag) otherTag).name);
+        }
+        else
+        {
+            return otherTag == this;
+        }
+    }
+
     public static Tag findOrCreateByName(String name)
     {
         Tag tag = Tag.find("name", name).first();
+
+
         if (tag == null)
         {
             tag = new Tag(name);
+
+
         }
         return tag;
+
     }
 }
