@@ -1,13 +1,44 @@
 #{selenium 'test'}
 
 //Open the upload page and check content
-    open('/application/upload')
-    assertTextPresent('Upload a template')
+ open('/application/upload')
+ assertTextPresent('Upload a template')
 
 type('name','Test')
 type('tags','Hallo wie gehts')
+type('description','Erstes TestFile')
 click('css=input[type=file]')
-waitForPageToLoad(10000)
-click('css=input[type=submit]')
-assertTextPresent('Template')
+pause(5000)
+clickAndWait('css=input[name=upload]')
+assertTextPresent('Template successfully uploaded')
+
+//False format
+open('/application/upload')
+assertTextPresent('Upload a template')
+
+type('name','Test2')
+type('tags','Ahask wie wie en')
+type('description','Zweites TestFile')
+click('css=input[type=file]')
+pause(5000)
+clickAndWait('css=input[name=upload]')
+assertTextPresent('Template has to be a plain-text file (encoded in UTF-8).')
+
+/No file selected
+open('/application/upload')
+assertTextPresent('Upload a template')
+type('name','Test')
+type('tags','Hallo wie gehts')
+clickAndWait('css=input[name=upload]')
+assertTextPresent('Please select a file.')
+
+
+//No name and no file selected
+open('/application/upload')
+assertTextPresent('Upload a template')
+clickAndWait('css=input[name=upload]')
+assertTextPresent('Please insert a name.')
+assertTextPresent('Please select a file.')
+
+
 #{/selenium}
