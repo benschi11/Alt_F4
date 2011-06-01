@@ -26,7 +26,7 @@ public class TextToImageTest extends UnitTest
      Template test_template = new Template("test", "label_test.txt", "ich", new Date(500), "mu", 10);        
      test_template.calculateForm();
         
-     Helper.textToImage(test_template);
+     Helper.templateToImage(test_template);
      
      
         

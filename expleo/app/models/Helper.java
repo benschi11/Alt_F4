@@ -214,7 +214,7 @@ public class Helper
 
     }
 
-    public static void textToImage(Template template) throws FileNotFoundException
+    public static void templateToImage(Template template) throws FileNotFoundException
     {
         BufferedImage image = new BufferedImage(315, 446, BufferedImage.TYPE_INT_RGB);
         System.out.println("DOCUMENTPATH: " + Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_ + ".jpg");
@@ -267,8 +267,52 @@ public class Helper
         {
             System.out.println(e);
         }
+        
+      
+
+    }
+    
+    
+    public static void textToImage(String text,File source)
+    {
+        
+        BufferedImage image = new BufferedImage(315, 446, BufferedImage.TYPE_INT_RGB);
+
+        File image_file = new File(source.getAbsolutePath()+".jpg");
+        Image image2 = Toolkit.getDefaultToolkit().createImage(source.getAbsolutePath()+ ".jpg");
+        
 
 
+        image.createGraphics().drawImage(image2, 0, 0, null);
+        image.getGraphics().setColor(Color.WHITE);
+        image.getGraphics().fillRect(0, 0, 315, 446);
+        image.getGraphics().setColor(Color.BLACK);
+        image.getGraphics().setFont(new Font("Serif", Font.PLAIN, 12));
 
+        String[] output = text.split("\n");
+
+        for (int i = 0; i < output.length; i++)
+        {
+            if (output[i].length() == 0)
+            {
+                continue;
+            }
+            AttributedString as = new AttributedString(output[i]);
+
+
+            as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
+
+            image.getGraphics().drawString(as.getIterator(), 10, 20 + (20 * i));
+        }
+
+        try
+        {
+            ImageIO.write(image, "jpg", image_file);
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+        
+        
     }
 }

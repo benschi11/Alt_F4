@@ -167,7 +167,7 @@ public class Template extends Model
             Helper helper = new Helper();
             if(!extension.equals(".tex"))
             {
-                helper.textToImage(temp);
+                helper.templateToImage(temp);
             }
             else
             {
@@ -263,6 +263,12 @@ public class Template extends Model
     public String getImagePath()
     {
         return "/public/templates/"+filename_+".jpg";
+    }
+    
+    public String pathToFilledFileImage()
+    {       
+        
+        return pathToFilledFile+".jpg";
     }
 
 }

@@ -20,6 +20,7 @@
 package controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import play.*;
 import play.mvc.*;
 
@@ -154,7 +155,7 @@ public class Application extends Controller
         render();
     }
 
-    public static void insertionComplete()
+    public static void insertionComplete() throws FileNotFoundException
     {
         //Template template = Template.findById(id);
 
@@ -194,6 +195,28 @@ public class Application extends Controller
         //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
         template.pathToFilledFile = path1.replaceAll(playPath, "");
         //template.pathToFilledFile = "public/tmp/1305726987921/test123.txt";
+        
+        File file = new File(template.pathToFilledFile);
+        System.out.println("NAME: "+file.getName());
+        String[] splitted =  file.getName().split(".");
+        
+        for(int i = 0; i < splitted.length; i++)
+            System.out.println("X: "+splitted[i]);
+        
+        if(splitted.length > 1 && splitted[splitted.length-1] == "tex")
+        {
+            //System.out.println("TEX");
+            //Helper.texToPdf(new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile), new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
+            
+            
+        }
+        else
+        {
+            Helper.textToImage(document.getContent(),new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
+            
+        }
+        
+        
 
         render(template);
 
