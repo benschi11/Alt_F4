@@ -14,12 +14,17 @@ public class TagTest extends UnitTest
     @Test
     public void CreateAndRetrieveTags()
     {
+        for (Template item : Template.<Template>findAll())
+        {
+            item.delete();
+        }
+        
         Date now = new Date();
         Template temp = new Template("tagtest", "tagtest.txt", "Hanni", now, "Whhoot?", 11);
         Template temp2 = new Template("tagtest2", "tagtest2.txt", "Hanni", now, "lala", 21);
 
-        List<String>tagList1 = new ArrayList();
-        List<String>tagList2 = new ArrayList();
+        List<String> tagList1 = new ArrayList();
+        List<String> tagList2 = new ArrayList();
         tagList1.add("Boom");
         tagList1.add("Hallo");
         tagList2.add("Hallo123");
@@ -49,10 +54,7 @@ public class TagTest extends UnitTest
         }
 
         assert (templates != null);
-        assertEquals(templates2.size(), 1);
-
-        temp.delete();
-        temp2.delete();
+        assertEquals(templates2.size(), 2);
 
     }
 }
