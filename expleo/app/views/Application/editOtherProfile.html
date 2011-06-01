@@ -3,19 +3,48 @@
 
 <table style="width: 100%; border-top: #EEEEEE solid 1px;">
 
+<tr>
+    <td style="width: 45%; border-bottom: #EEEEEE solid 1px;">
+Username
+    </td>
+
+        <td style="width: 5%; border-bottom: #EEEEEE solid 1px;">
+Admin
+    </td>
+
+    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            Edit User
+    </td>
+
+    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            Delete User
+    </td>
+</tr>
+
+
 #{list items:all_users, as: 'curuser'}
 
 <tr>
-    <td style="width: 50%; border-bottom: #EEEEEE solid 1px;">
+    <td style="width: 45%; border-bottom: #EEEEEE solid 1px;">
 ${curuser.email_}
     </td>
 
-    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
-            <a href="@{Application.editOtherProfileNow(curuser.email_)}">Edit User</a>
+        <td style="width: 5%; border-bottom: #EEEEEE solid 1px;">
+
+   #{if curuser.admin_}
+<a href="@{Application.editAdmin(curuser.email_)}">${curuser.admin_}</a>
+   #{/ if}
+   #{else}
+   <a href="@{Application.editAdmin(curuser.email_)}">${curuser.admin_}</a>
+   #{/ else}
     </td>
 
     <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
-            <a href="@{Application.deleteUser(curuser.email_)}">Delete User</a>
+            <a href="@{Application.editOtherProfileNow(curuser.email_)}">Edit</a>
+    </td>
+
+    <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            <a href="@{Application.deleteUser(curuser.email_)}">Delete</a>
     </td>
 </tr>
 

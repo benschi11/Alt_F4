@@ -1,4 +1,26 @@
 /*
+ * COPYRIGHT INFORMATION
+ * 
+ * Developed by ALTernative + F4ntastic FOUR
+ * 
+ *  This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ * 
+ */
+
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -10,6 +32,9 @@ import play.data.validation.*;
 
 import java.util.*;
 import javax.persistence.*;
+import java.util.Map;
+import org.apache.commons.collections.MultiHashMap;
+//import org.apache.commons.collections.map.MultiValueMap;
 import utils.io.FileStringReader;
 import play.Play;
 
@@ -30,6 +55,9 @@ public class Template extends Model
   public int counterDownloads_;
   @Lob
   public HashMap templates_ = new HashMap<String, String>();
+  
+  public MultiHashMap labels_ = new MultiHashMap();
+  
   @Lob
   public String textFile;
   
@@ -78,6 +106,16 @@ public class Template extends Model
         {
             String command = (String) iterator.next();
             templates_.put(command, "");
+            
+            if(command.contains(":"))
+            {
+                String[] command_label = command.split(":");
+                labels_.put(command_label[0], command_label[1]);
+            }
+            else
+            {
+                labels_.put("0",command);
+            }
         }
 
     }
@@ -86,9 +124,9 @@ public class Template extends Model
     {   
         try
         {
-
             FileStringReader reader = new FileStringReader(template);
             String text = reader.read();
+            
 
             if(!Helper.isUtf8(text))
             {

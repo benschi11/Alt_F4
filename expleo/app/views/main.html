@@ -1,3 +1,26 @@
+<!--
+ * COPYRIGHT INFORMATION
+ * 
+ * Developed by ALTernative + F4ntastic FOUR
+ * 
+ *  This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ * 
+ */
+ -->
+
 <!DOCTYPE html>
 
 
@@ -30,7 +53,10 @@
                     
                     #{if user}
                     <span style="float:left; padding-top: 8px;"> Hello, <b>${user.firstname_}</b></span>
-                    <a href="@{Application.UserCP()}">User CP</a>
+                    <a href="@{Application.UserCP()}">Settings</a>
+                    #{if user.admin_}
+                    <a href="@{Application.AdminCP()}">Admin</a>
+                    #{/ if}
                     <a href="@{Secure.logout}">Logout</a>
                     #{/ if}
                     #{else}
@@ -50,7 +76,7 @@
                 #{doLayout /}
             </div>
             <div id="footer">
-                <a href="#">AGB</a>
+                <a href="/public/COPYRIGHT">AGB</a>
                 <a href="#">Impressum</a>
                 <a href="#">Kontakt</a>
             </div>

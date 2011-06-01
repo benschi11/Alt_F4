@@ -13,3 +13,5 @@ expleo/data/test/SimpleWrite.txt
 /expleo/app/controllers/test
 /framework/classes/
 *.orig
+expleo/public/templates/*
+*.log

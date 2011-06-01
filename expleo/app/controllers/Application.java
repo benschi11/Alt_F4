@@ -1,3 +1,24 @@
+/*
+ * COPYRIGHT INFORMATION
+ * 
+ * Developed by ALTernative + F4ntastic FOUR
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ * 
+ */
 package controllers;
 
 import java.io.File;
@@ -12,6 +33,7 @@ import models.generate.Document;
 import models.generate.DocumentGenerator;
 import play.Play;
 import play.data.validation.Required;
+import play.mvc.results.Redirect;
 
 public class Application extends Controller {
 
@@ -142,12 +164,40 @@ public class Application extends Controller {
 
 //      document.getFile().delete();
 
-        template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
+        String path1 = document.getFile().getAbsolutePath();
+        String playPath = Play.applicationPath.getAbsolutePath();
+
+
+
+        path1 = path1.replaceAll("\\\\", "/");
+        playPath = playPath.replaceAll("\\\\", "/");
+
+
+        //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
+        template.pathToFilledFile = path1.replaceAll(playPath, "");
+        //template.pathToFilledFile = "public/tmp/1305726987921/test123.txt";
 
         render(template);
 
 
 
+    }
+
+    public static void generatePdf(String temp) {
+        String path = Play.applicationPath.toString() + temp;
+        path = path.replaceAll("\\\\", "/");
+        File tex = new File(path);
+        File dest = new File(tex.getParent());
+        if (Helper.texToPdf(tex, dest)) {
+            String[] files = tex.getParent().split("tmp");
+            System.out.println(files[1]);
+            String name = tex.getName().substring(0, tex.getName().lastIndexOf("."));
+
+            System.out.println("PDF successfully!");
+            redirect("/public/tmp" + files[1] + "/" + name + ".pdf");
+        } else {
+            System.out.println("PDF createn failed!");
+        }
     }
 
     public static void UserCP() {
@@ -202,23 +252,36 @@ public class Application extends Controller {
         render(Errors, errorStatus);
     }
 
-    public static void editTemplates() {
+    public static void editTemplates(Boolean admin) {
+
+
+         User user = User.find("email_", Security.connected()).first();
 
         List<Template> all_templates = Template.findAll();
 
-        render(all_templates);
-
+        render(all_templates, user.email_, admin);
     }
 
     public static void editOtherProfile() {
-        List<Template> all_users = User.findAll();
+        User user = User.find("email_", Security.connected()).first();
+        if (user.admin_ == true) {
+            List<Template> all_users = User.findAll();
 
-        render(all_users);
+            render(all_users);
+        } else {
+            Errors.displayInlineError(2, "You dont have Admin Rights", "../Application/index");
+        }
     }
 
     public static void editOtherProfileNow(String username) {
-        User usercur = User.find("email_", username).first();
-        render("Application/editProfile.html", usercur);
+
+        User user = User.find("email_", Security.connected()).first();
+        if (user.admin_ == true) {
+            User usercur = User.find("email_", username).first();
+            render("Application/editProfile.html", usercur);
+        } else {
+            Errors.displayInlineError(2, "You dont have Admin Rights", "../Application/index");
+        }
     }
 
     public static void deleteUser(String username) {
@@ -227,12 +290,46 @@ public class Application extends Controller {
         String mail = usercur.email_;
         User.delete("email_", username);
 
-        
+
         if (mail.equals(username)) {
             redirect("/Secure/logout");
         } else {
             render("Application/deleteUser.html", username);
 
         }
+    }
+
+    public static void AdminCP() {
+        User user = User.find("email_", Security.connected()).first();
+
+        if (user.admin_ == true) {
+            render("Application/admincp.html");
+        } else {
+            Errors.displayInlineError(2, "You dont have Admin Rights", "../Application/index");
+        }
+    }
+
+    public static void editAdmin(String username) {
+
+        User usercur = User.find("email_", username).first();
+
+        if (usercur.admin_ == true) {
+            usercur.admin_ = false;
+        } else {
+            usercur.admin_ = true;
+        }
+
+        usercur.save();
+
+
+        render("Application/editadmin.html");
+    }
+
+
+
+    public static void deleteTemplate(String tempname) {
+
+        Template.delete("name_", tempname);
+        render("Application/deleteTemplate.html", tempname);
     }
 }

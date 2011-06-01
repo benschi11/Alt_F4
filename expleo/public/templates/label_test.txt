@@ -1,0 +1,7 @@
+%%label1:key1%%
+%%label1:key2%%
+%%label1:key2%%
+%%label2:key1%%
+%%label2:key2%%
+%%key1%%
+%%key2%%

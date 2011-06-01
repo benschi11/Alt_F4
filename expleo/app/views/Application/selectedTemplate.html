@@ -1,4 +1,27 @@
 <!--
+ * COPYRIGHT INFORMATION
+ * 
+ * Developed by ALTernative + F4ntastic FOUR
+ * 
+ *  This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ * 
+ */
+ -->
+
+<!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
@@ -17,24 +40,50 @@ and open the template in the editor.
      <br/>
      <div style="margin-left: 10%;">
 <table id="templateinputform">
-
     %{
-      Iterator iterator = loadedTemplate.getTemplates_().keySet().iterator();
-      int i=0;
+      Vector v = new Vector(loadedTemplate.labels_.keySet());
+      Collections.sort(v);
+      Iterator iterator = v.iterator();
       while(iterator.hasNext())
       {
-       String key = iterator.next();
-       String value = loadedTemplate.getValue(key);
-       i++;
+       String label = iterator.next();
+       Iterator label_iterator = loadedTemplate.labels_.iterator(label);
+       
+       if(label != "0")
+       {
        }%
-       <tr>
-           <td><h6>${key}:</h6></td>
-           <td><input class="input" type="text" name="${key}" value="${value}"></td>
-            <td><h7></h7></td>
-       </tr>
+           <tr>
+                <td class ="label">${label}</td>
+           </tr>
+       
+       %{
+       }
+       while(label_iterator.hasNext())
+       {
+        String key = label_iterator.next();   
+        
+       }%
+            <tr>
+                %{
+                if(label != "0"){
+                }%
+                <td class ="key_words">${key}:</td>
+                %{
+                }else
+                {
+                }%
+                <td class ="key_words_no_label">${key}:</td>
+                %{
+                }
+                }%
+                
+                <td><input class="input" type="text" name="${label}:${key}" value=""></td>
+                <td><h7></h7></td>
+            </tr>
 
        %{
       }
+     }
      }%
      <tr>
          <td colspan=3>

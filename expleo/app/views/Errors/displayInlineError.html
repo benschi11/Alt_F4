@@ -1,4 +1,4 @@
-/*
+<!--
  * COPYRIGHT INFORMATION
  * 
  * Developed by ALTernative + F4ntastic FOUR
@@ -19,24 +19,10 @@
  * 
  * 
  */
+ -->
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package controllers;
-
-/**
- *
- * @author Entwickler
- */
-
-
-import play.*;
-import play.mvc.*;
-
-@With(Secure.class)
-public class Templates extends CRUD{
-
-}
+#{extends 'main.html' /}
+<div class="notification error"><p>${errorString}</p></div>
+#{if location}
+<div id="back"><a href="${location}">Back</a></div>
+#{/if}
