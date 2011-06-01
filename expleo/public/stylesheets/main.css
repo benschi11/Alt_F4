@@ -337,9 +337,22 @@ h6 {
 }
 
 
-.tempPreviewImage{
+
+.tempPreviewImage
+{
     border: 1px black solid;
+    float:left;
+    width: 315px;
+    height: 446px;
+    margin-left: 20%;
+    padding: 1%;
 }
+
+.tempPreviewImage img{
+    height: 446px;
+    width: 315px;
+}
+
 
 .tempgalitem img{
     height: 130px;

@@ -171,7 +171,9 @@ public class Template extends Model
             
             Helper helper = new Helper();
             if(!extension.equals(".tex"))
+            {
                 helper.textToImage(temp);
+            }
             else
             {
                 Substitution sub = new Substitution(temp.textFile);
@@ -184,12 +186,20 @@ public class Template extends Model
                     map.put(key, key);
                 }
                 sub.replace(map);
-                File replaced_file = new File(Play.applicationPath.getAbsolutePath()+"/public/tmp/replace_"+temp.filename_);
+                File replaced_file = new File(Play.applicationPath.getAbsolutePath()+"/public/tmp/"+temp.filename_);
                 File destination = new File(replaced_file.getParent());
                 FileStringWriter writer = new FileStringWriter(replaced_file);
                 
                 writer.write(sub.getText());
                 helper.texToPdf(replaced_file, destination);
+                
+                String[] source_name = temp.filename_.split(".tex");
+                
+                File source = new File(destination+"/"+source_name[0]+".pdf");
+                destination = new File(Play.applicationPath.getAbsolutePath()+"/template/"+source_name[0]+".pdf.jpg");
+                
+                helper.pdfToImage(source, destination);
+                
                 
             }
 

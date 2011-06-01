@@ -44,10 +44,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.text.AttributedCharacterIterator.Attribute;
 import java.text.AttributedString;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import play.Play;
+import utils.Substitution;
 
 public class Helper
 {
@@ -131,9 +135,10 @@ public class Helper
         }
     }
 
-    public static void pdfToImage(File source, File destination)
+    public static void pdfToImage(File source, File destination) throws Exception
     {
-        ProcessBuilder imageBuilder = new ProcessBuilder("java -jar pdfbox-app-x.y.z.jar PDFToImage -endPage 1 ", source.getAbsolutePath());
+
+        ProcessBuilder imageBuilder = new ProcessBuilder("java", "-jar", "pdfbox.jar", "PDFToImage", "-endPage", "1", source.getAbsolutePath());
         File directory = new File(Play.applicationPath.getAbsolutePath() + "/lib/");
         imageBuilder.directory(directory);
 
@@ -149,8 +154,9 @@ public class Helper
 
         String tmp = null;
         String error = null;
-        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        System.out.println("latex wird kompiliert");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+
 
         try
         {
@@ -175,7 +181,41 @@ public class Helper
         }
         if (p.exitValue() == 0)
         {
-            System.out.println("Latex compilition successfull.");
+            System.out.println("Bildi fertig.");
+            String[] new_source = source.getAbsolutePath().split(".pdf");
+
+            File file = new File(new_source[0] + "1.jpg");
+            
+            System.out.println("Filename: "+file.getName());
+            
+            String[] split = file.getName().split("1.jpg"); 
+
+// Destination directory
+            File dir = new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + split[0] + ".tex.jpg");
+
+// Move file to new directory
+            
+            boolean success = false;
+            
+            try
+                
+            {
+                System.out.println("Kopiere datei: "+file.getAbsolutePath());
+                System.out.println("Nach: "+ dir.getAbsolutePath());
+                
+              success = file.renameTo(dir);
+            }catch(Exception e)
+            {
+                System.out.println("Exception: "+e.getMessage());
+            }
+            
+            if(!success)
+            {
+                System.out.println("Scheiße passiert");
+            }
+
+           
+
             return;
         } else
         {
@@ -195,26 +235,39 @@ public class Helper
         System.out.println("image2" + image2);
 
 
+        Substitution sub = new Substitution(template.textFile);
+        
+        Map map = new HashMap(template.templates_);
+                Iterator it = map.keySet().iterator();
+                
+                while(it.hasNext())
+                {
+                    String key = (String) it.next();                    
+                    map.put(key, key);
+                }
+                sub.replace(map);
 
 
         image.createGraphics().drawImage(image2, 0, 0, null);
         image.getGraphics().setColor(Color.WHITE);
-        image.getGraphics().fillRect(0, 0, 400, 300);        
+        image.getGraphics().fillRect(0, 0, 400, 300);
         image.getGraphics().setColor(Color.BLACK);
         image.getGraphics().setFont(new Font("Serif", Font.PLAIN, 12));
 
-        String[] output = template.textFile.split("\n");
+        String[] output = sub.getText().split("\n");
 
         for (int i = 0; i < output.length; i++)
         {
-            if(output[i].length() == 0)
+            if (output[i].length() == 0)
+            {
                 continue;
+            }
             AttributedString as = new AttributedString(output[i]);
 
-            
+
             as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
 
-            image.getGraphics().drawString(as.getIterator(), 10, 20+(20*i));
+            image.getGraphics().drawString(as.getIterator(), 10, 20 + (20 * i));
         }
 
         try
