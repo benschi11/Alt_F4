@@ -30,6 +30,8 @@ import org.apache.commons.collections.MultiHashMap;
 //import org.apache.commons.collections.map.MultiValueMap;
 import utils.io.FileStringReader;
 import play.Play;
+import utils.Substitution;
+import utils.io.FileStringWriter;
 
 @Entity
 public class Template extends Model
@@ -63,6 +65,7 @@ public class Template extends Model
   public String userRegistered;
           
   public Boolean isHidden;
+  
   
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
@@ -139,7 +142,7 @@ public class Template extends Model
 
             int dotPos = template.getName().lastIndexOf(".");
             String newName;
-            String extension;
+            String extension = null;
 
             if (dotPos != -1)
             {
@@ -152,14 +155,49 @@ public class Template extends Model
             }
 
 
-            File copy_to = new File("expleo/public/templates/" + newName);
+            File copy_to = new File(Play.applicationPath.getAbsolutePath()+"/public/templates/" + newName);
 
-            System.out.println(copy_to.getAbsolutePath());
+            //System.out.println(copy_to.getAbsolutePath());
             Helper.copy(template, copy_to);
 
             temp.filename_ = newName;
             temp.calculateForm();
             temp.save();
+            
+            Helper helper = new Helper();
+            if(!extension.equals(".tex"))
+            {
+                helper.textToImage(temp);
+            }
+            else
+            {
+                Substitution sub = new Substitution(temp.textFile);
+                Map map = new HashMap(temp.templates_);
+                Iterator it = map.keySet().iterator();
+                
+                while(it.hasNext())
+                {
+                    String key = (String) it.next();                    
+                    map.put(key, key);
+                }
+                sub.replace(map);
+                File replaced_file = new File(Play.applicationPath.getAbsolutePath()+"/public/tmp/"+temp.filename_);
+                File destination = new File(replaced_file.getParent());
+                FileStringWriter writer = new FileStringWriter(replaced_file);
+                
+                writer.write(sub.getText());
+                
+                helper.texToPdf(replaced_file, destination);
+                
+                String[] source_name = temp.filename_.split(".tex");
+                
+                File source = new File(destination+"/"+source_name[0]+".pdf");
+                destination = new File(Play.applicationPath.getAbsolutePath()+"/template/"+source_name[0]+".pdf.jpg");
+                
+                helper.pdfToImage(source, destination);
+                
+                
+            }
 
             return null;
         }
@@ -219,6 +257,12 @@ public class Template extends Model
                 this.addSubstitution(temp, map.get(temp)[0]);
             }
         }
+    }
+    
+    
+    public String getImagePath()
+    {
+        return "/public/templates/"+filename_+".jpg";
     }
 
 }
