@@ -63,8 +63,7 @@ public class Application extends Controller
         Boolean success = false;
         
         String user = Security.connected();
-        
-          System.out.println("ISHIDDEN: "+ request.params.get("isHidden"));
+       
           
           String hidden = request.params.get("isHidden");
         

@@ -185,7 +185,7 @@ public class Template extends Model
                 }
                 sub.replace(map);
                 File replaced_file = new File(Play.applicationPath.getAbsolutePath()+"/public/tmp/replace_"+temp.filename_);
-                File destination = new File(Play.applicationPath.getAbsolutePath()+"/public/templates/");
+                File destination = new File(replaced_file.getParent());
                 FileStringWriter writer = new FileStringWriter(replaced_file);
                 
                 writer.write(sub.getText());

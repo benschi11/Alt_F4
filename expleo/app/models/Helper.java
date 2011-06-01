@@ -105,7 +105,6 @@ public class Helper
         {
             while ((tmp = br.readLine()) != null)
             {
-                System.out.println("In while");
                 error = error + tmp + "\n";
             }
 
