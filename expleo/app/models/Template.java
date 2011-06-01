@@ -191,6 +191,7 @@ public class Template extends Model
                 FileStringWriter writer = new FileStringWriter(replaced_file);
                 
                 writer.write(sub.getText());
+                
                 helper.texToPdf(replaced_file, destination);
                 
                 String[] source_name = temp.filename_.split(".tex");
