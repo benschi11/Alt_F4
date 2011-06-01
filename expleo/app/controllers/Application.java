@@ -21,6 +21,7 @@ package controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import play.*;
 import play.mvc.*;
 
@@ -34,6 +35,7 @@ import play.Play;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.mvc.results.Redirect;
+import utils.io.FileStringReader;
 
 public class Application extends Controller
 {
@@ -155,7 +157,7 @@ public class Application extends Controller
         render();
     }
 
-    public static void insertionComplete() throws FileNotFoundException
+    public static void insertionComplete() throws FileNotFoundException, IOException
     {
         //Template template = Template.findById(id);
 
@@ -211,7 +213,10 @@ public class Application extends Controller
         }
         else
         {
-            Helper.textToImage(document.getContent(),new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
+            FileStringReader reader = new FileStringReader(document);
+            
+            
+            Helper.textToImage(reader.read(),new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
             
         }
         
