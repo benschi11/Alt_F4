@@ -26,7 +26,7 @@ public class TagSplittingTest extends FunctionalTest
 
         for (String item : tagList)
         {
-            System.out.println("Tag: " + item);
+            System.out.println("Tag: " + item + item.length());
         }
 
     }
@@ -45,8 +45,7 @@ public class TagSplittingTest extends FunctionalTest
         {
             tagList.set(index, tagList.get(index).replace("^\\s*", ""));
             tagList.set(index, tagList.get(index).replace("\\s*$", ""));
-        
-            if (tagList.get(index).equals(""))
+            if (tagList.get(index).length() == 0)
             {
                 tagList.remove(index);
             }
