@@ -1,0 +1,12 @@
+#{selenium 'test'}
+
+//Open the upload page and check content
+    open('/application/upload')
+    assertTextPresent('Upload a template')
+
+type('name','Test')
+type('tags','Hallo wie gehts')
+clickAndWait('css=input[type=submit]')
+
+open('/application/')
+#{/selenium}
