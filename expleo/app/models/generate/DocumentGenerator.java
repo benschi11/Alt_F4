@@ -23,7 +23,7 @@ public class DocumentGenerator
 
 	protected File templateFile;
 	protected Map<String, String> keywordMap;
-	private final File file = new File(Play.applicationPath.getAbsolutePath() + "/public/tmp/");
+	private final static File file = new File(Play.applicationPath.getAbsolutePath() + "/public/tmp/");
 
 	public DocumentGenerator(File templateFile, Map<String, String> keywordMap)
 	{
@@ -31,7 +31,7 @@ public class DocumentGenerator
 		this.keywordMap = keywordMap;
 	}
 
-	private synchronized File createUniqueFolder()
+	private static synchronized File createUniqueFolder()
 	{
 		File folder = new File(file.getAbsolutePath() + "/" + System.currentTimeMillis());
 		folder.mkdir();
