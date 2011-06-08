@@ -41,8 +41,7 @@ public class Application extends Controller
 
     public static void index()
     {
-        List<Template> test = Template.findAll();
-        render(test);
+        render();
     }
 
     @Before
@@ -168,8 +167,8 @@ public class Application extends Controller
     public static void showSingleTemplate(long id)
     {
         Template template = Template.findById(id);
-
-        render(template);
+        List<Tag> tags = template.sortTags(template);
+        render(template, tags);
     }
 
     public static void simpleLink()

@@ -219,4 +219,11 @@ public class Template extends Model
     {
         return Template.find("select distinct tp from Template tp join tp.tags as t where t.name = ?", tag).fetch();
     }
+
+    public List<Tag> sortTags(Template template)
+    {
+        List<Tag> sortedTags = new ArrayList<Tag>(template.tags);
+        java.util.Collections.sort(sortedTags);
+        return sortedTags;
+    }
 }

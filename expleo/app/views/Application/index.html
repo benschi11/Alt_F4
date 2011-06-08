@@ -23,22 +23,3 @@
 
 #{extends 'main.html' /}
 #{set title:'Home' /}
-
-
-#{list items:test, as:'temp'}
-
-%{
-        Iterator x = temp.tags.iterator();
-        while (x.hasNext())
-        {
-            String tag = x.next().toString();
-            %}
-            <p><b>${temp.name_}</b></p>
-                ${tag}
-            %{
-        }
-
-%}
-<p>-------------------------------------------</p>
-
-#{/list}
