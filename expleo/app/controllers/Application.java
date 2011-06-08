@@ -50,7 +50,7 @@ public class Application extends Controller {
 
             User user = User.find("email_", Security.connected()).first();
             if (user != null) {
-            {
+            
                 renderArgs.put("user", user);
             }
         }
@@ -62,7 +62,7 @@ public class Application extends Controller {
         Boolean success = false;
 
         String user = Security.connected();
-<Zusammenführungskonflikt>
+
 
 
         String hidden = request.params.get("isHidden");
