@@ -457,7 +457,8 @@ public class Application extends Controller
     public static void deleteTemplate(String tempname)
     {
 
-        Template.delete("name_", tempname);
+        Template temp = Template.find("name_", tempname).first();
+        temp.delete();
         render("Application/deleteTemplate.html", tempname);
     }
 }
