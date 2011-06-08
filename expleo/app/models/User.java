@@ -51,7 +51,7 @@ public class User extends Model
         }
         else
         {
-            this.admin_ = true;
+            this.admin_ = false;
         }
     }
 
