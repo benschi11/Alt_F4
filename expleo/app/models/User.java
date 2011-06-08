@@ -67,7 +67,15 @@ public class User extends Model
         this.lastname_ = lastname;
         this.question_ = question;
         this.answer_ = answer;
-        this.admin_ = false;
+        
+        if (User.count() == 0)
+        {
+            this.admin_ = true;
+        }
+        else
+        {
+            this.admin_ = false;
+        }
     }
 
     public static User connect(String email, String password)
