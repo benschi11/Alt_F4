@@ -57,26 +57,20 @@ public class Template extends Model
   public String author_;
   public Date dateCreated_;
     @Lob
-  public String description_;
-  
-  public int counterDownloads_;
-  @Lob
-  public HashMap templates_ = new HashMap<String, String>();
-  
-  public MultiHashMap labels_ = new MultiHashMap();
-  
-  @Lob
-  public String textFile;
-  
-  public String documentPath;
-  
-  public String pathToFilledFile;
-          
-  public String userRegistered;
-          
-  public Boolean isHidden;
-  
-  
+    public String description_;
+    public int counterDownloads_;
+    @Lob
+    public HashMap templates_ = new HashMap<String, String>();
+	public MultiHashMap labels_ = new MultiHashMap();
+    @Lob
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    public Set<Tag> tags;
+    @Lob
+    public String textFile;
+    public String documentPath;
+    public String pathToFilledFile;
+    public String userRegistered;
+    public Boolean isHidden;
 
     public Template(String name_, String filename_, String author_, Date dateCreated_, String description_, int counterDownloads_)
     {
@@ -86,6 +80,7 @@ public class Template extends Model
         this.dateCreated_ = dateCreated_;
         this.description_ = description_;
         this.counterDownloads_ = counterDownloads_;
+        this.tags = new TreeSet<Tag>();
         this.pathToFilledFile = null;
         this.userRegistered = null;
         this.isHidden = false;
@@ -343,4 +338,24 @@ Set<String> commands = new TreeSet<String>();
         return pathToFilledFile+".jpg";
     }
 
+    public Template tagItWith(List<String> name)
+    {
+        for (String item : name)
+        {
+            tags.add(Tag.findOrCreateByName(item));
+        }
+        return this;
+    }
+
+    public static List<Template> findTaggedWith(String tag)
+    {
+        return Template.find("select distinct tp from Template tp join tp.tags as t where t.name = ?", tag).fetch();
+    }
+
+    public List<Tag> sortTags(Template template)
+    {
+        List<Tag> sortedTags = new ArrayList<Tag>(template.tags);
+        java.util.Collections.sort(sortedTags);
+        return sortedTags;
+    }
 }

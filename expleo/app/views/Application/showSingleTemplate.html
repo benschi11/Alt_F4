@@ -33,12 +33,34 @@
     </div>
     <div class="clear"></div>
 
-    <div class="tempDescription">
-        <h2>Description</h2>
-        <p>${template.description_}</p>
-    </div>
+<div class="tempDescription">
+    <h2>Description</h2>
+    <p>${template.description_}</p>
+</div>
 
-    <div class="tempAjax"><a href="@{Application.selectedTemplate(template.id)}"><h2>--Input Data--</h2></a></div>
+Tags:
+#{list items:tags, as:'tag'}
+<p class="tagItem">
+    ${tag}
+</p>
+#{/list}
+
+<div class="tempAjax"><a href="@{Application.selectedTemplate(template.id)}"><h2>--Input Data--</h2></a></div>
+
+<center>
+    <div id="tagForm">
+        <form action="@{Application.tagIt(template.name_)}" method="POST" enctype="multipart/form-data">
+            <p>
+                <label for="name">Tags:</label>
+                <br />
+                <input name="tags" id="tags" cols="50" rows="2"></input>
+            </p>
+            <p>
+                <input type="submit" value="Tag It" name="tagit" />
+            </p>
+        </form>
+    </div>
+</center>
     
     #{if template.pathToFilledFile != null}
     <div class="tempPreview">

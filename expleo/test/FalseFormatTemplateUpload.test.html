@@ -1,0 +1,15 @@
+#{selenium 'False Format Template Upload'}
+
+//False format
+open('/application/upload')
+assertTextPresent('Upload a template')
+
+type('name','Test2')
+type('tags','Ahask wie wie en')
+type('description','Zweites TestFile')
+click('css=input[type=file]')
+pause(5000)
+clickAndWait('css=input[name=upload]')
+assertTextPresent('Template has to be a plain-text file (encoded in UTF-8).')
+
+#{/selenium}

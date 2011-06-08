@@ -155,6 +155,8 @@ public class RegisterTest extends UnitTest {
         //{
           //  System.out.println("Error:" + item);
         //}
+        
+        User.deleteAll();
 
         
 

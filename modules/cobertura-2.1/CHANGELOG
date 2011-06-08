@@ -1,0 +1,11 @@
+
+- Create changelog file
+- Migrate to github 
+
+*** Version 2:
+- Introduce controller for  Generate/reset cobertura without restart your application
+
+
+*** Version 1: 
+- Initial release
+- Generate cobertura report (html/xml)

@@ -21,9 +21,11 @@ public class TemplateTest extends UnitTest {
     @Test
     public void TemplateStorageTest()
     {
-        Template.deleteAll();
+        for (Template item : Template.<Template>findAll())
+        {
+            item.delete();
+        }
 
-        
         Date now = new Date();
         Template temp1 = new Template("test1", "testfile.txt", "author", now, "Description", 4);
         
@@ -38,7 +40,10 @@ public class TemplateTest extends UnitTest {
     @Test
     public void TemplateDeleteTest()
     {
-        Template.deleteAll();
+        for (Template item : Template.<Template>findAll())
+        {
+            item.delete();
+        }
         
         Date now = new Date();
         Template temp1 = new Template("test1", "testfile.txt", "author", now, "Description", 4);

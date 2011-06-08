@@ -7,9 +7,7 @@
         type('firstname', 'test')
         type('lastname', 'test')
         clickAndWait('//input[@value='Register']')
-        clickAndWait('link=Login')
-        type('username', 'josef@josef.at')
-        type('password', 'josef1')
+        
         clickAndWait('link=Register')
         type('email', 'josef@josef.at')
         type('password', 'josef1')
@@ -21,17 +19,25 @@
         type('username', 'josef@josef.at')
         type('password', 'josef1')
         clickAndWait('signin')
+        clickAndWait('link=Logout')
+        
+        clickAndWait('link=Login')
+        type('username', 'test@test.at')
+        type('password', 'testtest')
+        clickAndWait('signin')
+        clickAndWait('link=Admin')
+        clickAndWait('link=Manage Profiles')
+        clickAndWait('//div[@id='content']/table/tbody/tr[3]/td[4]/a')
+	getText('//p[@id='userdel']', 'User josef@josef.at successfully deleted! ')
         clickAndWait('link=Admin')
         clickAndWait('link=Manage Profiles')
         clickAndWait('//div[@id='content']/table/tbody/tr[2]/td[4]/a')
-	getText('//p[@id='userdel']', 'User test@test.at successfully deleted! ')
-	clickAndWait('link=Logout')
+        
         clickAndWait('link=Login')
         type('username', 'josef@josef.at')
         type('password', 'josef1')
         clickAndWait('signin')
-        clickAndWait('link=Admin')
-        clickAndWait('link=Manage Profiles')
-        clickAndWait('//div[@id='content']/table/tbody/tr[2]/td[4]/a')
+        getText('//div[@class='notification error']', 'Oops, unknown username or password. ')
+        
 #{/selenium}
 
