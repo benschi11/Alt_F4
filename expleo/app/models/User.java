@@ -16,8 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-
-
 package models;
 
 import play.*;
@@ -26,11 +24,9 @@ import play.db.jpa.*;
 import java.util.*;
 import javax.persistence.*;
 
-
 @Entity
-public class User extends Model {
-
-
+public class User extends Model
+{
 
     public String email_;
     public String password_;
@@ -40,25 +36,28 @@ public class User extends Model {
     public String answer_;
     public boolean admin_;
 
-	public User(String email_, String password_, String firstname_, String lastname_, String question_, String answer_)
-	{
-		this.email_ = email_;
-		this.password_ = password_;
-		this.firstname_ = firstname_;
-		this.lastname_ = lastname_;
-		this.question_ = question_;
-		this.answer_ = answer_;
-		this.admin_ = false;
-	}
+    public User(String email_, String password_, String firstname_, String lastname_, String question_, String answer_)
+    {
+        this.email_ = email_;
+        this.password_ = password_;
+        this.firstname_ = firstname_;
+        this.lastname_ = lastname_;
+        this.question_ = question_;
+        this.answer_ = answer_;
 
-	public User()
-	{
-		
-	}
-	 
+        if (User.count() == 0)
+        {
+            this.admin_ = true;
+        }
+        else
+        {
+            this.admin_ = false;
+        }
+    }
 
-
-
+    public User()
+    {
+    }
 
     public void register(String email, String password, String firstname, String lastname, String question, String answer)
     {
@@ -68,7 +67,15 @@ public class User extends Model {
         this.lastname_ = lastname;
         this.question_ = question;
         this.answer_ = answer;
-        this.admin_ = false;
+        
+        if (User.count() == 0)
+        {
+            this.admin_ = true;
+        }
+        else
+        {
+            this.admin_ = false;
+        }
     }
 
     public static User connect(String email, String password)
@@ -76,5 +83,4 @@ public class User extends Model {
         return find("byEmail_AndPassword_", email, password).first();
 
     }
-
 }
