@@ -39,6 +39,21 @@
     </div>
 
     <div class="tempAjax"><a href="@{Application.selectedTemplate(template.id)}"><h2>--Input Data--</h2></a></div>
+
+    <center>
+   <div id="tagForm">
+  <form action="@{Application.tagIt(template.name_)}" method="POST" enctype="multipart/form-data">
+     <p>
+        <label for="name">Tags:</label>
+        <br />
+        <input name="tags" id="tags" cols="50" rows="2"></input>
+    </p>
+    <p>
+        <input type="submit" value="Tag It" name="tagit" />
+    </p>
+  </form>
+    </div>
+    </center>
     
     #{if template.pathToFilledFile != null}
     <div class="tempPreview">
@@ -52,4 +67,5 @@
         <h2>As registered User you can choose between:</h2>
       <a href="#"><h2>Save</h2></a>
     </div>
+
 #{/ if}
