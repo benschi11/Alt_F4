@@ -172,20 +172,13 @@ public class Application extends Controller
         while (iterator.hasNext())
         {
             String key = (String) iterator.next();
-            System.out.println("!!!Key: " + key + " value: " + template.templates_.get(key));
+     
         }
 
         DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_), template.getTemplates_());
         File document = generator.create();
         
         FileStringReader reader_temp = new FileStringReader(document);
-        //System.out.println("Gespeicherter Text:"+reader_temp.read());
-        System.out.println("Pfad: "+document.getAbsolutePath());
-
-//        System.out.println(document);
-//        System.out.println(document.getFile());
-//        System.out.println(document.getFile().getAbsolutePath());
-//        System.out.println(document.getContent());
 
 //      document.getFile().delete();
 
@@ -205,7 +198,7 @@ public class Application extends Controller
         
         
         File file = new File(template.pathToFilledFile);
-        System.out.println("NAME: "+file.getName());
+
         String[] splitted =  file.getName().split(".");
         
         for(int i = 0; i < splitted.length; i++)
