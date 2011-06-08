@@ -57,7 +57,7 @@ public class User extends Model
         }
         else
         {
-            this.admin_ = false;
+            this.admin_ = true; //später auf false ändern!
         }
     }
 
@@ -80,7 +80,7 @@ public class User extends Model
         }
         else
         {
-            this.admin_ = false;
+            this.admin_ = true;
         }
     }
 
