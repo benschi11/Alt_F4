@@ -26,7 +26,7 @@
         <p> #${template.counterDownloads_} Downloads</p>
     </div>
     <div class="tempPreviewImage">
-        <a href="#"><img src="@{'/public/images/test_tempImg.jpg'}" /></a>
+        <a href="${template.pathToFilledFileImage()}"><img src="${template.pathToFilledFileImage()}" /></a>
     </div>
     <div class="clear"></div>
 
@@ -46,7 +46,19 @@
     <div class="tempPreview">
         <h2>Preview as</h2>
         <a href="@{Application.generatePdf(template.pathToFilledFile)}">PDF</a>
-        <a href="${template.pathToFilledFile}">Plain Text</a>
+		  <a href="${template.pathToFilledFile}">
+%{
+	if (template.pathToFilledFile.substring(template.pathToFilledFile.lastIndexOf(".") + 1).equals("docx")) {
+}%
+DOCX
+%{
+} else {
+}%
+Plain Text
+%{
+}
+}%
+     </a>
     </div>
     <div class="tempUserOptions">
         <h2>As registered User you can choose between:</h2>
