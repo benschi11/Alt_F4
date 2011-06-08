@@ -321,3 +321,8 @@ h6 {
     background: #008800 !important;
 }
 
+.tagItem{
+
+    font-weight: bold;
+    padding-left: 3%;
+}

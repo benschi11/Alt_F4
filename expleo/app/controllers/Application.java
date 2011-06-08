@@ -111,7 +111,7 @@ public class Application extends Controller
         tagList = createTags(tags);
         Template temp = Template.find("name_", template).first();
         temp.tagItWith(tagList).save();
-        showAllTemplates();
+        showSingleTemplate(temp.id);
     }
 
     public static List<String> createTags(String fullString)
