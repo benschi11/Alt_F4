@@ -108,12 +108,14 @@ Set<String> commands = new TreeSet<String>();
         while (iterator.hasNext())
         {
             String command = (String) iterator.next();
+            System.out.println("Kommando hinzugefügt: "+command);
             templates_.put(command, "");
 
             if(command.contains(":"))
             {
                 String[] command_label = command.split(":");
                 labels_.put(command_label[0], command_label[1]);
+                
             }
             else
             {
@@ -312,8 +314,13 @@ Set<String> commands = new TreeSet<String>();
         while (mapIterator.hasNext())
         {
             String temp = (String) mapIterator.next();
+            
+            System.out.println("!!!key: "+temp);
+            
             if (this.templates_.containsKey(temp))
             {
+                
+                
                 this.addSubstitution(temp, map.get(temp)[0]);
             }
         }

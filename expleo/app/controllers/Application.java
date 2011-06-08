@@ -21,6 +21,7 @@ package controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import play.*;
 import play.mvc.*;
@@ -171,11 +172,15 @@ public class Application extends Controller
         while (iterator.hasNext())
         {
             String key = (String) iterator.next();
-            System.out.println("Key: " + key + " value: " + template.templates_.get(key));
+            System.out.println("!!!Key: " + key + " value: " + template.templates_.get(key));
         }
 
         DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_), template.getTemplates_());
         File document = generator.create();
+        
+        FileStringReader reader_temp = new FileStringReader(document);
+        //System.out.println("Gespeicherter Text:"+reader_temp.read());
+        System.out.println("Pfad: "+document.getAbsolutePath());
 
 //        System.out.println(document);
 //        System.out.println(document.getFile());
@@ -196,6 +201,8 @@ public class Application extends Controller
         //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
         template.pathToFilledFile = path1.replaceAll(playPath, "");
         //template.pathToFilledFile = "public/tmp/1305726987921/test123.txt";
+        
+        
         
         File file = new File(template.pathToFilledFile);
         System.out.println("NAME: "+file.getName());

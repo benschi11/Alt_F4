@@ -38,6 +38,7 @@ public class Substitution {
         Iterator iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry replacePairs = (Map.Entry) iterator.next();
+            System.out.println("Ersetze: "+replacePairs.getKey()+" mit :"+replacePairs.getValue());
             text = text.replaceAll("%%" + replacePairs.getKey().toString() + "%%", replacePairs.getValue().toString());
         }
     }
