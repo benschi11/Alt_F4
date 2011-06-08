@@ -11,6 +11,7 @@ expleo/logs
 expleo/data/test/SimpleWrite.txt
 /expleo/db/
 /expleo/app/controllers/test
+expleo/cobertura.ser
 /expleo/public/templates/*
 *.aux
 *.log
