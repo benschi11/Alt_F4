@@ -18,7 +18,7 @@
  * 
  * 
  * 
- */
+*/
 
 h2,h3,h4,h5,h6,div,p,body,html,input,button {
     font: normal 12px Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, Sans-serif;
@@ -57,7 +57,7 @@ body {
     height: 80px;
     float: left;
     padding-left: 70px;
-   
+
 }
 
 #menu a{
@@ -314,14 +314,14 @@ h6 {
 
 #login .error {
     background: red !important;
-	 padding-left: 20px;
+    padding-left: 20px;
 }
 
 #login .success {
     background: #008800 !important;
 }
 
-.tagItem{
+.tagItem {
 
     font-weight: bold;
     padding-left: 3%;
