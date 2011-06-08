@@ -22,6 +22,8 @@
 package controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import play.*;
 import play.mvc.*;
 
@@ -35,6 +37,7 @@ import play.Play;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.mvc.results.Redirect;
+import utils.io.FileStringReader;
 
 public class Application extends Controller {
 
@@ -132,19 +135,19 @@ public class Application extends Controller {
         render(template);
     }
 
-    public static void simpleLink() {
-
-        String applicationPath = Play.applicationPath.getAbsolutePath();
-        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
-        Map<String, String> replaceMap = new HashMap<String, String>();
-        replaceMap.put("%name%", "John");
-
-
-        DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
-        models.generate.Document document = generator.create();
-        String path = "/public/tmp/" + document.getFile().getName();
-        render(path);
-    }
+//    public static void simpleLink()
+//    {
+//        String applicationPath = Play.applicationPath.getAbsolutePath();
+//        File templateFile = new File(applicationPath + "/data/test/SimpleDocument.txt");
+//        Map<String, String> replaceMap = new HashMap<String, String>();
+//        replaceMap.put("%name%", "John");
+//
+//
+//        DocumentGenerator generator = new DocumentGenerator(templateFile, replaceMap);
+//        models.generate.Document document = generator.create();
+//        String path = "/public/tmp/" + document.getFile().getName();
+//        render(path);
+//    }
 
     public static void selectedTemplate(Long id) {
 
@@ -157,8 +160,8 @@ public class Application extends Controller {
         render();
     }
 
-    public static void insertionComplete() {
-
+    public static void insertionComplete() throws FileNotFoundException, IOException
+    {
         //Template template = Template.findById(id);
 
         Map<String, String[]> map = request.params.all();
@@ -168,24 +171,23 @@ public class Application extends Controller {
 
         Iterator iterator = template.templates_.keySet().iterator();
 
-        while (iterator.hasNext()) {
-
+        while (iterator.hasNext())
+        {
             String key = (String) iterator.next();
             System.out.println("Key: " + key + " value: " + template.templates_.get(key));
         }
 
         DocumentGenerator generator = new DocumentGenerator(new File(Play.applicationPath.getAbsolutePath() + "/public/templates/" + template.filename_), template.getTemplates_());
+        File document = generator.create();
 
-        Document document = generator.create();
-
-        System.out.println(document);
-        System.out.println(document.getFile());
-        System.out.println(document.getFile().getAbsolutePath());
-        System.out.println(document.getContent());
+//        System.out.println(document);
+//        System.out.println(document.getFile());
+//        System.out.println(document.getFile().getAbsolutePath());
+//        System.out.println(document.getContent());
 
 //      document.getFile().delete();
 
-        String path1 = document.getFile().getAbsolutePath();
+		  String path1 = document.getAbsolutePath();
         String playPath = Play.applicationPath.getAbsolutePath();
 
 
@@ -197,6 +199,30 @@ public class Application extends Controller {
         //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
         template.pathToFilledFile = path1.replaceAll(playPath, "");
         //template.pathToFilledFile = "public/tmp/1305726987921/test123.txt";
+        
+        File file = new File(template.pathToFilledFile);
+        System.out.println("NAME: "+file.getName());
+        String[] splitted =  file.getName().split(".");
+        
+        for(int i = 0; i < splitted.length; i++)
+            System.out.println("X: "+splitted[i]);
+        
+        if(splitted.length > 1 && splitted[splitted.length-1] == "tex")
+        {
+            //System.out.println("TEX");
+            //Helper.texToPdf(new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile), new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
+            
+            
+        }
+        else
+        {
+            FileStringReader reader = new FileStringReader(document);
+            
+            
+            Helper.textToImage(reader.read(),new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
+            
+        }
+        
 
         render(template);
 
