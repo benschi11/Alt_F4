@@ -19,6 +19,8 @@ public class AdminTest extends UnitTest {
         user.save();
         assertEquals(false, user.admin_);
         
+        User.deleteAll();
+        
     }
     
 }
