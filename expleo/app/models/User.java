@@ -15,6 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * 
+ * 
+ * 
+ * 
+ */
+
+/*
  */
 package models;
 
@@ -51,7 +57,7 @@ public class User extends Model
         }
         else
         {
-            this.admin_ = false;
+            this.admin_ = true; //später auf false ändern!
         }
     }
 
@@ -74,7 +80,7 @@ public class User extends Model
         }
         else
         {
-            this.admin_ = false;
+            this.admin_ = true;
         }
     }
 
@@ -82,5 +88,17 @@ public class User extends Model
     {
         return find("byEmail_AndPassword_", email, password).first();
 
+    }
+
+    public void edit(String password, String firstname, String lastname, String question, String answer)
+    {
+
+        if (password.length() > 0)
+          this.password_ = password;
+
+        this.firstname_ = firstname;
+        this.lastname_ = lastname;
+        this.question_ = question;
+        this.answer_ = answer;
     }
 }

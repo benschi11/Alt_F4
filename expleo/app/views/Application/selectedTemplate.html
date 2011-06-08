@@ -19,6 +19,9 @@
  -->
 
 <!--
+ -->
+
+<!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
@@ -65,17 +68,21 @@ and open the template in the editor.
                 if(label != "0"){
                 }%
                 <td class ="key_words">${key}:</td>
+                <td><input class="input" type="text" name="${label}:${key}" value="${key}" onclick="this.value = ''"></td>
+                
                 %{
                 }else
                 {
                 }%
                 <td class ="key_words_no_label">${key}:</td>
+                <td><input class="input" type="text" name="${key}" value="${key}" onclick="this.value = ''"></td>
+                
                 %{
                 }
                 }%
                 
-                <td><input class="input" type="text" name="${label}:${key}" value="${key}" onclick="this.value = ''"></td>
-                <td><h7></h7></td>
+                 
+                 <td><h7></h7></td>
             </tr>
 
        %{

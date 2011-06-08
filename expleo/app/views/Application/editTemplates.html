@@ -1,0 +1,50 @@
+#{extends 'main.html' /}
+<h1>Template Management</h1>
+
+<table style="width: 100%; border-top: #EEEEEE solid 1px;">
+
+<tr>
+    <td style="width: 70%; border-bottom: #EEEEEE solid 1px;">
+Name
+    </td>
+
+        <td style="width: 30%; border-bottom: #EEEEEE solid 1px;">
+Delete the Template
+    </td>
+
+
+</tr>
+
+#{list items:all_templates, as: 'curtemp'}
+#{if admin == true}
+
+<tr>
+    <td style="width: 70%; border-bottom: #EEEEEE solid 1px;">
+${curtemp.name_}
+    </td>
+    <td style="width: 30%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            <a href="@{Application.deleteTemplate(curtemp.name_)}">Delete</a>
+    </td>
+</tr>
+
+#{/if}
+#{elseif user.email_ == curtemp.author_}
+<tr>
+    <td style="width: 70%; border-bottom: #EEEEEE solid 1px;">
+${curtemp.name_}
+    </td>
+    <td style="width: 30%; text-align: center; border-bottom: #EEEEEE solid 1px;">
+            <a href="@{Application.deleteTemplate(curtemp.name_)}">Delete</a>
+    </td>
+</tr>
+#{/elseif}
+
+
+
+
+#{/list}
+
+</table>
+
+
+<div class="clear"></div>

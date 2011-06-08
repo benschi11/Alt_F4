@@ -15,6 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * 
+ * 
+ * 
+ * 
+ */
+
+/*
  */
 
 package utils;
@@ -38,6 +44,7 @@ public class Substitution {
         Iterator iterator = map.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry replacePairs = (Map.Entry) iterator.next();
+            
             text = text.replaceAll("%%" + replacePairs.getKey().toString() + "%%", replacePairs.getValue().toString());
         }
     }

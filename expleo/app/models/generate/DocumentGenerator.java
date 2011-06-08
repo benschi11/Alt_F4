@@ -15,6 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * 
+ * 
+ * 
+ * 
+ */
+
+/*
  */
 
 package models.generate;
@@ -115,14 +121,14 @@ public class DocumentGenerator
 			{
 				File uniqueFolder = createUniqueFolder();
 				Zip zip = new Zip();
-				System.out.println("TEMPLATEFILE: " + templateFile.getAbsolutePath());
+			
 				zip.unzip(templateFile.getAbsolutePath(), uniqueFolder.getAbsolutePath() + "/");
 
 
 				String path = uniqueFolder.getAbsolutePath() + "/" + filename;
 				String docxContent = path + "/word";
 				File file = new File(docxContent);
-				System.out.println("FILE: " + file);
+			
 				try
 				{
 					for (File currentFile : file.listFiles())

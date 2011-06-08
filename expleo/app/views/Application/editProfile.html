@@ -1,0 +1,58 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+#{extends 'main.html' /}
+
+<h1>Edit User</h1>
+
+        <form id="registerform" action="@{Application.doEditProfile()}" method="POST">
+            <table id="registertable">
+                <tr>
+                    <td><h6>Enter new Password:</h6></td>
+                    <td><input class="input" type="password" name="password"/></td>
+                    <td><h7> At least 6 characters </h7></td>
+                </tr>
+                <tr>
+                    <td><h6>Password again:</h6></td>
+                    <td><input class="input" type="password" name="passwordagain"/></td>
+                    <td><h7>Make sure that you type in the same password</h7></td>
+                </tr>
+                <tr>
+                    <td><h6>First Name:</h6></td>
+                    <td><input class="input" type="text" value="${usercur.firstname_}" name="firstname"/></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><h6>Last Name:</h6></td>
+                    <td><input class="input" type="text" value="${usercur.lastname_}" name="lastname"/>
+                        <input class="input" type="hidden" name="username" value="${usercur.email_}" />
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                
+                <tr>
+                    <td><h6>Security Question:</h6></td>
+                    <td><input class="input" type="text" value="${usercur.question_}" name="question"/></td>
+                    <td><h7>If you type in a question, you must type in a answer too</h7></td>
+                </tr>
+                <tr>
+                    <td><h6>Answer:</h6></td>
+                    <td><input class="input" type="text" value="${usercur.answer_}" name="answer"/></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan=3>
+                <div style="width: 100%; text-align: center;">
+                <br /><br />
+                <input style="height: 24px; width: 230px;"  type="submit"  value="Edit User">
+                <br /> <br />                <br /> <br />
+                </div>
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+
+<div id="back"><a href="@{Application.usercp()}">Back</a></div>

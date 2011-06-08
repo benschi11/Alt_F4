@@ -15,6 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * 
+ * 
+ * 
+ * 
+ */
+
+/*
  */
 
 package models;
@@ -109,6 +115,7 @@ Set<String> commands = new TreeSet<String>();
             {
                 String[] command_label = command.split(":");
                 labels_.put(command_label[0], command_label[1]);
+                
             }
             else
             {
@@ -179,6 +186,7 @@ Set<String> commands = new TreeSet<String>();
         {
             FileStringReader reader = new FileStringReader(template);
             String text = reader.read();
+            
             
 
             if(!Helper.isUtf8(text))
@@ -307,8 +315,12 @@ Set<String> commands = new TreeSet<String>();
         while (mapIterator.hasNext())
         {
             String temp = (String) mapIterator.next();
+            
+            
             if (this.templates_.containsKey(temp))
             {
+                
+                
                 this.addSubstitution(temp, map.get(temp)[0]);
             }
         }

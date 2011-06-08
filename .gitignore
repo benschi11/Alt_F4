@@ -16,3 +16,5 @@ expleo/data/test/SimpleWrite.txt
 *.log
 /framework/classes/
 *.orig
+expleo/public/templates/*
+*.log
