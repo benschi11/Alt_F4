@@ -16,7 +16,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-
 package controllers;
 
 import java.io.File;
@@ -58,21 +57,25 @@ public class Application extends Controller
         }
     }
 
-    public static void upload(String name, String description, File template, Boolean isHidden)
+    public static void upload(String name, String tags, String description, File template, Boolean isHidden)
     {
         String upload = request.params.get("upload");
         Boolean success = false;
 
         String user = Security.connected();
-       
-          
-          String hidden = request.params.get("isHidden");
-        
-          if(hidden == null)
-              isHidden = false;
-          else
-              isHidden = true;
-          
+
+
+        String hidden = request.params.get("isHidden");
+
+        if (hidden == null)
+        {
+            isHidden = false;
+        }
+        else
+        {
+            isHidden = true;
+        }
+
 
         if (upload != null)
         {
@@ -80,23 +83,58 @@ public class Application extends Controller
             validation.required(name).message("Please insert a name.");
             validation.required(template).message("Please select a file.");
 
-            if (template != null && !Validation.hasErrors())
+            if (template != null)
             {
                 String error = Template.upload(name, description, template, user, isHidden);
                 if (error == null)
                 {
+                    tagIt(name, tags);
                     success = true;
 
                 }
                 else
                 {
-                    Errors.displayInlineError(1, error, "../Application/upload");
+                    Errors.displayInlineError(1, "Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
                 }
             }
         }
 
         render(name, description, template, success);
 
+
+    }
+
+    public static void tagIt(String template, String tags)
+    {
+        List<String> tagList = null;
+        tagList = createTags(tags);
+        Template temp = Template.find("name_", template).first();
+        temp.tagItWith(tagList).save();
+        showSingleTemplate(temp.id);
+    }
+
+    public static List<String> createTags(String fullString)
+    {
+        //fullString = fullString.replace("^\\s*", "");
+        //fullString = fullString.replace("\\s*$", "");
+        fullString = fullString.replaceAll("\\s+", " ");
+        String[] alltags = fullString.split(",");
+
+        List<String> tagList = new ArrayList<String>();
+        List<String> realTags = new ArrayList<String>();
+        tagList.addAll(Arrays.asList(alltags));
+
+        for (int index = 0; index < tagList.size(); index++)
+        {
+            //tagList.set(index, tagList.get(index).replace("^\\s*", ""));
+            //tagList.set(index, tagList.get(index).replace("\\s*$", ""));
+            tagList.set(index, tagList.get(index).trim());
+            if ((tagList.get(index).length() > 0) && (tagList.get(index).equals(" ")) == false)
+            {
+                realTags.add(tagList.get(index));
+            }
+        }
+        return realTags;
     }
 
     public static void showAllTemplates()
@@ -128,8 +166,8 @@ public class Application extends Controller
     public static void showSingleTemplate(long id)
     {
         Template template = Template.findById(id);
-
-        render(template);
+        List<Tag> tags = template.sortTags(template);
+        render(template, tags);
     }
 
 //    public static void simpleLink()
@@ -145,7 +183,6 @@ public class Application extends Controller
 //        String path = "/public/tmp/" + document.getFile().getName();
 //        render(path);
 //    }
-
     public static void selectedTemplate(Long id)
     {
         Template loadedTemplate = Template.findById(id);
@@ -184,7 +221,7 @@ public class Application extends Controller
 
 //      document.getFile().delete();
 
-		  String path1 = document.getAbsolutePath();
+        String path1 = document.getAbsolutePath();
         String playPath = Play.applicationPath.getAbsolutePath();
 
 
@@ -196,30 +233,30 @@ public class Application extends Controller
         //template.pathToFilledFile = document.getFile().getAbsolutePath().replaceAll(Play.applicationPath.getAbsolutePath(), "");
         template.pathToFilledFile = path1.replaceAll(playPath, "");
         //template.pathToFilledFile = "public/tmp/1305726987921/test123.txt";
-        
+
         File file = new File(template.pathToFilledFile);
-        System.out.println("NAME: "+file.getName());
-        String[] splitted =  file.getName().split(".");
-        
-        for(int i = 0; i < splitted.length; i++)
-            System.out.println("X: "+splitted[i]);
-        
-        if(splitted.length > 1 && splitted[splitted.length-1] == "tex")
+        System.out.println("NAME: " + file.getName());
+        String[] splitted = file.getName().split(".");
+
+        for (int i = 0; i < splitted.length; i++)
+        {
+            System.out.println("X: " + splitted[i]);
+        }
+
+        if (splitted.length > 1 && splitted[splitted.length - 1] == "tex")
         {
             //System.out.println("TEX");
             //Helper.texToPdf(new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile), new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
-            
-            
         }
         else
         {
             FileStringReader reader = new FileStringReader(document);
-            
-            
-            Helper.textToImage(reader.read(),new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
-            
+
+
+            Helper.textToImage(reader.read(), new File(Play.applicationPath.getAbsolutePath() + template.pathToFilledFile));
+
         }
-        
+
 
         render(template);
 

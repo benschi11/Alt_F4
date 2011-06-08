@@ -1,0 +1,10 @@
+#{selenium 'No name and no file Template Upload'}
+
+//No name and no file selected
+open('/application/upload')
+assertTextPresent('Upload a template')
+clickAndWait('css=input[name=upload]')
+assertTextPresent('Please insert a name.')
+assertTextPresent('Please select a file.')
+
+#{/selenium}

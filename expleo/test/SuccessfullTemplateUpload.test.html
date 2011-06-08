@@ -1,0 +1,15 @@
+#{selenium 'Successful TemplateUpload'}
+
+//Open the upload page and check content
+ open('/application/upload')
+ assertTextPresent('Upload a template')
+
+type('name','Test')
+type('tags','Hallo wie gehts')
+type('description','Erstes TestFile')
+click('css=input[type=file]')
+pause(5000)
+clickAndWait('css=input[name=upload]')
+assertTextPresent('Test')
+
+#{/selenium}
