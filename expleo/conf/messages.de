@@ -1,0 +1,54 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+
+contact=Kontakt
+about=Über uns
+login=Einloggen
+register=Registrieren
+upload=HOCHLADEN
+hello=Hallo,
+
+added=hinzugefügt
+from=von
+description=Beschreibung
+inputdata=Daten eingeben
+
+uploadTemplate=Lade ein Template hoch
+
+password=Passwort
+rembemberMe=Merke
+signIn=Eintragen
+
+emailDescription=Ihre Email Adresse ist auch ihr Username
+passwordDescription=Mindestens sechs Zeichen
+passwordDescriptionAgain=Gleiches Passwort eingeben
+passwordAgain=Passwort erneut eingeben
+firstName=Vorname
+lastName=Nachname
+securityQuestion=Sicherheitsfrage
+securityQuestionDescription=Wenn Sie eine Frage angeben, müsen Sie auch eine Antwort eingeben
+answer=Antwort
+register=Registrieren
+
+settings=Einstellungen
+admin=Adminstration
+logout=Abmelden
+editTemplates=Templates bearbeiten
+editProfile=Profil bearbeiten
+
+manageProfiles=Profile bearbeiten
+manageTemplates=Templates bearbeiten
+
+area=Bereich
+editUser= Benutzer bearbeiten
+true=ja
+false=nein
+deleteUser=Benutzer löschen
+
+deleteTemplate=	Template löschen
+allProfiles=Alle Profile
