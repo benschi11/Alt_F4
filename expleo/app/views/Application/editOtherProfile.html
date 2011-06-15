@@ -1,23 +1,22 @@
 #{extends 'main.html' /}
-<h1>All Profiles</h1>
-
+<h1>&{'allProfiles'}</h1>
 <table style="width: 100%; border-top: #EEEEEE solid 1px;">
 
 <tr>
     <td style="width: 45%; border-bottom: #EEEEEE solid 1px;">
-Username
+&{'username'}
     </td>
 
         <td style="width: 5%; border-bottom: #EEEEEE solid 1px;">
-Admin
+&{'admin'}
     </td>
 
     <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
-            Edit User
+            &{'editUser'}
     </td>
 
     <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
-            Delete User
+           &{'deleteUser'}
     </td>
 </tr>
 
@@ -44,7 +43,7 @@ ${curuser.email_}
     </td>
 
     <td style="width: 25%; text-align: center; border-bottom: #EEEEEE solid 1px;">
-            <a href="@{Application.deleteUser(curuser.email_)}">Delete</a>
+            <a href="@{Application.deleteUser(curuser.email_)}">&{'delete'}</a>
     </td>
 </tr>
 

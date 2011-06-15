@@ -1,3 +1,58 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+contact=Contact
+copyright=Copyright
+about=About
+login=Login
+register=Register
+templates=TEMPLATES
+upload=UPLOAD
+howto=HOWTO
+hello=Hello,
+
+added=added
+from=from
+description=Description
+inputdata=Input Data
+
+uploadTemplate=Upload a template
+name=Name
+
+username=Username
+password=Password
+rembemberMe=Remember Me
+signIn=Sign In
+
+emailDescription=Your email adress is also your username
+passwordDescription=At least 6 characters 
+passwordDescriptionAgain=Make sure that you type in the same password
+email=E-Mail
+passwordAgain=Re-enter password
+firstName=First Name
+lastName=Last Name
+securityQuestion=Security Question
+securityQuestionDescription= If you type in a question, you must type in a answer too
+answer=Answer
+register=Register
+
+settings=Settings
+admin=Admin
+logout=Logout
+editTemplates=Edit Templates 
+editProfile=Edit Profile
+
+manageProfiles=Manage Profiles
+manageTemplates=Manage Templates
+
+area=Area
+editUser= Edit User
+true=true
+false=false
+deleteUser=delete User
+
+deleteTemplate=	Delete the Template
+management=Management
+allProfiles=All Profiles
+template=Template

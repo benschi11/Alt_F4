@@ -1,15 +1,15 @@
 #{extends 'main.html' /}
-<h1>Template Management</h1>
+<h1>&{'templateManagement'}</h1>
 
 <table style="width: 100%; border-top: #EEEEEE solid 1px;">
 
 <tr>
     <td style="width: 70%; border-bottom: #EEEEEE solid 1px;">
-Name
+&{'name'}
     </td>
 
         <td style="width: 30%; border-bottom: #EEEEEE solid 1px;">
-Delete the Template
+&{'deleteTemplate'}
     </td>
 
 
@@ -23,7 +23,7 @@ Delete the Template
 ${curtemp.name_}
     </td>
     <td style="width: 30%; text-align: center; border-bottom: #EEEEEE solid 1px;">
-            <a href="@{Application.deleteTemplate(curtemp.name_)}">Delete</a>
+            <a href="@{Application.deleteTemplate(curtemp.name_)}">&{'delete'}</a>
     </td>
 </tr>
 
@@ -34,7 +34,7 @@ ${curtemp.name_}
 ${curtemp.name_}
     </td>
     <td style="width: 30%; text-align: center; border-bottom: #EEEEEE solid 1px;">
-            <a href="@{Application.deleteTemplate(curtemp.name_)}">Delete</a>
+            <a href="@{Application.deleteTemplate(curtemp.name_)}">&{'delete'}</a>
     </td>
 </tr>
 #{/elseif}

@@ -27,6 +27,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import play.*;
 import play.mvc.*;
+import play.i18n.Lang;
+
 
 import java.util.*;
 
@@ -40,31 +42,25 @@ import play.data.validation.Validation;
 import play.mvc.results.Redirect;
 import utils.io.FileStringReader;
 
-public class Application extends Controller
-{
+public class Application extends Controller {
 
-    public static void index()
-    {
+    public static void index() {
         render();
     }
 
     @Before
-    static void setConnectedUser()
-    {
-        if (Security.isConnected())
-        {
+    static void setConnectedUser() {
+        if (Security.isConnected()) {
 
             User user = User.find("email_", Security.connected()).first();
-            if (user != null)
-            {
+            if (user != null) {
 
                 renderArgs.put("user", user);
             }
         }
     }
 
-    public static void upload(String name, String tags, String description, File template, Boolean isHidden)
-    {
+    public static void upload(String name, String tags, String description, File template, Boolean isHidden) {
 
         String upload = request.params.get("upload");
         Boolean success = false;
@@ -75,35 +71,27 @@ public class Application extends Controller
 
         String hidden = request.params.get("isHidden");
 
-        if (hidden == null)
-        {
+        if (hidden == null) {
             isHidden = false;
-        }
-        else
-        {
+        } else {
             isHidden = true;
         }
 
 
-        if (upload != null)
-        {
+        if (upload != null) {
 
             validation.clear();
             validation.required(name).message("Please insert a name.");
             validation.required(template).message("Please select a file.");
 
 
-            if (template != null && !Validation.hasErrors())
-            {
+            if (template != null && !Validation.hasErrors()) {
                 String error = Template.upload(name, description, template, user, isHidden);
-                if (error == null)
-                {
+                if (error == null) {
                     tagIt(name, tags);
                     success = true;
 
-                }
-                else
-                {
+                } else {
                     Errors.displayInlineError(1, "Template has to be a plain-text file (encoded in UTF-8).", "../Application/upload");
                 }
             }
@@ -113,8 +101,7 @@ public class Application extends Controller
 
     }
 
-    public static void tagIt(String template, String tags)
-    {
+    public static void tagIt(String template, String tags) {
         List<String> tagList = null;
         tagList = createTags(tags);
         Template temp = Template.find("name_", template).first();
@@ -122,8 +109,7 @@ public class Application extends Controller
         showSingleTemplate(temp.id);
     }
 
-    public static List<String> createTags(String fullString)
-    {
+    public static List<String> createTags(String fullString) {
         //fullString = fullString.replace("^\\s*", "");
         //fullString = fullString.replace("\\s*$", "");
         fullString = fullString.replaceAll("\\s+", " ");
@@ -133,21 +119,18 @@ public class Application extends Controller
         List<String> realTags = new ArrayList<String>();
         tagList.addAll(Arrays.asList(alltags));
 
-        for (int index = 0; index < tagList.size(); index++)
-        {
+        for (int index = 0; index < tagList.size(); index++) {
             //tagList.set(index, tagList.get(index).replace("^\\s*", ""));
             //tagList.set(index, tagList.get(index).replace("\\s*$", ""));
             tagList.set(index, tagList.get(index).trim());
-            if ((tagList.get(index).length() > 0) && (tagList.get(index).equals(" ")) == false)
-            {
+            if ((tagList.get(index).length() > 0) && (tagList.get(index).equals(" ")) == false) {
                 realTags.add(tagList.get(index));
             }
         }
         return realTags;
     }
 
-    public static void showAllTemplates()
-    {
+    public static void showAllTemplates() {
 
         // Template Test
 
@@ -157,15 +140,12 @@ public class Application extends Controller
         
         template.save();*/
 
-        try
-        {
+        try {
 
             List<Template> all_templates = Template.findAll();
 
             render(all_templates);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
             System.out.println(e.getMessage());
             render("Application/upload.html");
@@ -173,8 +153,7 @@ public class Application extends Controller
 
     }
 
-    public static void showSingleTemplate(long id)
-    {
+    public static void showSingleTemplate(long id) {
 
         Template template = Template.findById(id);
         List<Tag> tags = template.sortTags(template);
@@ -194,21 +173,18 @@ public class Application extends Controller
 //        String path = "/public/tmp/" + document.getFile().getName();
 //        render(path);
 //    }
-    public static void selectedTemplate(Long id)
-    {
+    public static void selectedTemplate(Long id) {
 
         Template loadedTemplate = Template.findById(id);
         render(loadedTemplate);
     }
 
-    public static void register()
-    {
+    public static void register() {
 
         render();
     }
 
-    public static void insertionComplete() throws FileNotFoundException, IOException
-    {
+    public static void insertionComplete() throws FileNotFoundException, IOException {
         //Template template = Template.findById(id);
 
         Map<String, String[]> map = request.params.all();
@@ -218,8 +194,7 @@ public class Application extends Controller
 
         Iterator iterator = template.templates_.keySet().iterator();
 
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             String key = (String) iterator.next();
 
         }
@@ -250,18 +225,14 @@ public class Application extends Controller
 
         String[] splitted = file.getName().split(".");
 
-        for (int i = 0; i < splitted.length; i++)
-        {
+        for (int i = 0; i < splitted.length; i++) {
             System.out.println("X: " + splitted[i]);
         }
 
-        if (splitted.length > 1 && splitted[splitted.length - 1] == "tex")
-        {
+        if (splitted.length > 1 && splitted[splitted.length - 1] == "tex") {
             //System.out.println("TEX");
             //Helper.texToPdf(new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile), new File(Play.applicationPath.getAbsolutePath()+template.pathToFilledFile));
-        }
-        else
-        {
+        } else {
             FileStringReader reader = new FileStringReader(document);
 
 
@@ -276,41 +247,34 @@ public class Application extends Controller
 
     }
 
-    public static void generatePdf(String temp)
-    {
+    public static void generatePdf(String temp) {
         String path = Play.applicationPath.toString() + temp;
         path = path.replaceAll("\\\\", "/");
         File tex = new File(path);
         File dest = new File(tex.getParent());
-        if (Helper.texToPdf(tex, dest))
-        {
+        if (Helper.texToPdf(tex, dest)) {
             String[] files = tex.getParent().split("tmp");
             System.out.println(files[1]);
             String name = tex.getName().substring(0, tex.getName().lastIndexOf("."));
 
             System.out.println("PDF successfully!");
             redirect("/public/tmp" + files[1] + "/" + name + ".pdf");
-        }
-        else
-        {
+        } else {
             System.out.println("PDF createn failed!");
         }
     }
 
-    public static void UserCP()
-    {
+    public static void UserCP() {
         render("Application/usercp.html");
     }
 
-    public static void editProfile()
-    {
+    public static void editProfile() {
         User usercur = User.find("email_", Security.connected()).first();
         render("Application/editProfile.html", usercur);
     }
 
     public static void doEditProfile(String username, String password, String passwordagain,
-            String firstname, String lastname, String question, String answer)
-    {
+            String firstname, String lastname, String question, String answer) {
 
         List<String> Errors = new ArrayList();
         boolean errorStatus = false;
@@ -319,37 +283,30 @@ public class Application extends Controller
 
 
 
-        if ((firstname.length() == 0) || (lastname.length() == 0))
-        {
+        if ((firstname.length() == 0) || (lastname.length() == 0)) {
             Errors.add("Please type your name");
             errorStatus = true;
         }
 
-        if (password.length() < 6 && password.length() > 0)
-        {
+        if (password.length() < 6 && password.length() > 0) {
             Errors.add("Password too short. At least 6 characters");
             errorStatus = true;
 
-        }
-        else if (password.equals(passwordagain) == false)
-        {
+        } else if (password.equals(passwordagain) == false) {
             Errors.add("Passwords don't match");
             errorStatus = true;
         }
 
 
-        if (question.length() != 0 || answer.length() != 0)
-        {
-            if (answer.length() == 0 || question.length() == 0)
-            {
+        if (question.length() != 0 || answer.length() != 0) {
+            if (answer.length() == 0 || question.length() == 0) {
                 Errors.add("Please type in your answer and question");
                 errorStatus = true;
             }
         }
 
 
-        if (errorStatus == false)
-        {
+        if (errorStatus == false) {
 
 
             user.edit(password, firstname, lastname, question, answer);
@@ -359,8 +316,7 @@ public class Application extends Controller
         render(Errors, errorStatus);
     }
 
-    public static void editTemplates(Boolean admin)
-    {
+    public static void editTemplates(Boolean admin) {
 
 
         User user = User.find("email_", Security.connected()).first();
@@ -370,80 +326,60 @@ public class Application extends Controller
         render(all_templates, user.email_, admin);
     }
 
-    public static void editOtherProfile()
-    {
+    public static void editOtherProfile() {
         User user = User.find("email_", Security.connected()).first();
-        if (user.admin_ == true)
-        {
+        if (user.admin_ == true) {
             List<Template> all_users = User.findAll();
 
             render(all_users);
-        }
-        else
-        {
+        } else {
             Errors.displayInlineError(2, "You dont have Admin Rights", "../Application/index");
         }
     }
 
-    public static void editOtherProfileNow(String username)
-    {
+    public static void editOtherProfileNow(String username) {
 
         User user = User.find("email_", Security.connected()).first();
-        if (user.admin_ == true)
-        {
+        if (user.admin_ == true) {
             User usercur = User.find("email_", username).first();
             render("Application/editProfile.html", usercur);
-        }
-        else
-        {
+        } else {
             Errors.displayInlineError(2, "You dont have Admin Rights", "../Application/index");
         }
     }
 
-    public static void deleteUser(String username)
-    {
+    public static void deleteUser(String username) {
 
         User usercur = User.find("email_", Security.connected()).first();
         String mail = usercur.email_;
         User.delete("email_", username);
 
 
-        if (mail.equals(username))
-        {
+        if (mail.equals(username)) {
             redirect("/Secure/logout");
-        }
-        else
-        {
+        } else {
             render("Application/deleteUser.html", username);
 
         }
     }
 
-    public static void AdminCP()
-    {
+    public static void AdminCP() {
         User user = User.find("email_", Security.connected()).first();
 
-        if (user.admin_ == true)
-        {
+        if (user.admin_ == true) {
             render("Application/admincp.html");
-        }
-        else
-        {
+        } else {
             Errors.displayInlineError(2, "You dont have Admin Rights", "../Application/index");
         }
     }
 
-    public static void editAdmin(String username)
-    {
+    public static void editAdmin(String username) {
 
         User usercur = User.find("email_", username).first();
 
-        if (usercur.admin_ == true)
-        {
+        if (usercur.admin_ == true) {
             usercur.admin_ = false;
-        }
-        else
-        {
+        } else {
             usercur.admin_ = true;
         }
 
@@ -453,11 +389,15 @@ public class Application extends Controller
         render("Application/editadmin.html");
     }
 
-    public static void deleteTemplate(String tempname)
-    {
+    public static void deleteTemplate(String tempname) {
 
         Template temp = Template.find("name_", tempname).first();
         temp.delete();
         render("Application/deleteTemplate.html", tempname);
+    }
+
+    public static void changeLanguage(String lang) {
+        Lang.change(lang);
+        render("Application/index.html");
     }
 }
